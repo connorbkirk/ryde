@@ -1,0 +1,65 @@
+@font-face{
+	font-family: fancy_font;
+	src: url('fonts/AccelerationReaction.ttf');
+}
+
+@font-face{
+	font-family: the-body;
+	src: url('fonts/BebasNeue.otf');
+}
+
+body{
+	background-color: #2D2D2D;
+	margin: 0;
+	font-family: the-body;
+}
+
+#nav{
+	background-color: #ABABAB;
+	height: 10vh;
+	min-height: 100px;
+
+	padding-top:10px;
+}
+
+#nav li{
+	float: right;
+	display: inline-block;
+	list-style-type: none;
+}
+
+#nav li a{
+	text-decoration: none;
+	color:#FFFFFF;
+}
+
+.logo{
+	float:left;
+	color: #634271;
+	font-family: fancy_font, sans serif;
+
+	font-size: 100px;
+}
+
+#jumbotron{
+	height: 75vh;
+	background-image: url("images/lavender-1562993_1920.jpg");
+	background-repeat: no-repeat;
+	background-position: left bottom;
+	background-size: cover;
+}
+
+#section1{
+	height: 30vh;
+}
+
+#section2{
+	height: 30vh;
+}
+
+hr{
+	margin: 0;
+	height: 5px;
+	background-color: #ABABAB;
+	border:none;
+}
