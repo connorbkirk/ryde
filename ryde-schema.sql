@@ -26,6 +26,7 @@ CREATE TABLE owners(
     id  INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
     firstName   VARCHAR(255),
     lastName    VARCHAR(255),
+    email       VARCHAR(255)
     #
     #other things here
     #
@@ -39,6 +40,8 @@ CREATE TABLE users(
     id  INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
     firstName   VARCHAR(255),
     lastName    VARCHAR(255),
+    username    VARCHAR(255),
+    pswrd       VARCHAR(255)
     #
     #other things here
     #
