@@ -11,20 +11,6 @@ DROP TABLE IF EXISTS users;
 
 
 #
-#   Table for a car
-#
-CREATE TABLE cars(
-    id  INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
-    make    VARCHAR(255),
-    model   VARCHAR(255),
-    carYear INT UNSIGNED,
-    color   VARCHAR(255),
-    ownerID   INT UNSIGNED NOT NULL,
-    
-    FOREIGN KEY (ownerID) REFERENCES owners(id)
-)ENGINE=InnoDB;
-
-#
 #   Table for an owner of a car available for rental
 #
 CREATE TABLE owners(
@@ -36,6 +22,22 @@ CREATE TABLE owners(
     #other things here
     #
 
+)ENGINE=InnoDB;
+
+#
+#   Table for a car
+#
+CREATE TABLE cars(
+    id  INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+    make    VARCHAR(255),
+    model   VARCHAR(255),
+    carYear INT UNSIGNED,
+    color   VARCHAR(255),
+    ownerID   INT UNSIGNED NOT NULL,
+    price   INT UNSIGNED NOT NULL,
+    description VARCHAR(1024),
+    
+    FOREIGN KEY (ownerID) REFERENCES owners(id)
 )ENGINE=InnoDB;
 
 #
