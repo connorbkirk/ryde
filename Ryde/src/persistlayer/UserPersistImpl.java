@@ -25,14 +25,12 @@ public class UserPersistImpl {
 	public boolean validate(String username, String password) throws SQLException{
 		//password must be hashed before calling
 		
-		String query = "SELECT pswrd FROM users WHERE username = \'" + username +"\'";
+		String query = "SELECT * FROM users WHERE username = \'" + username +"\'"
+				+"AND pswrd=\'"+password+"\'";
 		
 		ResultSet rs = db.retrieve(con, query);
 		
-		if(rs.next())
-			return(password.equals(rs.getString("pswrd")));
-		else
-			return false;
+		return(rs.next());
 	}
 	
 }
