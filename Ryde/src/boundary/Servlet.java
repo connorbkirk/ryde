@@ -2,6 +2,7 @@ package boundary;
 
 import java.io.IOException;
 import java.io.Writer;
+import java.security.NoSuchAlgorithmException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,6 +15,7 @@ import freemarker.template.DefaultObjectWrapperBuilder;
 import freemarker.template.SimpleHash;
 import freemarker.template.Template;
 import freemarker.template.TemplateExceptionHandler;
+import logiclayer.UserLogicImpl;
 
 /**
  * Servlet implementation class Servlet
@@ -84,8 +86,11 @@ public class Servlet extends HttpServlet {
 		//route request
 		//--> use parameter --> req
 		switch(request.getParameter("req")){
+			case "register":
+				register(request);
+				break;
 			case "login":
-				//login()
+				login(request);
 				break;
 			case "logout":
 				//logout()
@@ -94,6 +99,30 @@ public class Servlet extends HttpServlet {
 				break;
 			
 		}
+	}
+	
+	void register(HttpServletRequest request){
+		
+		UserLogicImpl userCtrl = new UserLogicImpl();
+		
+		//gather parameters
+		String username = request.getParameter("username");
+		String password = request.getParameter("password");
+		String firstName = request.getParameter("firstName");
+		String lastName = request.getParameter("lastName");
+		
+		try {
+			userCtrl.register(username, password, firstName, lastName);
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+		}
+		
+		//then redirect user
+	}
+	
+	void login(HttpServletRequest request){
+		String username = request.getParameter("username");
+		String password = request.getParameter("password");
 	}
 
 }
