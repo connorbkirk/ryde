@@ -1,6 +1,7 @@
 package persistlayer;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
 
 //This class is the primary persistent (model) layer class. 
 //It explicitly communicates with the DbAccessImpl
@@ -17,6 +18,13 @@ public class UserPersistImpl {
 		"VALUES(\'"+username+"\', \'"+ password + "\', \'" + firstName + "\', \'" + lastName + "\')";
 		
 		db.create(con, query);
+		
+	}
+	
+	public ResultSet getPassword(String username){
+		
+		String query = "SELECT pswrd FROM users WHERE username = \'"+username+"\'";
+		return db.retrieve(con, query);
 		
 	}
 	
