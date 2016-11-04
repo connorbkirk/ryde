@@ -1,4 +1,5 @@
-package objectlayer;
+package Ryde.objectlayer;
+
 
 
 //this class is the model of the car
@@ -31,13 +32,13 @@ public class Car {
 	/**
 	 * @return the year
 	 */
-	public String getYear() {
+	public int getYear() {
 		return year;
 	}
 	/**
 	 * @param year the year to set
 	 */
-	public void setYear(String year) {
+	public void setYear(int year) {
 		this.year = year;
 	}
 	/**
@@ -89,11 +90,23 @@ public class Car {
 		this.description = description;
 	}
 	private String model;
-	private String year;
+	private int year;
 	private String color;
 	private int ownerId;
 	private int price;
 	private String description;
 	
+	public Car (String userModel, int userYear, String userColor, int userPrice, int inputID, String userDescription)
+	{
+		make = userModel; 
+		year = userYear; 
+		color = userColor; 
+		price = userPrice; 
+		ownerId = inputID; 
+		description = userDescription; 
+		
+	}
+	
 	
 }
+

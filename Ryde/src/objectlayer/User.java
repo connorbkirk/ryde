@@ -1,8 +1,8 @@
-package objectlayer;
+package Ryde.objectlayer;
 
 //this class is the model for users
 public class User {
-	private String firstName;
+	
 	/**
 	 * @return the firstName
 	 */
@@ -63,8 +63,20 @@ public class User {
 	public void setId(int id) {
 		this.id = id;
 	}
+	
+	public User(String inputLN, String inputFN, String userEmail, String inputPass, int userId)
+	{
+		lastName = inputLN; 
+		firstName = inputFN; 
+		email = userEmail; 
+		password = inputPass; 
+		id = userId; 
+	}
+	
 	private String lastName;
+	private String firstName; 
 	private String email;
 	private String password;
 	private int id;
 }
+
