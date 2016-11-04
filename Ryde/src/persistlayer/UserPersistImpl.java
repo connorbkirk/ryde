@@ -2,6 +2,7 @@ package persistlayer;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 //This class is the primary persistent (model) layer class. 
 //It explicitly communicates with the DbAccessImpl
@@ -21,11 +22,17 @@ public class UserPersistImpl {
 		
 	}
 	
-	public ResultSet getPassword(String username){
+	public boolean validate(String username, String password) throws SQLException{
+		//password must be hashed before calling
 		
-		String query = "SELECT pswrd FROM users WHERE username = \'"+username+"\'";
-		return db.retrieve(con, query);
+		String query = "SELECT pswrd FROM users WHERE username = \'" + username +"\'";
 		
+		ResultSet rs = db.retrieve(con, query);
+		
+		if(rs.next())
+			return(password.equals(rs.getString("pswrd")));
+		else
+			return false;
 	}
 	
 }
