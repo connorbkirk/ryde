@@ -11,21 +11,22 @@
             <h1 class = "headerStyle">RYDE</h1>
 
             <p>Login to your RYDE account to make and view reservation or make your own vehicle available to reserve.</p>
-
-            <label>Username</label>
-            <input type="text" placeholder="Enter Username" name="username" required/>
-
-            <br>
-            <br>
-
-            <label>Password</label>
-            <input type="text" placeholder="Enter Password" name="password" required/>
-
-
-                <br>
-                <br>
-
-            <input type = "submit" name = "login" id = "buttonStyle">
+			<form action="Servlet?req=login" method="POST">
+	            <label>Username</label>
+	            <input type="text" placeholder="Enter Username" name="username" required/>
+	
+	            <br>
+	            <br>
+	
+	            <label>Password</label>
+	            <input type="text" placeholder="Enter Password" name="password" required/>
+	
+	
+	                <br>
+	                <br>
+	
+	            <input type = "submit" id = "buttonStyle">
+	   		</form>
    
             
         </div>
