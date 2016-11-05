@@ -4,8 +4,8 @@
 #
 
 #Add one owner to the database
-INSERT INTO owners 
-VALUES('1','John','Porter','jay@ryde.com');
+INSERT INTO users 
+VALUES('1','John','Porter','jayp','password');
 
 #Add two cars to the database
 INSERT INTO cars 
@@ -14,6 +14,10 @@ VALUES('1','Toyota','Camry','2016','silver','1','200','nice and reliable car');
 INSERT INTO cars 
 VALUES('2','Saturn','Ion','2004','silver', '1','75','Car has been in two accidents, completely fixed up and safe');
 
+#add rental dates for the Toyota
+INSERT INTO rental_dates
+VALUES('1','1','2016-9-16','2016-11-15');
+
 #Add two users to the database
 INSERT INTO users(id, firstname,lastname,username,pswrd)
-VALUES('1','Connor', 'Kirk','username','bologna1');
+VALUES('2','Connor', 'Kirk','username','bologna1');

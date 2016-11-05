@@ -4,25 +4,31 @@
 #   Ryde is a car rental system developed for the term project of CSX300 at The University of Georgia
 #   The contributers to the Ryde system are : John Porter YOUR NAMES HERE
 #
-
+#
+# TODO: 
+#
+#
+DROP TABLE IF EXISTS rental_dates;
 DROP TABLE IF EXISTS cars;
 DROP TABLE IF EXISTS owners;
 DROP TABLE IF EXISTS users;
 
-
 #
-#   Table for an owner of a car available for rental
+#   Table for a user looking to rent a car
 #
-CREATE TABLE owners(
+CREATE TABLE users(
     id  INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
     firstName   VARCHAR(255),
     lastName    VARCHAR(255),
-    email       VARCHAR(255)
+    username    VARCHAR(255) UNIQUE,
+    pswrd       VARCHAR(255)
     #
     #other things here
     #
 
 )ENGINE=InnoDB;
+
+
 
 #
 #   Table for a car
@@ -37,20 +43,19 @@ CREATE TABLE cars(
     price   INT UNSIGNED NOT NULL,
     description VARCHAR(1024),
     
-    FOREIGN KEY (ownerID) REFERENCES owners(id)
+    
+    FOREIGN KEY (ownerID) REFERENCES users(id)
 )ENGINE=InnoDB;
 
-#
-#   Table for a user looking to rent a car
-#
-CREATE TABLE users(
-    id  INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
-    firstName   VARCHAR(255),
-    lastName    VARCHAR(255),
-    username    VARCHAR(255),
-    pswrd       VARCHAR(255)
-    #
-    #other things here
-    #
 
+#
+#   Table for a set of rental dates a car might be booked for
+#
+CREATE TABLE rental_dates(
+    id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+    carID   INT UNSIGNED NOT NULL,
+    startDate DATE,
+    endDate DATE,
+    
+    FOREIGN KEY (carID) REFERENCES cars(id)
 )ENGINE=InnoDB;
