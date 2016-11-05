@@ -1,34 +1,29 @@
-package Ryde.logiclayer;
+package logiclayer;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import Ryde.objectlayer.Car;
-import Ryde.persistlayer.RydePersistImpl;
+import objectlayer.Car;
+import persistlayer.CarPersistImpl;
 
-public class CarLogicImpl 
-
-{
-	private RydePersistImpl rpi; 
+//This class is the controller class for all the functionalities of cars.
+//It directly interacts with the Servlet and car persistent layer classes.
+public class CarLogicImpl {
+	private CarPersistImpl cp;
 	
-	
-	public CarLogicImpl() throws ClassNotFoundException
-	{
-		rpi = new RydePersistImpl(); 
+	public CarLogicImpl(){
+		cp = new CarPersistImpl();
 	}
-	
 	
 	public ArrayList<Car> getCars() throws ClassNotFoundException, SQLException
 	{
 		ResultSet rs = null; 
-		rs = rpi.returnCars(); 
+		//rs = cp.getCars(); 
 		
 		ArrayList<Car>resultCars = new ArrayList<Car>(); 
 		
-		
-		while(rs.next())
-		{
+		while(rs.next()){
 			String make; 
 			String model; 
 			int carYear; 
@@ -46,18 +41,11 @@ public class CarLogicImpl
 			description = rs.getString("userDescription"); 
 			//retrieves info from the result set. 
 			
-			
 			resultCars.add(new Car(model, carYear, color, price, id, description)); 
 			//dynamically creates car objects. 
-			
-			
 		}
 		
 		return resultCars; 
 		
 	}
-	
-	
-	
-	
 }
