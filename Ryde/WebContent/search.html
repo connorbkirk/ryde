@@ -20,25 +20,29 @@
 		</div>
 
 		<div id="sidebar">
-			From<input type="textfield" name="fromData" placeholder="XX/XX/XX XX:XX XM"/><br/>
-			Until<input type="textfield" name="fromData" placeholder="XX/XX/XX XX:XX XM"/><br/>
-			Price<br/>
-			Slider here
-			<br/>
-			Vehicle Type <br/> 
-			<select name="vehicleType">
-				<option value="all" >All Vehicles</option>
-			</select><br/>
-
-			Vehicle Make <br/> 
-			<select name="vehicleMake">
-				<option value="all" >All Makes</option>
-			</select><br/>
-
-			Sort By<br/> 
-			<select name="sortBy">
-				<option value="revelance" >Revelance</option>
-			</select>
+			<form action="Servlet?req=search" method="GET">
+				<input type="hidden" name="req" value="search">
+				From<input type="textfield" name="fromDate" placeholder="XX/XX/XX XX:XX XM"/><br/>
+				Until<input type="textfield" name="toDate" placeholder="XX/XX/XX XX:XX XM"/><br/>
+				Price<br/>
+				Slider here
+				<br/>
+				Vehicle Type <br/> 
+				<select name="type">
+					<option value="all" >All Vehicles</option>
+				</select><br/>
+	
+				Vehicle Make <br/> 
+				<select name="make">
+					<option value="all" >All Makes</option>
+				</select><br/>
+	
+				Sort By<br/> 
+				<select name="sortBy">
+					<option value="revelance" >Revelance</option>
+				</select>
+				<input type="submit"/>
+			</form>
 		</div>
 
 		<div id="main">
