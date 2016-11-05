@@ -32,5 +32,23 @@ public class UserPersistImpl {
 		
 		return(rs.next());
 	}
+
+	public ResultSet getUsers() {
+		ResultSet rs = null; 
+		String query  = "select * from users"; 
+		rs = db.retrieve(con, query); 
+		
+		return rs; 
+	}
+
+	public ResultSet getUser(String username) {
+		// TODO Auto-generated method stub
+		ResultSet rs = null;
+		String query = "SELECT * FROM users WHERE username = \'" + username + "\'";
+		rs = db.retrieve(con, query);
+		return rs;
+	}
+
+	
 	
 }
