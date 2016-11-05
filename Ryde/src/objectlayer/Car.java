@@ -1,10 +1,26 @@
-package Ryde.objectlayer;
-
+package objectlayer;
 
 
 //this class is the model of the car
 public class Car {
+	private String model;
+	private int year;
+	private String color;
+	private int ownerId;
+	private int price;
+	private String description;
 	private String make;
+	
+	public Car (String userModel, int userYear, String userColor, int userPrice, int inputID, String userDescription){
+		make = userModel; 
+		year = userYear; 
+		color = userColor; 
+		price = userPrice; 
+		ownerId = inputID; 
+		description = userDescription; 
+		
+	}
+	
 	/**
 	 * @return the make
 	 */
@@ -89,24 +105,5 @@ public class Car {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	private String model;
-	private int year;
-	private String color;
-	private int ownerId;
-	private int price;
-	private String description;
-	
-	public Car (String userModel, int userYear, String userColor, int userPrice, int inputID, String userDescription)
-	{
-		make = userModel; 
-		year = userYear; 
-		color = userColor; 
-		price = userPrice; 
-		ownerId = inputID; 
-		description = userDescription; 
-		
-	}
-	
 	
 }
-
