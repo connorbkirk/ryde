@@ -48,4 +48,18 @@ public class CarLogicImpl {
 		return resultCars; 
 	}
 	
+	public boolean canRent(String startDate, String endDate)
+	{
+		ResultSet rs = null; 
+		
+		rs = cp.checkRental(startDate, endDate); 
+		
+		if (rs == null)
+			return true; 
+		else 
+			return false; 
+		//verifys if user can rent. If they can will return empty (null and thus true, if not false). 
+		
+	}
+	
 }
