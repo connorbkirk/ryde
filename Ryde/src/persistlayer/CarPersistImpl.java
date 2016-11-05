@@ -51,6 +51,20 @@ public class CarPersistImpl {
 		return rs; 
 	    }
 	
+	public ResultSet checkRental (String startDate, String endDate)
+	{
+		ResultSet rs = null; 
+		
+		String query = "select * from rental_dates where startDate = "  + "\"" + startDate + "\", AND endDate = " + "\"" + endDate + "\""; 
+		
+		rs = db.retrieve(con, query); 
+		
+		return rs; 
+		
+		//used to check rental. 
+		//if rental already exsists the rs will not be null, and thus user cannot make a rental for that date. If null can make rental. 
+	}
+	
 	
 	
 	
