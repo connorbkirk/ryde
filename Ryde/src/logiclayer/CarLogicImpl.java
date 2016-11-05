@@ -31,6 +31,7 @@ public class CarLogicImpl {
 			int price; 
 			int id; 
 			String description; 
+			String bodystyle; 
 			
 			make = rs.getString("make"); 
 			model = rs.getString("model"); 
@@ -39,14 +40,44 @@ public class CarLogicImpl {
 			price = rs.getInt("price"); 
 			id = rs.getInt("userId"); 
 			description = rs.getString("userDescription"); 
+			bodystyle = rs.getString("bodystyle"); 
 			//retrieves info from the result set. 
 			
-			resultCars.add(new Car(model, carYear, color, price, id, description)); 
+			resultCars.add(new Car(model, carYear, color, price, id, description, bodystyle)); 
 			//dynamically creates car objects. 
 		}
 		
 		return resultCars; 
 	}
+	
+	public Car getSingleCar(String fn, String ln) throws SQLException
+	{
+		ResultSet rs = null; 
+		
+		Car returnCar = null; 
+		
+		while(rs.next())
+		{
+						
+			String model = rs.getString("model"); 
+			int year = rs.getInt("year"); 
+			String color = rs.getString("color"); 
+			int price = rs.getInt("price"); 
+			int id = rs.getInt("id"); 
+			String description = rs.getString("description"); 
+			String bodystyle = rs.getString("bodystyle"); 
+			
+			
+			
+			returnCar = new Car(model, year, color, price, id, description, bodystyle); 
+		}
+		
+		return returnCar; 
+		//used to get single car. 
+		
+	}
+	
+	
 	
 	public boolean canRent(String startDate, String endDate)
 	{
