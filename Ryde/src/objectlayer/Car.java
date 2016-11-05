@@ -3,22 +3,37 @@ package objectlayer;
 
 //this class is the model of the car
 public class Car {
+	private String make;
 	private String model;
 	private int year;
 	private String color;
 	private int ownerId;
 	private int price;
 	private String description;
-	private String make;
-	
-	public Car (String userModel, int userYear, String userColor, int userPrice, int inputID, String userDescription){
+	private String bodystyle;
+
+	public Car (String userModel, int userYear, String userColor, int userPrice, int inputID, String userDescription, String bodystyle){
 		make = userModel; 
 		year = userYear; 
 		color = userColor; 
 		price = userPrice; 
 		ownerId = inputID; 
 		description = userDescription; 
-		
+		this.bodystyle = bodystyle;
+	}
+	
+	/**
+	 * @return the bodystyle
+	 */
+	public String getBodystyle() {
+		return bodystyle;
+	}
+
+	/**
+	 * @param bodystyle the bodystyle to set
+	 */
+	public void setBodystyle(String bodystyle) {
+		this.bodystyle = bodystyle;
 	}
 	
 	/**
