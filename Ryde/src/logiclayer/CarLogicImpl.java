@@ -50,7 +50,43 @@ public class CarLogicImpl {
 		return resultCars; 
 	}
 	
-	public Car getSingleCar(String fn, String ln) throws SQLException
+	
+	public ArrayList<Car> getSelectCars(String make, String model, int year, String color, int price, int id, String description, String bodystyle, String startDate, String endData)
+	{
+		ResultSet rs = null; 
+		
+		rs = cp.returnSelectCars(make, model, year, color, price, id, description, bodystyle); 
+		
+		ArrayList<Car>resultCars = new ArrayList<Car>(); 
+		
+		
+		while (rs.next())
+		{
+			if (this.canRent(startDate, endDate) == false)
+			{
+				String tempMake = rs.getString("make"); 
+				String tempModel = rs.getString("model"); 
+				int tempYear = rs.getInt("year"); 
+				String tempColor = rs.getString("color"); 
+				int tempPrice = rs.getInt("price"); 
+				int tempId = rs.getInt("id"); 
+				String tempDescription = rs.getString("description"); 
+				String tempBodystyle = rs.getString("bodystyle"); 
+				
+				
+				resultCars.add(new Car(tempMake, tempModel, tempYear, tempColor, tempPrice, tempId, tempDescription, tempBodyStyle)); 
+				
+				
+				
+			}
+			
+		}
+		return resultCars; 
+		
+		
+	}
+	
+	public Car getSingleCar(String make, String model, String bodystyle) throws SQLException
 	{
 		ResultSet rs = null; 
 		
@@ -92,5 +128,7 @@ public class CarLogicImpl {
 		//verifys if user can rent. If they can will return empty (null and thus true, if not false). 
 		
 	}
+	
+	public 
 	
 }
