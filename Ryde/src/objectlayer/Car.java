@@ -10,32 +10,19 @@ public class Car {
 	private int ownerId;
 	private int price;
 	private String description;
-	private String bodystyle;
-
-	public Car (String userModel, int userYear, String userColor, int userPrice, int inputID, String userDescription, String bodystyle){
-		make = userModel; 
-		year = userYear; 
-		color = userColor; 
-		price = userPrice; 
-		ownerId = inputID; 
-		description = userDescription; 
-		this.bodystyle = bodystyle;
+	private String carType;
+	public Car(String make, String model, int year, String color, int ownerId, int price, String description,
+			String carType) {
+		super();
+		this.make = make;
+		this.model = model;
+		this.year = year;
+		this.color = color;
+		this.ownerId = ownerId;
+		this.price = price;
+		this.description = description;
+		this.carType = carType;
 	}
-	
-	/**
-	 * @return the bodystyle
-	 */
-	public String getBodystyle() {
-		return bodystyle;
-	}
-
-	/**
-	 * @param bodystyle the bodystyle to set
-	 */
-	public void setBodystyle(String bodystyle) {
-		this.bodystyle = bodystyle;
-	}
-	
 	/**
 	 * @return the make
 	 */
@@ -120,5 +107,21 @@ public class Car {
 	public void setDescription(String description) {
 		this.description = description;
 	}
+	/**
+	 * @return the carType
+	 */
+	public String getCarType() {
+		return carType;
+	}
+	/**
+	 * @param carType the carType to set
+	 */
+	public void setCarType(String carType) {
+		this.carType = carType;
+	}
+
+	
+	
+	
 	
 }
