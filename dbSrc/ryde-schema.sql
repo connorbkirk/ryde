@@ -35,6 +35,7 @@ CREATE TABLE users(
 #
 CREATE TABLE cars(
     id  INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+    carType VARCHAR(255),
     make    VARCHAR(255),
     model   VARCHAR(255),
     carYear INT UNSIGNED,

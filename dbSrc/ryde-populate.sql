@@ -9,10 +9,10 @@ VALUES('1','John','Porter','jayp','password');
 
 #Add two cars to the database
 INSERT INTO cars 
-VALUES('1','Toyota','Camry','2016','silver','1','200','nice and reliable car');
+VALUES('1','sedan','Toyota','Camry','2016','silver','1','200','nice and reliable car');
 
 INSERT INTO cars 
-VALUES('2','Saturn','Ion','2004','silver', '1','75','Car has been in two accidents, completely fixed up and safe');
+VALUES('2','sedan','Saturn','Ion','2004','silver', '1','75','Car has been in two accidents, completely fixed up and safe');
 
 #add rental dates for the Toyota
 INSERT INTO rental_dates
