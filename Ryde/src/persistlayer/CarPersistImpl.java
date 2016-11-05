@@ -19,9 +19,9 @@ public class CarPersistImpl {
 		return rs;
 	}
 	
-  	public int addCar(String make, String model, int carYear, String color, int price, String description) throws SQLException
+  	public int addCar(String make, String model, int carYear, String color, int price, String description, String bodystyle) throws SQLException
 	    {
-		String query = "insert into cars (make, model carYear, color) values (" + "\"" + make + "\", " + "\"" + model + "\", " + carYear + ", " + "\"" + color + "\", " + price + ", " + "\""+ description + "\"" + ")";
+		String query = "insert into cars (make, model carYear, color) values (" + "\"" + make + "\", " + "\"" + model + "\", " + carYear + ", " + "\"" + color + "\", " + price + ", " + "\""+ description + "\", " +"\"" +  bodystyle + "\"" +  ")";
 
 		return db.create(con, query);
 
@@ -36,12 +36,12 @@ public class CarPersistImpl {
 		//used to delete a single car.
 	    }
     
-	    public ResultSet returnSingleCar(String userMake, String userModel) throws SQLException
+	    public ResultSet returnSingleCar(String userMake, String userModel, String userBodystyle) throws SQLException
 	    {
 		ResultSet rs = null;
 
 
-		String query = "select * from cars where make = " + "\"" + userMake + "\", " + "AND model= " + "\"" + userModel + "\"";
+		String query = "select * from cars where make = " + "\"" + userMake + "\", " + "AND model= " + "\"" + userModel + "\", AND bodystyle = " + "\"" + userBodyStyle + "\"";
 
 		rs = db.retrieve(con, query);
 
