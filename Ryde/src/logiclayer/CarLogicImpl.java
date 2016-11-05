@@ -19,7 +19,7 @@ public class CarLogicImpl {
 	public ArrayList<Car> getCars() throws ClassNotFoundException, SQLException
 	{
 		ResultSet rs = null; 
-		//rs = cp.getCars(); 
+		rs = cp.getCars(); 
 		
 		ArrayList<Car>resultCars = new ArrayList<Car>(); 
 		
@@ -46,6 +46,6 @@ public class CarLogicImpl {
 		}
 		
 		return resultCars; 
-		
 	}
+	
 }

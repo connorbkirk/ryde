@@ -50,7 +50,7 @@ public class UserLogicImpl {
 	public ArrayList<User> getUsers() throws SQLException{
 		ResultSet rs = null; 
 		ArrayList<User>returnUsers = new ArrayList<User>(); 
-		//rs = up.getUsers(); 
+		rs = up.getUsers(); 
 		
 		while (rs.next()){
 			String lastname; 
@@ -75,7 +75,7 @@ public class UserLogicImpl {
 	public User getSingleUser(String username) throws SQLException
 	{
 		ResultSet rs = null; 
-		//rs = up.getUser();
+		rs = up.getUser(username);
 		User returnUser = null; 
 		
 		while(rs.next())
