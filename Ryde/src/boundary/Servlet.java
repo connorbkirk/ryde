@@ -125,6 +125,12 @@ public class Servlet extends HttpServlet {
 		
 		//not actually taking dates into consideration
 		List<Car> cars = carCtrl.getCars();
+		List<String> types = carCtrl.getTypes();
+		List<String> makes = carCtrl.getMakes();
+		List<String> models = carCtrl.getModels();
+		root.put("types", types);
+		root.put("makes", makes);
+		root.put("models", models);
 		root.put("cars",cars);
 		
 		processTemplate("search.ftl");
