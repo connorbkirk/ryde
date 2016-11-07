@@ -11,61 +11,27 @@ public class CarPersistImpl {
 	DbAccessImpl db = new DbAccessImpl();
 	Connection con = db.connect();
 	
-	public ResultSet getCars() 
-	{
+	public ResultSet getCars() {
 		ResultSet rs;
 		String query = "SELECT * FROM cars";
 		rs = db.retrieve(con, query);
 		return rs;
 	}
-	
-  	public int addCar(String make, String model, int carYear, String color, int price, String description, String bodystyle) throws SQLException
-	    {
-		String query = "insert into cars (make, model carYear, color) values (" + "\"" + make + "\", " + "\"" + model + "\", " + carYear + ", " + "\"" + color + "\", " + price + ", " + "\""+ description + "\", " +"\"" +  bodystyle + "\"" +  ")";
 
-		return db.create(con, query);
-
-		//used to add car in db.
-	    }
-    
-	    public int deleteCar(String name) throws SQLException
-	    {
-		String query = "delete from cars name = " + "\"" + name + "\"";
-
-		return db.delete(con, query);
-		//used to delete a single car.
-	    }
-    
-	    public ResultSet returnSingleCar(String userMake, String userModel, String userBodystyle) throws SQLException
-	    {
-		ResultSet rs = null;
-
-
-		String query = "select * from cars where make = " + "\"" + userMake + "\", " + "AND model= " + "\"" + userModel + "\", AND bodystyle = " + "\"" + userBodyStyle + "\"";
-
-		rs = db.retrieve(con, query);
-
-		//used to return single car.
-		//used when selecting single car on user end.
-
-		return rs; 
-	    }
-	
-	public ResultSet checkRental (String startDate, String endDate)
-	{
-		ResultSet rs = null; 
-		
-		String query = "select * from rental_dates where startDate = "  + "\"" + startDate + "\", AND endDate = " + "\"" + endDate + "\""; 
-		
-		rs = db.retrieve(con, query); 
-		
-		return rs; 
-		
-		//used to check rental. 
-		//if rental already exsists the rs will not be null, and thus user cannot make a rental for that date. If null can make rental. 
+	public ResultSet getTypes() {
+		String query = "SELECT carType FROM cars";
+		return db.retrieve(con, query);
 	}
-	
-	
-	
+
+	public ResultSet getModels() {
+		String query = "SELECT model FROM cars";
+		return db.retrieve(con, query);
+	}
+
+	public ResultSet getMakes() {
+		String query = "SELECT make FROM cars";
+		return db.retrieve(con, query);
+	}
+
 	
 }
