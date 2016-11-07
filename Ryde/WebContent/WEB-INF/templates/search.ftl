@@ -30,16 +30,30 @@
 				Vehicle Type <br/> 
 				<select name="type">
 					<option value="all" >All Vehicles</option>
+					<#list types as type>
+						<option value="${type}">${type}</option>
+					</#list>
 				</select><br/>
 	
 				Vehicle Make <br/> 
 				<select name="make">
 					<option value="all" >All Makes</option>
+					<#list makes as make>
+						<option value="${make}">${make}</option>
+					</#list>
+				</select><br/>
+				
+				Vehicle Model <br/> 
+				<select name="model">
+					<option value="all" >All Models</option>
+					<#list models as model>
+						<option value="${model}">${model}</option>
+					</#list>
 				</select><br/>
 	
 				Sort By<br/> 
 				<select name="sortBy">
-					<option value="revelance" >Revelance</option>
+					<option value="revelance" >Relevance</option>
 				</select>
 				<input type="submit">
 			</form>
