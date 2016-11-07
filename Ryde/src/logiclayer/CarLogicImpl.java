@@ -3,6 +3,7 @@ package logiclayer;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import objectlayer.Car;
 import persistlayer.CarPersistImpl;
@@ -52,6 +53,57 @@ public class CarLogicImpl {
 		}
 		
 		return resultCars; 
+	}
+
+	public List<String> getTypes() {
+		List<String> types = new ArrayList<String>();
+		ResultSet rs = cp.getTypes();
+		String type;
+		try {
+			while(rs.next()){
+				type = rs.getString("carType");
+				if(!types.contains(type))
+					types.add(type);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return types;
+	}
+
+	public List<String> getModels() {
+		List<String> models = new ArrayList<String>();
+		ResultSet rs = cp.getModels();
+		String model;
+		try {
+			while(rs.next()){
+				model = rs.getString("model");
+				if(!models.contains(model))
+					models.add(model);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return models;
+	}
+
+	public List<String> getMakes() {
+		List<String> makes = new ArrayList<String>();
+		ResultSet rs = cp.getMakes();
+		String make;
+		try {
+			while(rs.next()){
+				make = rs.getString("make");
+				if(!makes.contains(make))
+					makes.add(make);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return makes;
 	}
 	
 }
