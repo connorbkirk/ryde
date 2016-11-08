@@ -65,6 +65,7 @@
 				<div class="entry">
 					<span class="overlayLeft">
 						<ul>
+							<li><a href="Servlet?req=view&id=${car.id}">View</a></li>
 							<li>${car.make}</li>
 							<li>${car.model}</li>
 							<li>${car.year}</li>

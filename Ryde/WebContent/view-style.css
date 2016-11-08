@@ -101,6 +101,6 @@ hr{
 	position: fixed;
 }
 
-#main{
+#main, #jumbotron{
 	padding-left:500px;
 }
