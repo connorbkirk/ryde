@@ -33,5 +33,10 @@ public class CarPersistImpl {
 		return db.retrieve(con, query);
 	}
 
+	public ResultSet getCar(String id) {
+		String query = "SELECT * FROM cars where id = \'" + id + "\'";
+		return db.retrieve(con, query);
+	}
+
 	
 }

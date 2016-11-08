@@ -17,11 +17,11 @@ public class CarLogicImpl {
 		cp = new CarPersistImpl();
 	}
 	
-	public ArrayList<Car> getCars(){
+	public List<Car> getCars(){
 		ResultSet rs = null; 
 		rs = cp.getCars(); 
 		
-		ArrayList<Car>resultCars = new ArrayList<Car>(); 
+		List<Car>resultCars = new ArrayList<Car>(); 
 		
 		try {
 			while(rs.next()){
@@ -30,7 +30,8 @@ public class CarLogicImpl {
 				int carYear; 
 				String color; 
 				int price; 
-				int id; 
+				int id;
+				int ownerId; 
 				String description; 
 				String carType;
 				
@@ -39,12 +40,15 @@ public class CarLogicImpl {
 				carYear = rs.getInt("carYear"); 
 				color = rs.getString("color"); 
 				price = rs.getInt("price"); 
-				id = rs.getInt("ownerID"); 
+				id = rs.getInt("id");
+				ownerId = rs.getInt("ownerID"); 
 				description = rs.getString("description"); 
 				carType = rs.getString("carType");
 				//retrieves info from the result set. 
 				
-				resultCars.add(new Car(make, model, carYear, color, id, price, description, carType)); 
+				Car car = new Car(id, make, model, carYear, color, ownerId, price, description, carType);
+				
+				resultCars.add(car); 
 				//dynamically creates car objects. 
 			}
 		} catch (SQLException e) {
@@ -104,6 +108,21 @@ public class CarLogicImpl {
 			e.printStackTrace();
 		}
 		return makes;
+	}
+
+	public Car getCar(String id) {
+		ResultSet rs = cp.getCar(id);
+		try {
+			if(rs.next())
+				return new Car(Integer.parseInt(id), rs.getString("make"), rs.getString("model"), 
+						rs.getInt("carYear"), rs.getString("color"), 
+						rs.getInt("ownerId"), rs.getInt("price"), 
+						rs.getString("description"), rs.getString("carType"));
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 	
 }

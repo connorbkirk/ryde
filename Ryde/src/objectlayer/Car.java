@@ -3,6 +3,7 @@ package objectlayer;
 
 //this class is the model of the car
 public class Car {
+	private int id;
 	private String make;
 	private String model;
 	private int year;
@@ -11,9 +12,10 @@ public class Car {
 	private int price;
 	private String description;
 	private String carType;
-	public Car(String make, String model, int year, String color, int ownerId, int price, String description,
+	
+	public Car(int id, String make, String model, int year, String color, int ownerId, int price, String description,
 			String carType) {
-		super();
+		this.id = id;
 		this.make = make;
 		this.model = model;
 		this.year = year;
@@ -22,6 +24,20 @@ public class Car {
 		this.price = price;
 		this.description = description;
 		this.carType = carType;
+	}
+	
+	
+	/**
+	 * @return the id
+	 */
+	public int getId() {
+		return id;
+	}
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(int id) {
+		this.id = id;
 	}
 	/**
 	 * @return the make

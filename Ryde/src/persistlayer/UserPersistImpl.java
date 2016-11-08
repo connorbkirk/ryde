@@ -29,8 +29,7 @@ public class UserPersistImpl {
 				+"AND pswrd=\'"+password+"\'";
 		
 		ResultSet rs = db.retrieve(con, query);
-		
-		return(rs.next());
+		return rs.next();
 	}
 
 	public ResultSet getUsers() {
