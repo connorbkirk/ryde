@@ -107,10 +107,23 @@ public class Servlet extends HttpServlet {
 			case "search":
 				search(request);
 				break;
+			case "view":
+				view(request);
+				break;
 			default:
 				break;
 			
 		}
+	}
+	
+	void view(HttpServletRequest request){
+		CarLogicImpl carCtrl = new CarLogicImpl();
+		
+		String id = request.getParameter("id");
+		Car car = carCtrl.getCar(id);
+		root.put("car", car);
+		
+		processTemplate("view.ftl");
 	}
 	
 	void search(HttpServletRequest request) {
@@ -125,6 +138,7 @@ public class Servlet extends HttpServlet {
 		
 		//not actually taking dates into consideration
 		List<Car> cars = carCtrl.getCars();
+		
 		List<String> types = carCtrl.getTypes();
 		List<String> makes = carCtrl.getMakes();
 		List<String> models = carCtrl.getModels();
