@@ -37,6 +37,21 @@ public class CarPersistImpl {
 		String query = "SELECT * FROM cars where id = \'" + id + "\'";
 		return db.retrieve(con, query);
 	}
+	
+	public boolean verifyData(String d1, String d2)
+	{
+		ResultSet rs = null; 
+		
+		String query = "select * from rental_dates where startDate = " + d1 + " AND endDate = " + d2; 
+		
+		rs = db.retrieve(con, query); 
+		
+		if (rs == null)
+			return false; 
+		else 
+			return true; 
+		
+	}
 
 	
 }
