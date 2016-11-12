@@ -52,7 +52,6 @@ public class Servlet extends HttpServlet {
     public void init() {
     	//intialized global vars
     	df = new DefaultObjectWrapperBuilder(Configuration.VERSION_2_3_25);//set object wrapper builder
-		
 		templateDir = "/WEB-INF/templates";//set directory
     	
     	// Create your Configuration instance, and specify if up to what FreeMarker
@@ -123,6 +122,7 @@ public class Servlet extends HttpServlet {
 				delete(request, response);
 				break;
 			default:
+				response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid request");
 				break;
 			
 		}
@@ -130,8 +130,10 @@ public class Servlet extends HttpServlet {
 	
 	
 	private void delete(HttpServletRequest request, HttpServletResponse response) {
+		//create logic and session objects
 		CarLogicImpl carCtrl = new CarLogicImpl();
 		HttpSession session = request.getSession();
+		
 		//make sure that the user is editing his/her own entry
 		Integer userId = (Integer) session.getAttribute("user");
 		String id = request.getParameter("id");
@@ -148,13 +150,7 @@ public class Servlet extends HttpServlet {
 		//route the user if they are trying to edit a car they do not own
 		}else if(userId != ownerId){
 			//route user back to previous page or send to access forbidden page
-			//for now, route to search
-			try {
-				response.sendRedirect("Servlet?req=search");
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			sendToLastPage(response, session);
 		}
 		else{
 			carCtrl.deleteCar(id);
@@ -165,8 +161,10 @@ public class Servlet extends HttpServlet {
 	}
 
 	private void edit(HttpServletRequest request, HttpServletResponse response) {
+		//create logic and session objects
 		CarLogicImpl carCtrl = new CarLogicImpl();
 		HttpSession session = request.getSession();
+		
 		//make sure that the user is editing his/her own entry
 		Integer userId = (Integer) session.getAttribute("user");
 		String id = request.getParameter("id");
@@ -183,16 +181,10 @@ public class Servlet extends HttpServlet {
 		//route the user if they are trying to edit a car they do not own
 		}else if(userId != ownerId){
 			//route user back to previous page or send to access forbidden page
-			//for now, route to search
-			try {
-				response.sendRedirect("Servlet?req=search");
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			sendToLastPage(response, session);
 		}
 		else{
-			
+			//gather params
 			String make = request.getParameter("make");
 			String model = request.getParameter("model");
 			String year = request.getParameter("year");
@@ -201,6 +193,7 @@ public class Servlet extends HttpServlet {
 			String description = request.getParameter("description");
 			String carType = request.getParameter("type");
 			
+			//if all the fields contain data, edit the car
 			if(make!=null && model != null && year != null && color != null && price != null
 					&& description != null && carType != null){
 				Car car = new Car(Integer.parseInt(id), make, model, Integer.parseInt(year), 
@@ -209,7 +202,7 @@ public class Servlet extends HttpServlet {
 				carCtrl.editCar(id, make, model, year, color, price, description, carType);
 				root.put("done", true);
 				root.put("car", car);
-			}else{
+			}else{//if any field is empty, do not allow user to edit car, instead return unaltered car
 				root.put("car", carCtrl.getCar(id));
 			}
 			
@@ -222,6 +215,7 @@ public class Servlet extends HttpServlet {
 		CarLogicImpl carCtrl = new CarLogicImpl();
 		HttpSession session = request.getSession();
 		
+		//gather params
 		String make = request.getParameter("make");
 		String model = request.getParameter("model");
 		String year = request.getParameter("year");
@@ -230,6 +224,7 @@ public class Servlet extends HttpServlet {
 		String description = request.getParameter("description");
 		String carType = request.getParameter("type");
 		
+		//if user is logged in, allow them to add 
 		if(session.getAttribute("user") != null){
 			//if all parameters are not null, insert car into db.
 			//deal with making sure params are not null with js
@@ -244,26 +239,33 @@ public class Servlet extends HttpServlet {
 			root.put("userId", session.getAttribute("user"));
 			processTemplate("add.ftl");
 		}
+		//if user is not logged in, route to login.html page
 		else{
-			//if user is not logged in, route to login page
 			try {
 				response.sendRedirect("login.html");
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
 	}
 
 	void viewUser(HttpServletRequest request){
+		//create session and logic objects
 		HttpSession session = request.getSession();
 		UserLogicImpl userCtrl = new UserLogicImpl();
 		CarLogicImpl carCtrl = new CarLogicImpl();
 		
+		//store url in session - for use when viewing forbidden pages
+		session.setAttribute("url", getURL(request));
+		
+		//gather parameters
 		int id = Integer.parseInt(request.getParameter("id"));
+		
+		//create model objects
 		User user = userCtrl.getSingleUser(id);
 		List<Car> cars = carCtrl.getCarsFromUser(id);
 		
+		//put objects in root map
 		root.put("user", user);
 		root.put("cars", cars);
 		
@@ -279,14 +281,19 @@ public class Servlet extends HttpServlet {
 	}
 	
 	void viewCar(HttpServletRequest request){
+		//create session and logic objects
 		CarLogicImpl carCtrl = new CarLogicImpl();
 		HttpSession session = request.getSession();
 		
+		//store url in session - for use when viewing forbidden pages
+		session.setAttribute("url", getURL(request));
+		
+		//gather params
 		String id = request.getParameter("id");
 		Car car = carCtrl.getCar(id);
 		root.put("car", car);
 		
-		//add stuff here to let user edit car if they own it
+		//let user edit car if they own it
 		Integer userId = (Integer) session.getAttribute("user");
 		if(userId!=null){
 			root.put("userId", session.getAttribute("user"));
@@ -300,11 +307,15 @@ public class Servlet extends HttpServlet {
 	}
 	
 	void search(HttpServletRequest request) {
+		//create logic and session objects
 		CarLogicImpl carCtrl = new CarLogicImpl();
-		
 		HttpSession session = request.getSession();
+		
+		//store userId in session
 		if(session.getAttribute("user")!=null);
 			root.put("userId", session.getAttribute("user"));
+		//store url in session - for use when viewing forbidden pages
+		session.setAttribute("url", getURL(request));
 		
 		//gathers params
 		String from = request.getParameter("fromDate");
@@ -317,9 +328,12 @@ public class Servlet extends HttpServlet {
 		//work on that
 		List<Car> cars = carCtrl.getCars();
 		
+		//get lists of types, makes, and models
 		List<String> types = carCtrl.getTypes();
 		List<String> makes = carCtrl.getMakes();
 		List<String> models = carCtrl.getModels();
+		
+		//put objects in root map
 		root.put("types", types);
 		root.put("makes", makes);
 		root.put("models", models);
@@ -330,8 +344,9 @@ public class Servlet extends HttpServlet {
 	}
 	
 	void register(HttpServletRequest request, HttpServletResponse response){
-		
+		//create logic and session objects
 		UserLogicImpl userCtrl = new UserLogicImpl();
+		HttpSession session = request.getSession();
 		
 		//gather parameters
 		String username = request.getParameter("username");
@@ -339,40 +354,45 @@ public class Servlet extends HttpServlet {
 		String firstName = request.getParameter("firstName");
 		String lastName = request.getParameter("lastName");
 		
-		userCtrl.register(username, password, firstName, lastName);
-		//must check to make sure values do not exist in db
-		
-		//set session id stuff
-		HttpSession session = request.getSession();
-		session.setAttribute("user", userCtrl.getIdFromUsername(username));
-		
-		//redirect user
-		try {
-			response.sendRedirect("Servlet?req=search");
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		//if the username already exists, redirect user to register
+		if(userCtrl.usernameExists(username)){
+			try {
+				response.sendRedirect("register.html");//do something with js?
+				//tell user what is incorrect in their entry
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
+		else{
+			//add entry to db
+			userCtrl.register(username, password, firstName, lastName);
+			//store user id in session
+			session.setAttribute("user", userCtrl.getIdFromUsername(username));
+			//redirect user
+			sendToLastPage(response, session);
+		}
+		
 	}
 	
 	void login(HttpServletRequest request, HttpServletResponse response){
-		
+		//create logic and session objects
 		UserLogicImpl userCtrl = new UserLogicImpl();
+		HttpSession session = request.getSession();
 		
+		//gather params
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
 		
+		//validate user - if credentials are valid, route to search
+		//if invalid route to login
 		try {
 			if(userCtrl.validate(username, password)){
-				HttpSession session = request.getSession();
 				session.setAttribute("user", userCtrl.getIdFromUsername(username));
-				out.print("valid login");
-				response.sendRedirect("Servlet?req=search");
+				sendToLastPage(response, session);
 			}
 			else
-				out.print("invalid login");//do something with js?
+				response.sendRedirect("login.html");//do something with js?
 		} catch (NoSuchAlgorithmException | SQLException | IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -380,10 +400,10 @@ public class Servlet extends HttpServlet {
 	void logout(HttpServletRequest request, HttpServletResponse response){
 		HttpSession session = request.getSession();
 		session.invalidate();
+		//route user to index.html
 		try {
 			response.sendRedirect("index.html");
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -394,9 +414,33 @@ public class Servlet extends HttpServlet {
 			template = cfg.getTemplate(templateName);
 			template.process(root, out);
 		} catch (IOException | TemplateException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
+	
+	//returns the url for a given request
+	private String getURL(HttpServletRequest request) {
+	    StringBuffer requestURL = request.getRequestURL();
+	    String queryString = request.getQueryString();
 
+	    if (queryString == null) {
+	        return requestURL.toString();
+	    } else {
+	        return requestURL.append('?').append(queryString).toString();
+	    }
+	}
+
+	private void sendToLastPage(HttpServletResponse response, HttpSession session) {
+		String url = (String) session.getAttribute("url");
+		//send user to previous url if it exists
+		//if it does not exist, send user to search
+		try {
+			if(url!=null)
+				response.sendRedirect(url);
+			else
+				response.sendRedirect("Servlet?req=search");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 }

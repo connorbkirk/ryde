@@ -113,4 +113,15 @@ public class UserLogicImpl {
 		}
 		return -1;
 	}
+
+	public boolean usernameExists(String username) {
+		ResultSet rs = up.getIdFromUsername(username);
+		try {
+			return(rs.next());
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return false;
+	}
 }
