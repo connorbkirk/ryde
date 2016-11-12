@@ -4,19 +4,19 @@ package objectlayer;
 public class User {
 	private String firstName;
 	private String lastName;
-	private String email;
+	private String username;
 	private String password;
 	private int id;
 	
-	public User(String inputLN, String inputFN, String userEmail, String inputPass, int userId)	{
-	 	lastName = inputLN; 
-	 	firstName = inputFN; 
-	 	email = userEmail; 
-	 	password = inputPass; 
-	 	id = userId; 
+	
+	public User(String firstName, String lastName, String username, String password, int id) {
+		super();
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.username = username;
+		this.password = password;
+		this.id = id;
 	}
-	
-	
 	/**
 	 * @return the firstName
 	 */
@@ -42,16 +42,16 @@ public class User {
 		this.lastName = lastName;
 	}
 	/**
-	 * @return the email
+	 * @return the username
 	 */
-	public String getEmail() {
-		return email;
+	public String getUsername() {
+		return username;
 	}
 	/**
-	 * @param email the email to set
+	 * @param username the username to set
 	 */
-	public void setEmail(String email) {
-		this.email = email;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 	/**
 	 * @return the password
@@ -77,4 +77,6 @@ public class User {
 	public void setId(int id) {
 		this.id = id;
 	}
+	
+	
 }

@@ -34,18 +34,23 @@ public class UserPersistImpl {
 
 	public ResultSet getUsers() {
 		ResultSet rs = null; 
-		String query  = "select * from users"; 
+		String query  = "SELECT * FROM users"; 
 		rs = db.retrieve(con, query); 
 		
 		return rs; 
 	}
 
-	public ResultSet getUser(String username) {
+	public ResultSet getUser(int id) {
 		// TODO Auto-generated method stub
 		ResultSet rs = null;
-		String query = "SELECT * FROM users WHERE username = \'" + username + "\'";
+		String query = "SELECT * FROM users WHERE id = \'" + id + "\'";
 		rs = db.retrieve(con, query);
 		return rs;
+	}
+
+	public ResultSet getIdFromUsername(String username) {
+		String query = "SELECT id FROM users WHERE username = \'" + username + "\'";
+		return db.retrieve(con, query);
 	}
 
 	

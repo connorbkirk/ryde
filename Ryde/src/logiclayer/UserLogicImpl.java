@@ -22,7 +22,7 @@ public class UserLogicImpl {
 		up = new UserPersistImpl();
 	}
 	
-	String hash(String original) throws NoSuchAlgorithmException{
+	private String hash(String original) throws NoSuchAlgorithmException{
 		MessageDigest md = MessageDigest.getInstance("MD5");
 		md.update(original.getBytes());
 		original = new BigInteger(1, md.digest()).toString(16);
@@ -30,14 +30,18 @@ public class UserLogicImpl {
 		return original;
 	}
 	
-	public void register(String username, String password, String firstName, String lastName) throws NoSuchAlgorithmException {
+	public void register(String username, String password, String firstName, String lastName) {
 		
 		//hash password with md5
-		password = hash(password);
+		try {
+			password = hash(password);
+			up.register(username, password, firstName, lastName);
+		} catch (NoSuchAlgorithmException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		//call persistlayer to update database
-		up.register(username, password, firstName, lastName);
-		
 	}
 
 	public boolean validate(String username, String password) throws NoSuchAlgorithmException, SQLException {
@@ -72,24 +76,41 @@ public class UserLogicImpl {
 		return returnUsers; 
 	}
 	
-	public User getSingleUser(String username) throws SQLException
+	public User getSingleUser(int id)
 	{
-		ResultSet rs = null; 
-		rs = up.getUser(username);
+		ResultSet rs = up.getUser(id);
 		User returnUser = null; 
 		
-		while(rs.next())
-		{
-			String lastname = rs.getString("lastname"); 
-			String firstname = rs.getString("firstname"); 
-			String email = rs.getString("email"); 
-			String password = rs.getString("password"); 
-			int id  = rs.getInt("userId"); 
-			
-			returnUser = new User(lastname, firstname, email, password, id); 
+		try {
+			if(rs.next())
+			{
+				String lastname = rs.getString("lastname"); 
+				String firstname = rs.getString("firstname"); 
+				String username = rs.getString("username"); 
+				String password = rs.getString("pswrd"); 
+				
+				returnUser = new User(firstname, lastname, username, password, id); 
+			}
+		} catch (NumberFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		
 		return returnUser; 
-		
+	}
+	
+	public int getIdFromUsername(String username){
+		ResultSet rs = up.getIdFromUsername(username);
+		try {
+			if(rs.next())
+				return rs.getInt("id");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return -1;
 	}
 }

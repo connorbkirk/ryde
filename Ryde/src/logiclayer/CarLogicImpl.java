@@ -124,5 +124,67 @@ public class CarLogicImpl {
 		}
 		return null;
 	}
+
+	public List<Car> getCarsFromUser(int ownerId) {
+		List<Car> cars = new ArrayList<Car>(); 
+		ResultSet rs = cp.getCarsFromUser(ownerId); 
+		try {
+			while(rs.next()){
+				int id = rs.getInt("id");
+				String make = rs.getString("make");
+				String model = rs.getString("model");
+				int year = rs.getInt("carYear");
+				String color = rs.getString("color");
+				int price = rs.getInt("price");
+				String description = rs.getString("description");
+				String carType = rs.getString("carType");
+				
+				Car car = new Car(id, make, model, year, color, ownerId, price, description, carType);
+				cars.add(car);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return cars;
+	}
+
+	//returns id of the car after it is inserted into the db
+	public int addCar(int ownerId, String make, String model, String year, String color, 
+			String price, String description, String carType) {
+		ResultSet rs = cp.addCar(ownerId, make, model, year, color, price, description, carType);
+		try {
+			if(rs.next());
+				return rs.getInt("LAST_INSERT_ID()");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return -1;//-1 if messed up
+	}
+
+	public void editCar(String id, String make, String model, String year, String color, String price,
+			String description, String carType) {
+		cp.editCar(id, make, model, year, color, price, description, carType);
+		
+	}
+
+	public int getOwnerId(String id) {
+		ResultSet rs = cp.getOwnerId(id);
+		try {
+			rs.next();
+			return(rs.getInt("ownerID"));
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return -1;
+	}
+
+	public void deleteCar(String id) {
+		cp.deleteCar(id);
+		
+	}
 	
 }

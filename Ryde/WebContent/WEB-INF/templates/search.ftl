@@ -14,8 +14,14 @@
 		<div id="nav">
 			<a href="index.html" class="logo">Ryde</a></span>
 			<ul>
-				<li><a href="#">LOGIN</a></li>
-				<li><a href="#">INFO</a></li>
+				<#if userId??>
+					<li><a href="Servlet?req=logout">LOGOUT</a></li>
+					<li><a href="Servlet?req=user&id=${userId}">MY ACCOUNT</a></li>
+					<li><a href="Servlet?req=add">POST A CAR</a></li>
+				<#else>
+					<li><a href="login.html">LOGIN</a></li>
+					<li><a href="#">INFO</a></li>
+				</#if>
 			</ul>
 		</div>
 
@@ -65,10 +71,10 @@
 				<div class="entry">
 					<span class="overlayLeft">
 						<ul>
-							<li><a href="Servlet?req=view&id=${car.id}">View</a></li>
+							<li><a href="Servlet?req=car&id=${car.id}">View</a></li>
 							<li>${car.make}</li>
 							<li>${car.model}</li>
-							<li>${car.year}</li>
+							<li>${car.year?c}</li>
 						</ul>
 					</span>
 					<span class="overlayRight">
