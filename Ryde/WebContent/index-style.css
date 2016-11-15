@@ -31,7 +31,7 @@ body{
 
 #nav{
 	display: block;
-	background-color: rgba(171, 171, 171, 0.5);
+	background-color: rgba(171,177,185, 0.5);
 	height: 7vw;
 	min-height: 7vh;
 	padding-top:10px;
@@ -44,7 +44,7 @@ body{
 	float: right;
 	display: inline-block;
 	list-style-type: none;
-	font-size: 5vw;
+	font-size: 3vw;
 	padding-right: 30px;
 }
 
@@ -83,7 +83,8 @@ body{
 #section1{
 	height: 40vw;
 	min-height: 70vh;
-	color: #ABABAB;
+	//color: #ABABAB;
+	color: rgb(171,177,185);
 	font-size: 10vh;
 	margin-top: -10vh;
 }
@@ -100,7 +101,8 @@ body{
 #section2{
 	height: 40vw;
 	min-height: 70vh;
-	color: #ABABAB;
+	//color: #ABABAB;
+	color: rgb(171,177,185);
 	font-size: 10vh;
 	
 
@@ -135,5 +137,6 @@ hr{
 	background-color: #634271;
 	padding: 10px 30px 30px 30px;
 	text-decoration: none;
-	color: #ABABAB;
+	//color: #ABABAB;
+	color: rgb(171,177,185);
 }

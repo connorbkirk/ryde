@@ -28,8 +28,8 @@
 		</div>
 
 		<div id="sidebar">
-			From<input type="textfield" name="fromData" placeholder="XX/XX/XX XX:XX XM"/><br/>
-			Until<input type="textfield" name="fromData" placeholder="XX/XX/XX XX:XX XM"/><br/>
+			From<input class="text-entry" type="textfield" name="fromData" placeholder="XX/XX/XX XX:XX XM"/><br/>
+			Until<input class="text-entry" type="textfield" name="fromData" placeholder="XX/XX/XX XX:XX XM"/><br/>
 			Total Price: $XXX<br/>
 			
 			<a href="" class="button">BOOK NOW</a>

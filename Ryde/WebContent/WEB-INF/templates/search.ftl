@@ -4,7 +4,6 @@
 <html>
 
 	<head>	
-		
 		<link rel="stylesheet" type="text/css" href="search-style.css"/>
 		<title>Ryde</title>
 	</head>
@@ -28,10 +27,10 @@
 		<div id="sidebar">
 			<form action="Servlet?req=search" method="GET">
 				<input type="hidden" name="req" value="search"/>
-				From<input type="textfield" name="fromDate" placeholder="XX/XX/XX XX:XX XM"/><br/>
-				Until<input type="textfield" name="toDate" placeholder="XX/XX/XX XX:XX XM"/><br/>
+				From<input class="text-entry" type="textfield" name="fromDate" placeholder="XX/XX/XX XX:XX XM"/><br/>
+				Until<input class="text-entry" type="textfield" name="toDate" placeholder="XX/XX/XX XX:XX XM"/><br/>
 				Price<br/>
-				Slider here
+				<input type="range" name="price" id="price"/>
 				<br/>
 				Vehicle Type <br/> 
 				<select name="type">
