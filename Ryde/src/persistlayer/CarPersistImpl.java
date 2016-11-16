@@ -76,18 +76,39 @@ public class CarPersistImpl {
 		db.delete(con, query);
 	}
 
-	public boolean verifyData(String d1, String d2)
+	public boolean verifyData(String d1, String d2, int carID)
 	{
+		//use to check if rental date is valid or not for specefic car. 
+		
 		ResultSet rs = null; 
 		
-		String query = "select * from rental_dates where startDate = " + d1 + " AND endDate = " + d2; 
+		String query = "SELECT * FROM rental_dates WHERE startDate = " + d1 + " AND endDate = " + d2 + " AND carID = " + carID; 
 		
 		rs = db.retrieve(con, query); 
 		
 		if (rs == null)
-			return false; 
-		else 
 			return true; 
+		else 
+			return false; 
+		//if there is a return of dates, this means that rental date is taken thus return false. 
+		//if null means that date is not present and thus return true. 
+		
+	}
+	
+	public int updateImage(String imageName, String imageText)
+	{ 
+		String query = "INSERT INTO website_images (image_name, image_text) VALUES ( \"" + imageName + "\", CAST(" + imageText + " AS CHAR )";   
+		
+		return db.update(con, query); 
+	}
+	
+	public ResultSet retreiveImage(int carID)
+	{
+		//used to get specefic image for specefic car. 
+		
+		String query = "SELECT * FROM website_images WHERE carID = " + carID; 
+		
+		return db.retrieve(con, query); 
 		
 	}
 }
