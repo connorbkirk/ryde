@@ -33,8 +33,8 @@ public class CarPersistImpl {
 		return db.retrieve(con, query);
 	}
 
-	public ResultSet getCar(String id) {
-		String query = "SELECT * FROM cars where id = \'" + id + "\'";
+	public ResultSet getCar(int carID) {
+		String query = "SELECT * FROM cars where id =" + carID;
 		return db.retrieve(con, query);
 	}
 
@@ -65,14 +65,15 @@ public class CarPersistImpl {
 		
 	}
 
-	public ResultSet getOwnerId(String id) {
+	public ResultSet getOwnerId(int carID) {
 		// TODO Auto-generated method stub
-		String query = "SELECT ownerID FROM cars WHERE id=\'"+id+"\'";
+		String query = "SELECT ownerID FROM cars WHERE id=" + carID; 
 		return db.retrieve(con, query);
 	}
 
-	public void deleteCar(String id) {
-		String query = "DELETE FROM cars WHERE id=\'"+id+"\'";
+	public void deleteCar(int carID) 
+	{
+		String query = "DELETE FROM cars WHERE id=" + carID;
 		db.delete(con, query);
 	}
 
