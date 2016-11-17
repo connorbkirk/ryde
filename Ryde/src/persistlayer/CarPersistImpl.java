@@ -96,9 +96,11 @@ public class CarPersistImpl {
 		
 	}
 	
-	public int updateImage(String imageName, String imageText)
+	public int updateImage(int carID, String imageName)
 	{ 
-		String query = "INSERT INTO website_images (image_name, image_text) VALUES ( \"" + imageName + "\", VALUES(LOAD_FILE(" + imageText + "))";   
+		//String query = "INSERT INTO website_images (image_name, image_text) VALUES ( \"" + imageName + "\", VALUES(LOAD_FILE(" + imageText + "))";   
+		
+		String query = "INSERT INTO website_images(carID, image) VALUES(" + carID + ", VALUES(LOAD_FILE(" + imageName + "))"; 
 		
 		return db.update(con, query); 
 	}
