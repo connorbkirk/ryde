@@ -4,7 +4,7 @@
 <html>
 
 	<head>	
-		<link rel="stylesheet" type="text/css" href="view-style.css"/>
+		<link rel="stylesheet" type="text/css" href="default-style.css"/>
 		<title>Ryde</title>
 	</head>
 

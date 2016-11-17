@@ -20,9 +20,6 @@ body{
 	float:left;
 	font-size: 20vw;
 	text-decoration: none;
-	position: absolute;
-	z-index: 10;
-	
 }
 
 #nav{
@@ -105,7 +102,7 @@ hr{
 	
 	text-align:center;
 	font-size: 3vw;
-	padding-top: 4vw;
+	padding-top: 3vw;
 }
 
 .text-entry{
@@ -124,4 +121,15 @@ hr{
 #main, #jumbotron{
 	float:right;
 	padding-left:500px;
+}
+
+#blocker{
+	position:fixed;
+	float:left;
+	margin-left: 5vw;
+	background-color: black;
+	width:25vw;
+	min-width:180px;
+	height:4vw;
+	z-index:-1;
 }

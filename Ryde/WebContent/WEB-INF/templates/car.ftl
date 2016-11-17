@@ -23,16 +23,14 @@
 			</ul>
 		</div>
 
-		<div id="jumbotron">
-			<span class="bottom" >Displaying X Images</span>
-		</div>
-
+		<div id="blocker"></div>
 		<div id="sidebar">
 			From<input class="text-entry" type="textfield" name="fromData" placeholder="XX/XX/XX XX:XX XM"/><br/>
 			Until<input class="text-entry" type="textfield" name="fromData" placeholder="XX/XX/XX XX:XX XM"/><br/>
 			Total Price: $XXX<br/>
 			
 			<a href="" class="button">BOOK NOW</a>
+			<br/>
 
 			<div class="owner">
 				Owned By<br/>
@@ -41,6 +39,15 @@
 
 		</div>
 
+		<div id="jumbotron">
+			<span class="bottom" >Displaying X Images</span>
+			<#if images??>
+				<#list images as image>
+					<img alt="My image" src="${image}" />
+				</#list>
+			</#if>
+		</div>
+		
 		<div id="main">
 			<div id="info">
 				${car.make}

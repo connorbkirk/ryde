@@ -1,6 +1,7 @@
 package boundary;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
 import java.io.Writer;
 import java.security.NoSuchAlgorithmException;
@@ -9,11 +10,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.Part;
 
 import freemarker.template.Configuration;
 import freemarker.template.DefaultObjectWrapperBuilder;
@@ -32,6 +35,7 @@ import objectlayer.User;
 //this class handles all the requests and responses. 
 //It directly interacts with the controller class.
 @WebServlet("/Servlet")
+@MultipartConfig
 public class Servlet extends HttpServlet {
 	//global variables
 		private static final long serialVersionUID = 1L;
@@ -136,7 +140,7 @@ public class Servlet extends HttpServlet {
 		
 		//make sure that the user is editing his/her own entry
 		Integer userId = (Integer) session.getAttribute("user");
-		String id = request.getParameter("id");
+		int id = Integer.parseInt(request.getParameter("id"));
 		int ownerId = carCtrl.getOwnerId(id);
 		
 		//route the user to login if user is not logged in
@@ -167,7 +171,7 @@ public class Servlet extends HttpServlet {
 		
 		//make sure that the user is editing his/her own entry
 		Integer userId = (Integer) session.getAttribute("user");
-		String id = request.getParameter("id");
+		int id = Integer.parseInt(request.getParameter("id"));
 		int ownerId = carCtrl.getOwnerId(id);
 		
 		//route the user to login if user is not logged in
@@ -193,10 +197,10 @@ public class Servlet extends HttpServlet {
 			String description = request.getParameter("description");
 			String carType = request.getParameter("type");
 			
-			//if all the fields contain data, edit the car
+			//if all the fields contain data, update the table the car table
 			if(make!=null && model != null && year != null && color != null && price != null
 					&& description != null && carType != null){
-				Car car = new Car(Integer.parseInt(id), make, model, Integer.parseInt(year), 
+				Car car = new Car(id, make, model, Integer.parseInt(year), 
 					color, ownerId, Integer.parseInt(price), description, carType);
 			
 				carCtrl.editCar(id, make, model, year, color, price, description, carType);
@@ -231,9 +235,9 @@ public class Servlet extends HttpServlet {
 			if(make!=null && model != null && year != null && color != null && price != null
 					&& description != null && carType != null){
 				int ownerId = (Integer) session.getAttribute("user");
-				
 				int carId = carCtrl.addCar(ownerId, make, model, year, color, 
 						price, description, carType);
+				uploadCarImages(request, carId);
 				root.put("id", carId);
 			}
 			root.put("userId", session.getAttribute("user"));
@@ -247,6 +251,7 @@ public class Servlet extends HttpServlet {
 				e.printStackTrace();
 			}
 		}
+		
 	}
 
 	void viewUser(HttpServletRequest request){
@@ -289,7 +294,7 @@ public class Servlet extends HttpServlet {
 		session.setAttribute("url", getURL(request));
 		
 		//gather params
-		String id = request.getParameter("id");
+		int id = Integer.parseInt(request.getParameter("id"));
 		Car car = carCtrl.getCar(id);
 		root.put("car", car);
 		
@@ -303,6 +308,11 @@ public class Servlet extends HttpServlet {
 			}
 			
 		}
+		
+		//gather images
+		List<String> images = carCtrl.getImages(id);
+		root.put("images", images);
+		
 		processTemplate("car.ftl");
 	}
 	
@@ -442,5 +452,20 @@ public class Servlet extends HttpServlet {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	private void uploadCarImages(HttpServletRequest request, int carId) {
+		CarLogicImpl carCtrl = new CarLogicImpl();
+		try {
+			Part filePart = request.getPart("image");
+			InputStream fileContent = filePart.getInputStream();
+			carCtrl.putImage(fileContent, carId);
+			
+		} catch (IOException | ServletException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
 	}
 }

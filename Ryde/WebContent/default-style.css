@@ -20,6 +20,7 @@ body{
 	float:left;
 	font-size: 20vw;
 	text-decoration: none;
+	
 }
 
 #nav{
@@ -29,6 +30,7 @@ body{
 	min-height: 7vh;
 	padding-top:10px;
 	line-height: 4vw;
+	
 }
 
 #nav li{
@@ -87,47 +89,5 @@ hr{
 	padding: 10px 30px 30px 30px;
 	text-decoration: none;
 	color: #ABABAB;
-}
-
-#sidebar{
-	float:left;
-	margin-left: 5vw;
-	background-color: black;
-	width:25vw;
-	min-width:180px;
-	height:100vh;
-	color: white;
-	position: fixed;
-	
-	text-align:center;
-	font-size: 3vw;
-	margin-top: 3vw;
-}
-
-.text-entry{
-	margin-left: .5vw;
-	background-color:black;
-	font-size: 1.5vw;
-	vertical-align: middle;
 	text-align: center;
-	color: white;
-	border: .4vw white solid;
-	
-	border-right: none;
-	border-top: none;
-}
-
-#main{
-	padding-left:500px;
-}
-
-#blocker{
-	position:fixed;
-	float:left;
-	margin-left: 5vw;
-	background-color: black;
-	width:25vw;
-	min-width:180px;
-	height:4vw;
-	z-index:-1;
 }

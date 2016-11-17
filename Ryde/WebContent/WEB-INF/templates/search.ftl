@@ -23,7 +23,7 @@
 				</#if>
 			</ul>
 		</div>
-
+		<div id="blocker"></div>
 		<div id="sidebar">
 			<form action="Servlet?req=search" method="GET">
 				<input type="hidden" name="req" value="search"/>

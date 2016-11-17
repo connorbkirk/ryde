@@ -1,9 +1,19 @@
 package logiclayer;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+import java.sql.Blob;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
+
+import javax.servlet.http.Part;
+
+import com.ibm.wsdl.util.IOUtils;
 
 import objectlayer.Car;
 import persistlayer.CarPersistImpl;
@@ -110,11 +120,11 @@ public class CarLogicImpl {
 		return makes;
 	}
 
-	public Car getCar(String id) {
+	public Car getCar(int id) {
 		ResultSet rs = cp.getCar(id);
 		try {
 			if(rs.next())
-				return new Car(Integer.parseInt(id), rs.getString("make"), rs.getString("model"), 
+				return new Car(id, rs.getString("make"), rs.getString("model"), 
 						rs.getInt("carYear"), rs.getString("color"), 
 						rs.getInt("ownerId"), rs.getInt("price"), 
 						rs.getString("description"), rs.getString("carType"));
@@ -164,13 +174,13 @@ public class CarLogicImpl {
 		return -1;//-1 if messed up
 	}
 
-	public void editCar(String id, String make, String model, String year, String color, String price,
+	public void editCar(int id, String make, String model, String year, String color, String price,
 			String description, String carType) {
 		cp.editCar(id, make, model, year, color, price, description, carType);
 		
 	}
 
-	public int getOwnerId(String id) {
+	public int getOwnerId(int id) {
 		ResultSet rs = cp.getOwnerId(id);
 		try {
 			rs.next();
@@ -182,66 +192,34 @@ public class CarLogicImpl {
 		return -1;
 	}
 
-	public void deleteCar(String id) {
+	public void deleteCar(int id) {
 		cp.deleteCar(id);
 		
 	}
-	
-	public File getImage(int carID)
-	{
-		//used to get image and convert to image stream to later be made viewable. 
-		
-		ResultSet rs = cp.retreiveImage(carID); 
-		InputStream blobInputStream = null;
-		
-		BufferedImage carBuffer = null; 
-		File carImage = null; 
-		
-		if (rs != null)
-		{
-			try 
-			{
-				//Blob carBlob = rs.getBlob("MEDIUMBLOB");
-				
-				blobInputStream = rs.getBinaryStream("MEDIUMBLOB");
 
-				
-			} catch (SQLException e) 
-			{
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} 
-		}
-		
-		
-		
-		try 
-		{
-			carBuffer = ImageIO.read(blobInputStream);
-		} 
-		
-		catch (IOException e) 
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		
-		carImage = new File(carID + "jpg");
-		try 
-		{
-			ImageIO.write(carBuffer, "jpg", carImage);
-		} 
-		
-		catch (IOException e) 
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		return carImage; 
+	public void putImage(InputStream image, int carId) {
+		cp.putImage(image, carId);
 	}
 	
-}
+	public List<String> getImages(int carId){
+		ResultSet rs = cp.getImages(carId);
+		List<String> images = new ArrayList<String>();
+		try {
+			while(rs.next()){
+				Blob blob = rs.getBlob("image");
+				InputStream img = blob.getBinaryStream();
+				byte[] bytes = blob.getBytes(1, (int) blob.length());
+				byte[] imgBytesAsBase64 = Base64.getEncoder().encode(bytes);
+				String imgDataAsBase64 = new String(imgBytesAsBase64);
+				String imgAsBase64 = "data:image/png;base64," + imgDataAsBase64;
+				images.add(imgAsBase64);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return images;
+	}
 	
 }

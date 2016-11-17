@@ -1,7 +1,12 @@
 package persistlayer;
 
+import java.io.FileInputStream;
+import java.io.InputStream;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+
 
 //This class is the primary persistent (model) layer class. 
 //It explicitly communicates with the DbAccessImpl
@@ -33,8 +38,8 @@ public class CarPersistImpl {
 		return db.retrieve(con, query);
 	}
 
-	public ResultSet getCar(int carID) {
-		String query = "SELECT * FROM cars where id =" + carID;
+	public ResultSet getCar(int id) {
+		String query = "SELECT * FROM cars where id = \'" + id + "\'";
 		return db.retrieve(con, query);
 	}
 
@@ -55,7 +60,7 @@ public class CarPersistImpl {
 		return db.retrieve(con, query);
 	}
 
-	public void editCar(String id, String make, String model, String year, String color, String price,
+	public void editCar(int id, String make, String model, String year, String color, String price,
 			String description, String carType) {
 		String query = "UPDATE cars "
 				+ "SET make=\'"+make+"\', model=\'"+model+"\', carYear=\'"+year+"\', color=\'"+color +"\', "
@@ -65,53 +70,47 @@ public class CarPersistImpl {
 		
 	}
 
-	public ResultSet getOwnerId(int carID) {
+	public ResultSet getOwnerId(int id) {
 		// TODO Auto-generated method stub
-		String query = "SELECT ownerID FROM cars WHERE id=" + carID; 
+		String query = "SELECT ownerID FROM cars WHERE id=\'"+id+"\'";
 		return db.retrieve(con, query);
 	}
 
-	public void deleteCar(int carID) 
-	{
-		String query = "DELETE FROM cars WHERE id=" + carID;
+	public void deleteCar(int id) {
+		String query = "DELETE FROM cars WHERE id=\'"+id+"\'";
 		db.delete(con, query);
 	}
 
-	public boolean verifyData(String d1, String d2, int carID)
+	public boolean verifyData(String d1, String d2)
 	{
-		//use to check if rental date is valid or not for specefic car. 
-		
 		ResultSet rs = null; 
 		
-		String query = "SELECT * FROM rental_dates WHERE startDate = " + d1 + " AND endDate = " + d2 + " AND carID = " + carID; 
+		String query = "select * from rental_dates where startDate = " + d1 + " AND endDate = " + d2; 
 		
 		rs = db.retrieve(con, query); 
 		
 		if (rs == null)
-			return true; 
-		else 
 			return false; 
-		//if there is a return of dates, this means that rental date is taken thus return false. 
-		//if null means that date is not present and thus return true. 
-		
+		else 
+			return true; 
+	}
+
+	public void putImage(InputStream image, int carId) {
+		try {
+			String query = "INSERT INTO images (carID, image) VALUES (?, ?)";
+			PreparedStatement ps = con.prepareStatement(query);
+			ps.setInt(1, carId);
+			ps.setBlob(2, image);
+			ps.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
-	public int updateImage(int carID, String imageName)
-	{ 
-		//String query = "INSERT INTO website_images (image_name, image_text) VALUES ( \"" + imageName + "\", VALUES(LOAD_FILE(" + imageText + "))";   
+	public ResultSet getImages(int carId){
+		String query = "SELECT * FROM images WHERE carID=" +carId;
 		
-		String query = "INSERT INTO website_images(carID, image) VALUES(" + carID + ", VALUES(LOAD_FILE(" + imageName + "))"; 
-		
-		return db.update(con, query); 
-	}
-	
-	public ResultSet retreiveImage(int carID)
-	{
-		//used to get specefic image for specefic car. 
-		
-		String query = "SELECT * FROM website_images WHERE carID = " + carID; 
-		
-		return db.retrieve(con, query); 
-		
+		return db.retrieve(con, query);
 	}
 }
