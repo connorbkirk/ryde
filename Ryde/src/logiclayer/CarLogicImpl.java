@@ -187,4 +187,61 @@ public class CarLogicImpl {
 		
 	}
 	
+	public File getImage(int carID)
+	{
+		//used to get image and convert to image stream to later be made viewable. 
+		
+		ResultSet rs = cp.retreiveImage(carID); 
+		InputStream blobInputStream = null;
+		
+		BufferedImage carBuffer = null; 
+		File carImage = null; 
+		
+		if (rs != null)
+		{
+			try 
+			{
+				//Blob carBlob = rs.getBlob("MEDIUMBLOB");
+				
+				blobInputStream = rs.getBinaryStream("MEDIUMBLOB");
+
+				
+			} catch (SQLException e) 
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} 
+		}
+		
+		
+		
+		try 
+		{
+			carBuffer = ImageIO.read(blobInputStream);
+		} 
+		
+		catch (IOException e) 
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		carImage = new File(carID + "jpg");
+		try 
+		{
+			ImageIO.write(carBuffer, "jpg", carImage);
+		} 
+		
+		catch (IOException e) 
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return carImage; 
+	}
+	
+}
+	
 }
