@@ -5,7 +5,7 @@
 
 	<head>	
 		<link rel="stylesheet" type="text/css" href="search-style.css"/>
-		<script src = "search.js">
+		<script src="search.js"></script>
 		<title>Ryde</title>
 	</head>
 
