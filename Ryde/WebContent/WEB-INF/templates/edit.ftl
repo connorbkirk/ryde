@@ -4,7 +4,7 @@
 <html>
 
 	<head>	
-		<link rel="stylesheet" type="text/css" href="default-style.css"/>
+		<link rel="stylesheet" type="text/css" href="edit-style.css"/>
 		<title>Ryde</title>
 	</head>
 
@@ -39,8 +39,17 @@
 				<input type="textfield" placeholder="Body type" name="type" value="${car.carType}"/><br/>
 				<textarea placeholder="Description" name="description">${car.description}</textarea><br/>
 				<input type="submit"/>
-				<a href="Servlet?req=delete&id=${car.id}">Delete</a>
 			</form>
+			<ul id="images">
+				<#list car.images as image>
+					<li style="background-image:url(${image.image});">
+						<div class="overlay">
+							<a href="Servlet?req=deleteImage&id=${image.id}">X</a>
+						</div>
+					</li>
+				</#list>
+			</ul>
+			<a href="Servlet?req=delete&id=${car.id}">Delete</a>
 		</div>
 	</body>
 

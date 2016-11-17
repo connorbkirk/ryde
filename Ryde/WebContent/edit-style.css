@@ -89,21 +89,6 @@ hr{
 	color: #ABABAB;
 }
 
-#sidebar{
-	float:left;
-	margin-left: 5vw;
-	background-color: black;
-	width:25vw;
-	min-width:180px;
-	height:100vh;
-	color: white;
-	position: fixed;
-	
-	text-align:center;
-	font-size: 3vw;
-	margin-top: 3vw;
-}
-
 .text-entry{
 	margin-left: .5vw;
 	background-color:black;
@@ -118,19 +103,7 @@ hr{
 }
 
 #main{
-	float: right;
-    margin-right: 5vw;
-}
-
-#blocker{
-	position:fixed;
-	float:left;
-	margin-left: 5vw;
-	background-color: black;
-	width:25vw;
-	min-width:180px;
-	height:4vw;
-	z-index:-1;
+	text-align: center;
 }
 
 .entry{
@@ -148,22 +121,20 @@ hr{
 	background-color: rgba(171,177,185, 0.5);
 }
 
-.overlay-left{
-	float:left;
+#images{
+	text-align: center;
 }
 
-.car-info{
-	list-style: none;
+#images li{
+	background-size:auto 30vh;
+	background-repeat: no-repeat;
+	background-position: center top;
+	height: 30vw;
+	width: 30vh;
 }
 
-.car-info li{
-	display: inline;
+.overlay{
+	width: 30vh;
+	height: 5vh;
 }
 
-.overlay-right{
-	float:right;
-}
-
-.info{
-	color: white;
-}

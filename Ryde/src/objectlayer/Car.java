@@ -13,10 +13,10 @@ public class Car {
 	private int price;
 	private String description;
 	private String carType;
-	private List<String> images;
+	private List<Image> images;
 	
 	public Car(int id, String make, String model, int year, String color, int ownerId, int price, String description,
-			String carType, List<String> images) {
+			String carType, List<Image> images) {
 		this.id = id;
 		this.make = make;
 		this.model = model;
@@ -34,14 +34,14 @@ public class Car {
 	/**
 	 * @return the images
 	 */
-	public List<String> getImages() {
+	public List<Image> getImages() {
 		return images;
 	}
 
 	/**
 	 * @param images the images to set
 	 */
-	public void setImages(List<String> images) {
+	public void setImages(List<Image> images) {
 		this.images = images;
 	}
 

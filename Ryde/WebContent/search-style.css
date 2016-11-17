@@ -139,6 +139,7 @@ hr{
 	background-repeat:no-repeat;
 	background-position: center;
 	background-color:white;
+	background-image:url("images/default_car.png");
 }
 
 .overlay{

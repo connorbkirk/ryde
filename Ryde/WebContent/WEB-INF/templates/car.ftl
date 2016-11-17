@@ -47,7 +47,7 @@
 					<img src="images/default_car.png" />
 				<#else>
 					<#list car.images as image>
-						<img src="${image}" />
+						<img src="${image.image}" />
 					</#list>
 					
 				</#if>

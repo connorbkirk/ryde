@@ -16,6 +16,7 @@ import javax.servlet.http.Part;
 import com.ibm.wsdl.util.IOUtils;
 
 import objectlayer.Car;
+import objectlayer.Image;
 import persistlayer.CarPersistImpl;
 
 //This class is the controller class for all the functionalities of cars.
@@ -191,18 +192,20 @@ public class CarLogicImpl {
 		cp.putImage(image, carId);
 	}
 	
-	public List<String> getImages(int carId){
+	public List<Image> getImages(int carId){
 		ResultSet rs = cp.getImages(carId);
-		List<String> images = new ArrayList<String>();
+		List<Image> images = new ArrayList<Image>();
 		try {
 			while(rs.next()){
+				int id = rs.getInt("id");
+				
 				Blob blob = rs.getBlob("image");
 				InputStream img = blob.getBinaryStream();
 				byte[] bytes = blob.getBytes(1, (int) blob.length());
 				byte[] imgBytesAsBase64 = Base64.getEncoder().encode(bytes);
 				String imgDataAsBase64 = new String(imgBytesAsBase64);
 				String imgAsBase64 = "data:image/png;base64," + imgDataAsBase64;
-				images.add(imgAsBase64);
+				images.add(new Image(id, imgAsBase64, carId));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -212,23 +215,4 @@ public class CarLogicImpl {
 		return images;
 	}
 	
-	public String getImage(int carId){
-		ResultSet rs = cp.getImages(carId);
-		try {
-			if(rs.next()){
-				Blob blob = rs.getBlob("image");
-				InputStream img = blob.getBinaryStream();
-				byte[] bytes = blob.getBytes(1, (int) blob.length());
-				byte[] imgBytesAsBase64 = Base64.getEncoder().encode(bytes);
-				String imgDataAsBase64 = new String(imgBytesAsBase64);
-				String imgAsBase64 = "data:image/png;base64," + imgDataAsBase64;
-				return imgAsBase64;
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		return null;
-	}
 }
