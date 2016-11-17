@@ -18,9 +18,9 @@ import java.sql.ResultSet;
     return db.create(con, query); 
   }
   
-  public ResultSet viewAvailable()
+  public ResultSet viewTaken(int carID)
   {
-    String query = "SELECT * from rental_dates"; 
+    String query = "SELECT * from rental_dates where carID = "+carID; 
     
     return db.retrieve(con, query); 
   
