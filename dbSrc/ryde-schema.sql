@@ -8,6 +8,7 @@
 # TODO: 
 #
 #
+DROP TABLE IF EXISTS images;
 DROP TABLE IF EXISTS rental_dates;
 DROP TABLE IF EXISTS cars;
 DROP TABLE IF EXISTS owners;
@@ -57,6 +58,18 @@ CREATE TABLE rental_dates(
     carID   INT UNSIGNED NOT NULL,
     startDate DATE,
     endDate DATE,
+    
+    FOREIGN KEY (carID) REFERENCES cars(id)
+)ENGINE=InnoDB;
+
+
+#
+#   Table for car images
+#
+CREATE TABLE images(
+    id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+    carID INT UNSIGNED NOT NULL,
+    image MEDIUMBLOB,
     
     FOREIGN KEY (carID) REFERENCES cars(id)
 )ENGINE=InnoDB;
