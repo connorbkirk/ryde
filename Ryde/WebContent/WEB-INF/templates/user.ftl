@@ -4,7 +4,7 @@
 <html>
 
 	<head>	
-		<link rel="stylesheet" type="text/css" href="view-style.css"/>
+		<link rel="stylesheet" type="text/css" href="user-style.css"/>
 		<title>Ryde</title>
 	</head>
 
@@ -16,38 +16,52 @@
 					<li><a href="Servlet?req=logout">LOGOUT</a></li>
 					<li><a href="Servlet?req=user&id=${userId}">MY ACCOUNT</a></li>
 					<li><a href="Servlet?req=add">POST A CAR</a></li>
+					<li><a href="Servlet?req=search">BROWSE</a></li>
 				<#else>
 					<li><a href="login.html">LOGIN</a></li>
-					<li><a href="#">INFO</a></li>
+					<li><a href="Servlet?req=search">BROWSE</a></li>
 				</#if>
 			</ul>
 		</div>
 
-		<div id="main">
+		<div id="blocker"></div>
+		<div id="sidebar">
 			<#if user??>
 				<div id="info">
-					${user.firstName} ${user.lastName}
-					<br/>
-					${user.username}
+					<h1>${user.firstName} ${user.lastName}'s Profile</h1>
+					Contact info here
 				</div>
+			</#if>
+		</div>
+
+		<div id="main">
+			<#if user??>
 				<#if cars??>
 					<div id="cars">
-						<h3>${user.firstName}'s cars</h3>
-						<table>
+						<h1 class="info">${user.firstName}'s cars</h1>
 							<#list cars as car>
-								<tr>
-								<td>
-									<a href="Servlet?req=car&id=${car.id}">${car.year} ${car.make} ${car.model}</a>
-								</td>
-								
-								<#if same??>
-									<td><a href="Servlet?req=edit&id=${car.id}">Edit</a></td>
-									<td><a href="Servlet?req=delete&id=${car.id}">Delete</a></td>
-								</#if>
-								
-								</tr>
+								<div class="entry" <#if car.images??>style="background-image:url(${car.images[0]!'images/default_car.png'});"</#if>>
+									<div class="overlay">
+										<span class="overlay-left">
+											<ul class="car-info">
+												<li><a href="Servlet?req=car&id=${car.id}">View</a></li>
+												<li>${car.make}</li>
+												<li>${car.model}</li>
+												<li>${car.year?c}</li>
+											</ul>
+										</span>
+										<span class="overlay-right">
+											<#if same??>
+												<a href="Servlet?req=edit&id=${car.id}">Edit</a>
+												<a href="Servlet?req=delete&id=${car.id}">Delete</a>
+											<#else>
+												$${car.price}/Day
+											</#if>
+									
+										</span>
+									</div>
+								</div>
 							</#list>
-						</table>
 					</div>
 				</#if>
 			<#else>

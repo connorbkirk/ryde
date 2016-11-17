@@ -29,6 +29,7 @@ body{
 	min-height: 7vh;
 	padding-top:10px;
 	line-height: 4vw;
+	
 }
 
 #nav li{
@@ -117,7 +118,7 @@ hr{
 	border-top: none;
 }
 
-#main{
+#main, #jumbotron{
 	float: right;
     margin-right: 5vw;
 }
@@ -133,33 +134,11 @@ hr{
 	z-index:-1;
 }
 
-.entry{
+#jumbotron{
+	text-align: center;
+}
+
+#jumbotron img{
 	width: 60vw;
 	height: 60vh;
-	background-repeat:no-repeat;
-	background-position: center;
-	background-color:white;
 }
-
-.overlay{
-	width: 60vw;
-	height: 10vh;
-	background-color: rgba(171,177,185, 0.5);
-}
-
-.overlay-left{
-	float:left;
-}
-
-.car-info{
-	list-style: none;
-}
-
-.car-info li{
-	display: inline;
-}
-
-.overlay-right{
-	float:right;
-}
-

@@ -18,7 +18,7 @@
 					<li><a href="Servlet?req=add">POST A CAR</a></li>
 				<#else>
 					<li><a href="login.html">LOGIN</a></li>
-					<li><a href="#">INFO</a></li>
+					<li><a href="Servlet?req=search">BROWSE</a></li>
 				</#if>
 			</ul>
 		</div>

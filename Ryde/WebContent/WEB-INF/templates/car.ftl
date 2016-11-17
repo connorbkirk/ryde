@@ -4,7 +4,7 @@
 <html>
 
 	<head>	
-		<link rel="stylesheet" type="text/css" href="view-style.css"/>
+		<link rel="stylesheet" type="text/css" href="car-style.css"/>
 		<title>Ryde</title>
 	</head>
 
@@ -16,9 +16,10 @@
 					<li><a href="Servlet?req=logout">LOGOUT</a></li>
 					<li><a href="Servlet?req=user&id=${userId}">MY ACCOUNT</a></li>
 					<li><a href="Servlet?req=add">POST A CAR</a></li>
+					<li><a href="Servlet?req=search">BROWSE</a></li>
 				<#else>
 					<li><a href="login.html">LOGIN</a></li>
-					<li><a href="#">INFO</a></li>
+					<<li><a href="Servlet?req=search">BROWSE</a></li>
 				</#if>
 			</ul>
 		</div>
@@ -41,10 +42,15 @@
 
 		<div id="jumbotron">
 			<span class="bottom" >Displaying X Images</span>
-			<#if car.images??>
-				<#list car.images as image>
-					<img src="${image}" />
-				</#list>
+			<#if car.images?? >
+				<#if car.images?size == 0>
+					<img src="images/default_car.png" />
+				<#else>
+					<#list car.images as image>
+						<img src="${image}" />
+					</#list>
+					
+				</#if>
 			</#if>
 		</div>
 		

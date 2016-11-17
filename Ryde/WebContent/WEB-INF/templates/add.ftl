@@ -16,9 +16,10 @@
 					<li><a href="Servlet?req=logout">LOGOUT</a></li>
 					<li><a href="Servlet?req=user&id=${userId}">MY ACCOUNT</a></li>
 					<li><a href="Servlet?req=add">POST A CAR</a></li>
+					<li><a href="Servlet?req=search">BROWSE</a></li>
 				<#else>
 					<li><a href="login.html">LOGIN</a></li>
-					<li><a href="#">INFO</a></li>
+					<li><a href="Servlet?req=search">BROWSE</a></li>
 				</#if>
 			</ul>
 		</div>
