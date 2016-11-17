@@ -35,28 +35,18 @@ public class CarLogicImpl {
 		
 		try {
 			while(rs.next()){
-				String make; 
-				String model; 
-				int carYear; 
-				String color; 
-				int price; 
-				int id;
-				int ownerId; 
-				String description; 
-				String carType;
-				
-				make = rs.getString("make"); 
-				model = rs.getString("model"); 
-				carYear = rs.getInt("carYear"); 
-				color = rs.getString("color"); 
-				price = rs.getInt("price"); 
-				id = rs.getInt("id");
-				ownerId = rs.getInt("ownerID"); 
-				description = rs.getString("description"); 
-				carType = rs.getString("carType");
+				String make = rs.getString("make"); 
+				String model = rs.getString("model");
+				int carYear = rs.getInt("carYear"); 
+				String color = rs.getString("color"); 
+				int price = rs.getInt("price"); 
+				int id = rs.getInt("id");
+				int ownerId = rs.getInt("ownerID"); 
+				String description = rs.getString("description"); 
+				String carType = rs.getString("carType");
 				//retrieves info from the result set. 
 				
-				Car car = new Car(id, make, model, carYear, color, ownerId, price, description, carType);
+				Car car = new Car(id, make, model, carYear, color, ownerId, price, description, carType, getImages(id));
 				
 				resultCars.add(car); 
 				//dynamically creates car objects. 
@@ -127,7 +117,7 @@ public class CarLogicImpl {
 				return new Car(id, rs.getString("make"), rs.getString("model"), 
 						rs.getInt("carYear"), rs.getString("color"), 
 						rs.getInt("ownerId"), rs.getInt("price"), 
-						rs.getString("description"), rs.getString("carType"));
+						rs.getString("description"), rs.getString("carType"), getImages(id));
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -149,7 +139,7 @@ public class CarLogicImpl {
 				String description = rs.getString("description");
 				String carType = rs.getString("carType");
 				
-				Car car = new Car(id, make, model, year, color, ownerId, price, description, carType);
+				Car car = new Car(id, make, model, year, color, ownerId, price, description, carType, getImages(id));
 				cars.add(car);
 			}
 		} catch (SQLException e) {
@@ -222,4 +212,23 @@ public class CarLogicImpl {
 		return images;
 	}
 	
+	public String getImage(int carId){
+		ResultSet rs = cp.getImages(carId);
+		try {
+			if(rs.next()){
+				Blob blob = rs.getBlob("image");
+				InputStream img = blob.getBinaryStream();
+				byte[] bytes = blob.getBytes(1, (int) blob.length());
+				byte[] imgBytesAsBase64 = Base64.getEncoder().encode(bytes);
+				String imgDataAsBase64 = new String(imgBytesAsBase64);
+				String imgAsBase64 = "data:image/png;base64," + imgDataAsBase64;
+				return imgAsBase64;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
 }

@@ -1,5 +1,6 @@
 package objectlayer;
 
+import java.util.List;
 
 //this class is the model of the car
 public class Car {
@@ -12,9 +13,10 @@ public class Car {
 	private int price;
 	private String description;
 	private String carType;
+	private List<String> images;
 	
 	public Car(int id, String make, String model, int year, String color, int ownerId, int price, String description,
-			String carType) {
+			String carType, List<String> images) {
 		this.id = id;
 		this.make = make;
 		this.model = model;
@@ -24,9 +26,25 @@ public class Car {
 		this.price = price;
 		this.description = description;
 		this.carType = carType;
+		this.images = images;
 	}
 	
 	
+	
+	/**
+	 * @return the images
+	 */
+	public List<String> getImages() {
+		return images;
+	}
+
+	/**
+	 * @param images the images to set
+	 */
+	public void setImages(List<String> images) {
+		this.images = images;
+	}
+
 	/**
 	 * @return the id
 	 */

@@ -102,7 +102,7 @@ hr{
 	
 	text-align:center;
 	font-size: 3vw;
-	padding-top: 3vw;
+	margin-top: 3vw;
 }
 
 .text-entry{
@@ -119,8 +119,8 @@ hr{
 }
 
 #main, #jumbotron{
-	float:right;
-	padding-left:500px;
+	float: right;
+    margin-right: 5vw;
 }
 
 #blocker{
@@ -132,4 +132,13 @@ hr{
 	min-width:180px;
 	height:4vw;
 	z-index:-1;
+}
+
+#jumbotron{
+	text-align: center;
+}
+
+#jumbotron img{
+	width: 60vw;
+	height: 60vh;
 }

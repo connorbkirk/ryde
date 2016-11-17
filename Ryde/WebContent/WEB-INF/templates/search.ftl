@@ -67,18 +67,20 @@
 		<div id="main">
 			<#if cars??>
 			<#list cars as car>
-				<div class="entry">
-					<span class="overlayLeft">
-						<ul>
+				<div class="entry" <#if car.images??>style="background-image:url(${car.images[0]!'images/default_car.png'});"</#if>>
+					<div class="overlay">
+					<span class="overlay-left">
+						<ul class="car-info">
 							<li><a href="Servlet?req=car&id=${car.id}">View</a></li>
 							<li>${car.make}</li>
 							<li>${car.model}</li>
 							<li>${car.year?c}</li>
 						</ul>
 					</span>
-					<span class="overlayRight">
+					<span class="overlay-right">
 						$${car.price}/Day
 					</span>
+					</div>
 				</div>
 			</#list>
 			<#else>

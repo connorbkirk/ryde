@@ -200,10 +200,14 @@ public class Servlet extends HttpServlet {
 			//if all the fields contain data, update the table the car table
 			if(make!=null && model != null && year != null && color != null && price != null
 					&& description != null && carType != null){
-				Car car = new Car(id, make, model, Integer.parseInt(year), 
-					color, ownerId, Integer.parseInt(price), description, carType);
+				
+				//trying the decalration on line 209 instead
+				//Car car = new Car(id, make, model, Integer.parseInt(year), 
+				//	color, ownerId, Integer.parseInt(price), description, carType, );
 			
 				carCtrl.editCar(id, make, model, year, color, price, description, carType);
+				Car car = carCtrl.getCar(id);
+				
 				root.put("done", true);
 				root.put("car", car);
 			}else{//if any field is empty, do not allow user to edit car, instead return unaltered car
@@ -308,10 +312,6 @@ public class Servlet extends HttpServlet {
 			}
 			
 		}
-		
-		//gather images
-		List<String> images = carCtrl.getImages(id);
-		root.put("images", images);
 		
 		processTemplate("car.ftl");
 	}

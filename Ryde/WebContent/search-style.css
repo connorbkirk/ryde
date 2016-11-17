@@ -131,3 +131,32 @@ hr{
 	height:4vw;
 	z-index:-1;
 }
+
+.entry{
+	width: 50vw;
+	height: 50vh;
+	background-repeat:none;
+}
+
+.overlay{
+	width: 50vw;
+	height: 10vh;
+	background-color: rgba(171,177,185, 0.5);
+}
+
+.overlay-left{
+	float:left;
+}
+
+.car-info{
+	list-style: none;
+}
+
+.car-info li{
+	display: inline;
+}
+
+.overlay-right{
+	float:right;
+}
+

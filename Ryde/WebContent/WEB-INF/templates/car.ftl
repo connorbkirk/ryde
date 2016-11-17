@@ -41,9 +41,9 @@
 
 		<div id="jumbotron">
 			<span class="bottom" >Displaying X Images</span>
-			<#if images??>
-				<#list images as image>
-					<img alt="My image" src="${image}" />
+			<#if car.images??>
+				<#list car.images as image>
+					<img src="${image}" />
 				</#list>
 			</#if>
 		</div>
