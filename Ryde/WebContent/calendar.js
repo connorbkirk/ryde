@@ -29,7 +29,7 @@ function ajaxCallValidation()
             request = new XMLHttpRequest(); 
         }
     
-    request.open("POST", "login", true); 
+    request.open("POST", "Servlet", true); 
     request.send("username=" + username & "password=" + password);
     //opens connection to server and sends details. 
     
@@ -57,19 +57,34 @@ function ajaxCallCalender()
             request = new XMLHttpRequest(); 
         }
     
-    request.open("GET", "calender", true); 
+    //request.open("GET", "calender", true); 
     
+    request.get("Servlet");
+    //get info from servlet. 
     
     
     request.onreadystatechange = function()
     {
         if (this.status === 200)
-            return this.resoponseText; 
+        {
+            var stringDates = this.responseText; 
+            //when request is done get the response string. 
+            
+            //return this.resoponseText; 
+        }
+        
+      
     }
+    
+    var jsDates = eval(stringDates); 
+    //convert strings to js vars via JSON eval. 
+    
+    return jsDates; 
+    //return json objects. 
     
 }
 
-
+/*
 function ajaxDisplayAlert()
 {
     var request; 
@@ -83,3 +98,4 @@ function ajaxDisplayAlert()
     
     
 }
+*/
