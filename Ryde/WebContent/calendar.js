@@ -63,20 +63,29 @@ function ajaxCallCalender()
     //get info from servlet. 
     
     
+    var stringDates; 
+    
     request.onreadystatechange = function()
     {
-        if (this.status === 200)
+        if ((this.status === 200) && (this.readyState === 4) &&& (this.responseText != undefined))
         {
-            var stringDates = this.responseText; 
+            stringDates = this.responseText; 
             //when request is done get the response string. 
             
             //return this.resoponseText; 
         }
         
-      
+        else 
+            stringDates = undefined;   
     }
     
-    var jsDates = eval(stringDates); 
+    var jsDates; 
+    
+    if (stringDates != undefined)
+        jsDates = eval(stringDates); 
+    else 
+        jsDates = undefined; 
+    
     //convert strings to js vars via JSON eval. 
     
     return jsDates; 
@@ -84,18 +93,14 @@ function ajaxCallCalender()
     
 }
 
-/*
-function ajaxDisplayAlert()
+function CalenderRender()
 {
-    var request; 
+    //assuming 
     
-    if (window.XMLHttpRequest)
-        {
-            request = new XMLHttpRequest(); 
-        }
+    var invalidDates = ajaxCallCalender(); 
     
-    
-    
-    
+    if (invalidDates != undefined)
+        $('#calendar').availabilityCalendar(invalidDates);
+    else
+   
 }
-*/
