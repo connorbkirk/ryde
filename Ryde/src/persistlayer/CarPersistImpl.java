@@ -1,6 +1,5 @@
 package persistlayer;
 
-import java.io.FileInputStream;
 import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -95,22 +94,36 @@ public class CarPersistImpl {
 			return true; 
 	}
 
-	public void putImage(InputStream image, int carId) {
+	public ResultSet putImage(InputStream image, int carId) {
 		try {
 			String query = "INSERT INTO images (carID, image) VALUES (?, ?)";
 			PreparedStatement ps = con.prepareStatement(query);
 			ps.setInt(1, carId);
 			ps.setBlob(2, image);
 			ps.executeUpdate();
+			
+			query = "SELECT * FROM images WHERE id=LAST_INSERT_ID();";
+			return db.retrieve(con, query);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		return null;
 	}
 	
 	public ResultSet getImages(int carId){
 		String query = "SELECT * FROM images WHERE carID=" +carId;
 		
 		return db.retrieve(con, query);
+	}
+
+	public ResultSet carIdOfImage(int id) {
+		String query = "SELECT carID FROM images WHERE id=" +id;
+		return db.retrieve(con, query);
+	}
+
+	public void deleteImage(int id) {
+		String query = "DELETE FROM images WHERE id=\'"+id+"\'";
+		db.delete(con, query);
 	}
 }

@@ -123,14 +123,15 @@ hr{
 }
 
 #blocker{
-	position:fixed;
-	float:left;
-	margin-left: 5vw;
-	background-color: black;
-	width:25vw;
-	min-width:180px;
-	height:4vw;
-	z-index:-1;
+	position: fixed;
+    float: left;
+    margin-left: 5vw;
+    background-color: black;
+    width: 25vw;
+    min-width: 180px;
+    height: 11vw;
+    z-index: -1;
+    margin-top: -8vw;
 }
 
 .entry{

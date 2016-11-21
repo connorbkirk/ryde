@@ -90,51 +90,54 @@ hr{
 }
 
 .text-entry{
-	margin-left: .5vw;
-	background-color:black;
-	font-size: 1.5vw;
+	background-color: #2D2D2D;
+	font-size: 2vw;
 	vertical-align: middle;
 	text-align: center;
 	color: white;
-	border: .4vw white solid;
-	
+	border: .4vw rgba(255,255,255,.5) solid;
+	font-family: the-body;
 	border-right: none;
 	border-top: none;
+	
+	width: 15vw;
+	height: 5vh;
+	margin: 2vw;
+}
+
+.text-box{
+	width: 40vw;
+	height: 20vh;
+	
+	background-color: #2D2D2D;
+	font-size: 1.5vw;
+	vertical-align: middle;
+	color: white;
+	border: .4vw rgba(255,255,255,.5) solid;
+	font-family: the-body;
 }
 
 #main{
 	text-align: center;
-}
-
-.entry{
-	width: 60vw;
-	height: 60vh;
-	background-repeat:no-repeat;
-	background-position: center;
-	background-color:white;
-	background-image:url("images/default_car.png");
-}
-
-.overlay{
-	width: 60vw;
-	height: 10vh;
-	background-color: rgba(171,177,185, 0.5);
-}
-
-#images{
-	text-align: center;
-}
-
-#images li{
-	background-size:auto 30vh;
-	background-repeat: no-repeat;
-	background-position: center top;
-	height: 30vw;
-	width: 30vh;
+	padding-top: 5vw;
 }
 
 .overlay{
 	width: 30vh;
 	height: 5vh;
+	background-color: rgba(171,177,185, 0.5);
+}
+
+#current-images{
+	text-align: center;
+}
+
+#current-images li{
+	display:inline-block;
+	background-size:auto 30vh;
+	background-repeat: no-repeat;
+	background-position: center top;
+	height: 30vh;
+	width: 30vh;
 }
 

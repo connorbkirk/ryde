@@ -27,6 +27,7 @@ import freemarker.template.TemplateExceptionHandler;
 import logiclayer.CarLogicImpl;
 import logiclayer.UserLogicImpl;
 import objectlayer.Car;
+import objectlayer.Image;
 import objectlayer.User;
 
 /**
@@ -125,14 +126,68 @@ public class Servlet extends HttpServlet {
 			case "delete":
 				delete(request, response);
 				break;
+			case "deleteImage":
+				deleteImage(request, response);
+				break;
+			case "uploadImage":
+				uploadImage(request, response);
+				break;
 			default:
 				response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid request");
 				break;
-			
 		}
 	}
 	
-	
+	private void uploadImage(HttpServletRequest request, HttpServletResponse response) {
+		int carId = Integer.parseInt(request.getParameter("id"));
+		CarLogicImpl carCtrl = new CarLogicImpl();
+		try {
+			//upload image
+			Part filePart = request.getPart("image");
+			InputStream fileContent = filePart.getInputStream();
+			Image image = carCtrl.putImage(fileContent, carId);
+			
+			//get json of image
+			StringBuffer returnData = new StringBuffer("{\"image\":{");
+			returnData.append("\"id\": \"" + image.getId() + "\",");
+			returnData.append("\"image\": \"" + image.getImage() + "\",");
+			returnData.append("\"carID\": \"" + image.getCarId() + "\"}}");
+	        
+			out.print(returnData.toString());
+		} catch (IOException | ServletException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	private void deleteImage(HttpServletRequest request, HttpServletResponse response) {
+		HttpSession session = request.getSession();
+		CarLogicImpl carCtrl = new CarLogicImpl();
+		
+		//make sure that the user is deleting his/her own image
+		Integer userId = (Integer) session.getAttribute("user");
+		int id = Integer.parseInt(request.getParameter("id"));
+		int ownerId = carCtrl.getOwnerOfImage(id);
+		
+		//route the user to login if user is not logged in
+		if(userId == null){
+		try {
+			response.sendRedirect("login.html");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		//route the user if they are trying to edit a car they do not own
+		}else if(userId != ownerId){
+			//route user back to previous page or send to access forbidden page
+			sendToLastPage(response, session);
+		}
+		else{
+			carCtrl.deleteImage(id);
+		}
+		
+	}
+
 	private void delete(HttpServletRequest request, HttpServletResponse response) {
 		//create logic and session objects
 		CarLogicImpl carCtrl = new CarLogicImpl();

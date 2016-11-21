@@ -5,6 +5,8 @@
 
 	<head>	
 		<link rel="stylesheet" type="text/css" href="edit-style.css"/>
+		<script src="jquery-3.1.1.min.js"></script>
+		<script src="edit.js"></script>
 		<title>Ryde</title>
 	</head>
 
@@ -31,25 +33,33 @@
 		</#if>
 			<form action="Servlet?req=edit" method="POST">
 				<input hidden name="id" value="${car.id}"/>
-				<input type="textfield" placeholder="Make" name="make" value="${car.make}"/><br/>
-				<input type="textfield" placeholder="Model" name="model" value="${car.model}"/><br/>
-				<input type="textfield" placeholder="Year" name="year" value="${car.year?c}"/><br/>
-				<input type="textfield" placeholder="Color" name="color" value="${car.color}"/><br/>
-				<input type="textfield" placeholder="Price per Day" name="price" value="${car.price?c}"/><br/>
-				<input type="textfield" placeholder="Body type" name="type" value="${car.carType}"/><br/>
-				<textarea placeholder="Description" name="description">${car.description}</textarea><br/>
+				<input type="textfield" placeholder="Make" name="make" value="${car.make}" class="text-entry" />
+				<input type="textfield" placeholder="Model" name="model" value="${car.model}" class="text-entry" />
+				<input type="textfield" placeholder="Year" name="year" value="${car.year?c}" class="text-entry" /><br />
+				<input type="textfield" placeholder="Color" name="color" value="${car.color}" class="text-entry" />
+				<input type="textfield" placeholder="Price per Day" name="price" value="${car.price?c}" class="text-entry" />
+				<input type="textfield" placeholder="Body type" name="type" value="${car.carType}" class="text-entry" /><br />
+				<textarea placeholder="Description" name="description" class="text-box">${car.description}</textarea><br/>
 				<input type="submit"/>
 			</form>
-			<ul id="images">
-				<#list car.images as image>
-					<li style="background-image:url(${image.image});">
-						<div class="overlay">
-							<a href="Servlet?req=deleteImage&id=${image.id}">X</a>
-						</div>
-					</li>
-				</#list>
-			</ul>
-			<a href="Servlet?req=delete&id=${car.id}">Delete</a>
+			<div id="image-options">
+				<ul id="current-images">
+					<#list car.images as image>
+						<li style="background-image:url(${image.image});" id="img-${image.id}">
+							<div class="overlay">
+								<!--<a href="Servlet?req=deleteImage&id=${image.id}" id="deleteImage">X</a>-->
+								<input type="button" value="X" class="deleteImage" id="${image.id}" />
+							</div>
+						</li>
+					</#list>
+				</ul>
+				<form id="image-upload" action="Servlet?req=uploadImage" method="POST" enctype="multipart/form-data">
+					<input hidden name="id" value="${car.id}"/>
+					<input type="file" name="image" id="upload" accept="image/*" /><br />
+				</form>
+			</div>
+			<br />
+			<a href="Servlet?req=delete&id=${car.id}">Delete Post</a>
 		</div>
 	</body>
 

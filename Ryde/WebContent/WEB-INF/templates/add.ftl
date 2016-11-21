@@ -5,6 +5,8 @@
 
 	<head>	
 		<link rel="stylesheet" type="text/css" href="default-style.css"/>
+		<script src="jquery-3.1.1.min.js"></script>
+		<script src="add.js"></script>
 		<title>Ryde</title>
 	</head>
 
@@ -39,7 +41,6 @@
 				<textarea placeholder="Description" name="description"></textarea><br />
 				<label>Upload images</label><input type="file" name="image" accept="image/*" /><br />
 				<input type="submit"/>
-			
 			</form>
 		</#if>
 		</div>

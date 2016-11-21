@@ -188,8 +188,25 @@ public class CarLogicImpl {
 		
 	}
 
-	public void putImage(InputStream image, int carId) {
-		cp.putImage(image, carId);
+	public Image putImage(InputStream image, int carId) {
+		ResultSet rs = cp.putImage(image, carId);
+		try {
+			if(rs.next()){
+				int id = rs.getInt("id");
+				Blob blob = rs.getBlob("image");
+				InputStream img = blob.getBinaryStream();
+				byte[] bytes = blob.getBytes(1, (int) blob.length());
+				byte[] imgBytesAsBase64 = Base64.getEncoder().encode(bytes);
+				String imgDataAsBase64 = new String(imgBytesAsBase64);
+				String imgAsBase64 = "data:image/png;base64," + imgDataAsBase64;
+				
+				return new Image(id, imgAsBase64, carId);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 	
 	public List<Image> getImages(int carId){
@@ -213,6 +230,25 @@ public class CarLogicImpl {
 		}
 		
 		return images;
+	}
+
+	public int getOwnerOfImage(int id) {
+		ResultSet rs = cp.carIdOfImage(id);
+		try {
+			if(rs.next()){
+				int carId = rs.getInt("carID");
+				return getOwnerId(carId);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return -1;
+	}
+
+	public void deleteImage(int id) {
+		cp.deleteImage(id);
+		
 	}
 	
 }

@@ -5,6 +5,8 @@
 
 	<head>	
 		<link rel="stylesheet" type="text/css" href="car-style.css"/>
+		<script src="jquery-3.1.1.min.js"></script>
+		<script src="car.js"></script>
 		<title>Ryde</title>
 	</head>
 
@@ -41,29 +43,38 @@
 		</div>
 
 		<div id="jumbotron">
-			<span class="bottom" >Displaying X Images</span>
 			<#if car.images?? >
 				<#if car.images?size == 0>
-					<img src="images/default_car.png" />
+					<img src="images/default_car.png" class="images" />
 				<#else>
+					<a id="btn-left">&#10094;</a>
+					<a id="btn-right">&#10095;</a>
 					<#list car.images as image>
-						<img src="${image.image}" />
+						<img src="${image.image}" class="images" />
 					</#list>
-					
 				</#if>
 			</#if>
 		</div>
 		
 		<div id="main">
 			<div id="info">
-				${car.make}
-				<br/>
-				${car.model}
-				<br/>
-				${car.year?c}
+				<table>
+					<tr>
+						<td class="header">Make</td>
+						<td class="support">${car.make}</td>
+					</tr>
+					<tr>
+						<td class="header">Model</td>
+						<td class="support">${car.model}</td>
+					<tr>
+						<td class="header">Year</td>
+						<td class="support">${car.year?c}</td>
+					</tr>
+				</table>
 			</div>
 			<div id="description">
-				${car.description} <br/>
+				<span class="header">Description</span><br>
+				<p>${car.description}</p>
 			</div>
 			
 			<#if same??>
