@@ -39,24 +39,26 @@
 				<input type="textfield" placeholder="Color" name="color" value="${car.color}" class="text-entry" />
 				<input type="textfield" placeholder="Price per Day" name="price" value="${car.price?c}" class="text-entry" />
 				<input type="textfield" placeholder="Body type" name="type" value="${car.carType}" class="text-entry" /><br />
-				<textarea placeholder="Description" name="description" class="text-box">${car.description}</textarea><br/>
+				<textarea placeholder="Description" name="description" class="text-entry text-box">${car.description}</textarea><br/>
 				<input type="submit"/>
 			</form>
 			<div id="image-options">
+				<form id="image-upload" action="Servlet?req=uploadImage" method="POST" enctype="multipart/form-data">
+					<input hidden name="id" value="${car.id}"/>
+					
+					<label for="upload" class="button"><img src="images/upload.png" class="thumb" />Upload</label>
+					
+					<input type="file" name="image" id="upload" accept="image/*" /><br />
+				</form>
 				<ul id="current-images">
 					<#list car.images as image>
 						<li style="background-image:url(${image.image});" id="img-${image.id}">
 							<div class="overlay">
-								<!--<a href="Servlet?req=deleteImage&id=${image.id}" id="deleteImage">X</a>-->
 								<input type="button" value="X" class="deleteImage" id="${image.id}" />
 							</div>
 						</li>
 					</#list>
 				</ul>
-				<form id="image-upload" action="Servlet?req=uploadImage" method="POST" enctype="multipart/form-data">
-					<input hidden name="id" value="${car.id}"/>
-					<input type="file" name="image" id="upload" accept="image/*" /><br />
-				</form>
 			</div>
 			<br />
 			<a href="Servlet?req=delete&id=${car.id}">Delete Post</a>

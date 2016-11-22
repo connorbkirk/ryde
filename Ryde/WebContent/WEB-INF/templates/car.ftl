@@ -78,6 +78,7 @@
 			</div>
 			
 			<#if same??>
+				<br />
 				<a href="Servlet?req=edit&id=${car.id}">Edit Listing</a>
 			</#if>
 		</div>

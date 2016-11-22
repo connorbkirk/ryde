@@ -108,47 +108,16 @@ hr{
 .text-box{
 	width: 40vw;
 	height: 20vh;
-	
-	background-color: #2D2D2D;
+	text-align: left;
 	font-size: 1.5vw;
 	vertical-align: middle;
 	color: white;
 	border: .4vw rgba(255,255,255,.5) solid;
-	font-family: the-body;
 }
 
 #main{
 	text-align: center;
 	padding-top: 5vw;
-}
-
-.overlay{
-	width: 30vh;
-	height: 5vh;
-	background-color: rgba(171,177,185, 0.5);
-}
-
-#current-images{
-	text-align: center;
-	padding: 0;
-	
-}
-
-#current-images li{
-	display:inline-block;
-	background-size:auto 30vh;
-	background-repeat: no-repeat;
-	background-position: center top;
-	height: 30vh;
-	width: 30vh;
-	padding-bottom: 3vh;
-}
-
-#image-options{
-	padding: 3vh 0;
-	width: 70vw;
-	border: 3px #634271 dotted;
-	margin: 0 auto;
 }
 
 .right{
@@ -177,22 +146,4 @@ hr{
 .disabled {
     opacity: 0.2;
     cursor: not-allowed;
-}
-
-input[type="file"] {
-    display: none;
-}
-
-.custom-file-upload{
-	border: 1px solid #ccc;
-    display: inline-block;
-    padding: 6px 12px;
-    cursor: pointer;
-}
-
-.thumb{
-	width: 3vw;
-	height: auto;
-	vertical-align: middle;
-	float:left;
 }

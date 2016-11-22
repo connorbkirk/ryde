@@ -121,6 +121,7 @@ hr{
     margin-right: 5vw;
 	text-align: center;
 	width: 60vw;
+	
 	height: 60vh;
 	background-color:black;
 	position: relative;
@@ -160,6 +161,7 @@ hr{
 .images{
 	height: 60vh;
 	width: auto;
+	min-height: 50vh;
 	position: relative;
 	margin: 0 auto;
 }

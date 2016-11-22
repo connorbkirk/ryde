@@ -1,5 +1,6 @@
 package boundary;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
@@ -17,6 +18,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
+
+import com.google.gson.Gson;
 
 import freemarker.template.Configuration;
 import freemarker.template.DefaultObjectWrapperBuilder;
@@ -39,13 +42,13 @@ import objectlayer.User;
 @MultipartConfig
 public class Servlet extends HttpServlet {
 	//global variables
-		private static final long serialVersionUID = 1L;
-		private Configuration cfg = null;					//config
-		private String templateDir = null;					//template directory
-		private Template template = null;					//template object
-		private DefaultObjectWrapperBuilder df = null;		//for use with freemarker
-		private SimpleHash root = null;						//root map for use with freemarker
-		PrintWriter out = null;								//writer for output
+	private static final long serialVersionUID = 1L;
+	private Configuration cfg = null;					//config
+	private String templateDir = null;					//template directory
+	private Template template = null;					//template object
+	private DefaultObjectWrapperBuilder df = null;		//for use with freemarker
+	private SimpleHash root = null;						//root map for use with freemarker
+	private PrintWriter out = null;						//writer for output
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -132,12 +135,30 @@ public class Servlet extends HttpServlet {
 			case "uploadImage":
 				uploadImage(request, response);
 				break;
+			case "upload":
+				upload(request, response);
+				break;
 			default:
 				response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid request");
 				break;
 		}
 	}
 	
+	//this is the method that handles the upload.ftl view
+	private void upload(HttpServletRequest request, HttpServletResponse response) {
+		HttpSession session = request.getSession();
+		
+		int carId = Integer.parseInt(request.getParameter("id"));
+		Integer userId = (Integer) session.getAttribute("user");
+		root.put("carId", carId);
+		if(userId!=null)
+			root.put("userId", userId);
+		else
+			sendToLastPage(response, session);
+		
+		processTemplate("upload.ftl");
+	}
+
 	private void uploadImage(HttpServletRequest request, HttpServletResponse response) {
 		int carId = Integer.parseInt(request.getParameter("id"));
 		CarLogicImpl carCtrl = new CarLogicImpl();
@@ -148,12 +169,24 @@ public class Servlet extends HttpServlet {
 			Image image = carCtrl.putImage(fileContent, carId);
 			
 			//get json of image
-			StringBuffer returnData = new StringBuffer("{\"image\":{");
-			returnData.append("\"id\": \"" + image.getId() + "\",");
-			returnData.append("\"image\": \"" + image.getImage() + "\",");
-			returnData.append("\"carID\": \"" + image.getCarId() + "\"}}");
+			Gson gson = new Gson();
+			String json = gson.toJson(image);
 	        
-			out.print(returnData.toString());
+			//create inputstream of json
+			InputStream is = new ByteArrayInputStream(json.getBytes("UTF-8"));
+			byte[] buffer = new byte[1024];
+			int bytesRead = 0;
+			
+			//reset response so we can use outputstream
+			response.reset();
+			
+			//write json to output
+			do{
+				bytesRead = is.read(buffer, 0, buffer.length);
+				response.getOutputStream().write(buffer, 0, bytesRead);
+			}while(bytesRead == buffer.length);
+			
+			
 		} catch (IOException | ServletException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -255,10 +288,6 @@ public class Servlet extends HttpServlet {
 			//if all the fields contain data, update the table the car table
 			if(make!=null && model != null && year != null && color != null && price != null
 					&& description != null && carType != null){
-				
-				//trying the decalration on line 209 instead
-				//Car car = new Car(id, make, model, Integer.parseInt(year), 
-				//	color, ownerId, Integer.parseInt(price), description, carType, );
 			
 				carCtrl.editCar(id, make, model, year, color, price, description, carType);
 				Car car = carCtrl.getCar(id);
@@ -296,8 +325,15 @@ public class Servlet extends HttpServlet {
 				int ownerId = (Integer) session.getAttribute("user");
 				int carId = carCtrl.addCar(ownerId, make, model, year, color, 
 						price, description, carType);
-				uploadCarImages(request, carId);
-				root.put("id", carId);
+				//uploadCarImages(request, carId);
+				//root.put("id", carId);
+				
+				//route user to upload images
+				try {
+					response.sendRedirect("Servlet?req=upload&id="+carId);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 			}
 			root.put("userId", session.getAttribute("user"));
 			processTemplate("add.ftl");
@@ -509,18 +545,4 @@ public class Servlet extends HttpServlet {
 		}
 	}
 	
-	private void uploadCarImages(HttpServletRequest request, int carId) {
-		CarLogicImpl carCtrl = new CarLogicImpl();
-		try {
-			Part filePart = request.getPart("image");
-			InputStream fileContent = filePart.getInputStream();
-			carCtrl.putImage(fileContent, carId);
-			
-		} catch (IOException | ServletException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		
-	}
 }

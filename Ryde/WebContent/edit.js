@@ -1,9 +1,29 @@
-window.onload=init;
-
-function init(){
-	$(".deleteImage").click(deleteImage);
+$(document).ready(function(){
+    $('.text-entry').keyup(doCheck).focusout(doCheck);
+    $(".deleteImage").click(deleteImage);
 	$("#upload").change(uploadImage);
+});
+
+
+//make sure all the fields are not empty before allowing user to continue
+function doCheck(){
+    var allFilled = true;
+    $('.text-entry').each(function(){
+        if($(this).val() == ''){
+            allFilled = false;
+            return false;
+        }
+    });
+    if(allFilled && $.isNumeric($("input[name=year]").val()) && $.isNumeric($("input[name=price]").val())){
+    	$('input[type=submit]').removeClass("disabled");
+    	$('input[type=submit]').attr('disabled', false);
+    }
+    else{
+    	$('input[type=submit]').addClass("disabled");
+    	$('input[type=submit]').attr('disabled', true);
+    }
 }
+
 
 function deleteImage(){
 	var id = $(this).attr('id');//get id of image to delete
@@ -30,12 +50,16 @@ function uploadImage(){
 	        cache: false,
 	        processData:false,
 	        success: function(data){
+	        	if(data==null)
+	        		return;
 	        	var result = JSON.parse(data);
+	        	console.log(result.id);
+	        	console.log("called");
 	        	
 	        	//create list item
 	        	var li = $(document.createElement('li'));
-	        	li.attr("id", "img-" + result.image.id);
-	        	li.css("background-image", "url("+result.image.image+")");
+	        	li.attr("id", "img-" + result.id);
+	        	li.css("background-image", "url("+result.image+")");
 	        	
 	        	//create overlay
 	        	var div = $(document.createElement('div'));
@@ -47,7 +71,7 @@ function uploadImage(){
 	        	inp.val("X");
 	        	inp.attr("class", "deleteImage");
 	        	inp.click(deleteImage);
-	        	inp.attr("id", result.image.id);
+	        	inp.attr("id", result.id);
 	        	
 	        	//append items
 	        	div.append(inp);
@@ -60,6 +84,7 @@ function uploadImage(){
 		    	$("#image-upload").append(error);
 		    }          
 	    });
+	    formObj.off(); //to stop multiple form submit.
 	    e.preventDefault(); //Prevent Default action. 
 	}); 
 	$("#image-upload").submit(); //Submit the form
