@@ -57,17 +57,14 @@ function ajaxCallCalender()
             request = new XMLHttpRequest(); 
         }
     
-    //request.open("GET", "calender", true); 
-    
-    request.get("Servlet");
-    //get info from servlet. 
-    
+    request.open("GET", "Servlet", true); 
+    request.send(); 
     
     var stringDates; 
     
     request.onreadystatechange = function()
     {
-        if ((this.status === 200) && (this.readyState === 4) &&& (this.responseText != undefined))
+        if ((this.status === 200) && (this.readyState === 4) && (this.responseText != undefined))
         {
             stringDates = this.responseText; 
             //when request is done get the response string. 
