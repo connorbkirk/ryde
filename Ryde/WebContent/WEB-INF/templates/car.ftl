@@ -57,7 +57,7 @@
 		</div>
 		
 		<div id="main">
-			<div id="info">
+			<div class="info">
 				<table>
 					<tr>
 						<td class="header">Make</td>
@@ -66,6 +66,7 @@
 					<tr>
 						<td class="header">Model</td>
 						<td class="support">${car.model}</td>
+					</tr>
 					<tr>
 						<td class="header">Year</td>
 						<td class="support">${car.year?c}</td>
@@ -76,7 +77,22 @@
 				<span class="header">Description</span><br>
 				<p>${car.description}</p>
 			</div>
-			
+			<div class="info">
+				<table>
+					<tr>
+						<td class="header">Body Type</td>
+						<td class="support">${car.carType}</td>
+					</tr>
+					<tr>
+						<td class="header">Color</td>
+						<td class="support">${car.color}</td>
+					</tr>
+					<tr>
+						<td class="header">Price</td>
+						<td class="support">${car.price}/day</td>
+					</tr>
+				</table>
+			</div>
 			<#if same??>
 				<br />
 				<a href="Servlet?req=edit&id=${car.id}">Edit Listing</a>

@@ -1,6 +1,6 @@
 @font-face{
-	font-family: fancy_font;
-	src: url('fonts/AccelerationReaction.ttf');
+	font-family: fancy-font;
+	src: url('fonts/RequitedScriptDemo.ttf');
 }
 
 @font-face{
@@ -16,9 +16,11 @@ body{
 
 .logo{
 	color: #634271;
-	font-family: fancy_font, sans serif;
+	font-family: fancy-font, sans serif;
 	float:left;
-	font-size: 20vw;
+	font-size: 5vw;
+	margin-right: auto;
+	padding-left: 3vw;
 	text-decoration: none;
 }
 
@@ -30,6 +32,9 @@ body{
 	padding-top:10px;
 	line-height: 4vw;
 	
+	display: flex;
+	align-items:center;
+	justify-content:flex-end;
 }
 
 #nav li{
@@ -45,35 +50,12 @@ body{
 	color:#FFFFFF;
 }
 
-.fancy{
-	color: #634271;
-	font-family: fancy_font, sans serif;
-	font-size: 30vh;
-	padding-right: 20px;
-}
-
-
-.center{
-	position: relative;
-  	top: 50%;
-  	transform: perspective(1px) translateY(-50%);
-  	text-align: center;
-  	overflow: hidden;
-}
-
 
 hr{
 	margin: 0;
 	height: 5px;
 	background-color: #ABABAB;
 	border:none;
-}
-
-.button{
-	background-color: #634271;
-	padding: 10px 30px 30px 30px;
-	text-decoration: none;
-	color: #ABABAB;
 }
 
 #sidebar{
@@ -167,15 +149,16 @@ hr{
 }
 
 #main{
-	padding-top: 2.5vw;
+	margin-top: 2vw;
 	float: right;
     margin-right: 5vw;
 	clear: right;
 	width: 60vw;
 }
 
-#info{
+.info{
 	border: 3px solid #634271;
+	margin-top: 2.5vw;
 }
 
 .header{
@@ -199,4 +182,22 @@ hr{
 	color: white;
 	font-size: 2vw;
 	margin: 0;
+}
+
+.button{
+	-webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+	background-color: #634271;
+	border: none;
+	font-size: 3vw;
+	font-family: the-body;
+	color: white;
+	display: inline-block;
+	padding: 15px 32px;
+	text-decoration: none;
+}
+
+.button:hover{
+	background-color: white;
+    color: #634271;
 }

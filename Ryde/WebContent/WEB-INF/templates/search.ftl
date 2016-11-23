@@ -62,7 +62,7 @@
 				<select name="sortBy">
 					<option value="revelance" >Relevance</option>
 				</select>
-				<input type="submit">
+				<input type="submit" class="button">
 			</form>
 		</div>
 
@@ -72,16 +72,16 @@
 				<a href="Servlet?req=car&id=${car.id}">
 				<div class="entry" <#if car.images[0]??>style="background-image:url(${car.images[0].image!'images/default_car.png'});"</#if>>
 					<div class="overlay">
-					<span class="overlay-left">
-						<ul class="car-info">
-							<li>${car.make}</li>
-							<li>${car.model}</li>
-							<li>${car.year?c}</li>
-						</ul>
-					</span>
-					<span class="overlay-right">
-						$${car.price}/Day
-					</span>
+						<span class="overlay-left">
+							<ul class="car-info">
+								<li>${car.make}</li>
+								<li>${car.model}</li>
+								<li>${car.year?c}</li>
+							</ul>
+						</span>
+						<span class="overlay-right">
+							$${car.price}/Day
+						</span>
 					</div>
 				</div>
 				</a>

@@ -1,6 +1,6 @@
 @font-face{
-	font-family: fancy_font;
-	src: url('fonts/AccelerationReaction.ttf');
+	font-family: fancy-font;
+	src: url('fonts/RequitedScriptDemo.ttf');
 }
 
 @font-face{
@@ -16,11 +16,12 @@ body{
 
 .logo{
 	color: #634271;
-	font-family: fancy_font, sans serif;
+	font-family: fancy-font, sans serif;
 	float:left;
-	font-size: 20vw;
+	font-size: 5vw;
+	margin-right: auto;
+	padding-left: 3vw;
 	text-decoration: none;
-	
 }
 
 #nav{
@@ -31,6 +32,9 @@ body{
 	padding-top:10px;
 	line-height: 4vw;
 	
+	display: flex;
+	align-items:center;
+	justify-content:flex-end;
 }
 
 #nav li{
@@ -54,34 +58,11 @@ body{
 }
 
 
-.center{
-	position: relative;
-  	top: 50%;
-  	transform: perspective(1px) translateY(-50%);
-  	text-align: center;
-  	overflow: hidden;
-}
-
-
 hr{
 	margin: 0;
 	height: 5px;
 	background-color: #ABABAB;
 	border:none;
-}
-
-.valign-wrapper{
-	position: absolute;
-  	width: 100%;
-  	height: 100%;
-  	display: table;
-}
-.valign{
-	vertical-align: middle;
-}
-
-.container{
-	position: relative;
 }
 
 .button{
