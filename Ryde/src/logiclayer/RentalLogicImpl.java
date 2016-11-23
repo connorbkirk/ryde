@@ -29,29 +29,42 @@ public class RentalLogicImpl()
 
     public String viewUnavailable(int carID, String d1, String d2)
     {
-        ResultSet rs = rpi.verifyDate(int carID, String d1, String d2); 
+        //ResultSet rs = rpi.verifyDate(int carID, String d1, String d2); 
         
-        ArrayList<RentalDates>rd = new ArrayList<RentalDates>(); 
-        
-        String jsVar = "var invalidDates = ["; 
-        
-        while (rs.next())
+        ResultRest rs = null;
+        String dateVar = "["; 
+      
+      
+        rs  =rpi.viewAvailable(); 
+      //returns all taken dates. 
+    
+     if (rs != null)
+     {
+       //if there are dates taken iterate and create js variable to be parsed. 
+      
+        while(rs.next())
         {
-        
           String day1 = rs.getString("startDate"); 
           String day2 = rs.getString("endDate"); 
-          
-          ijsVar = jsVar + "{start: \" + day1 + "\", end: \"" + day2 + "\"},"; 
-          
-          //rd.add(new RentalDates(startDate, endDate)); 
-        
+
+
+          dateVar = dateVar + "{start:\"" + startDate + "\", end:\"" + endDate + "\"}, ";
+
+          //dateVar = dateVar + startDate + "\", end:\"" + endDate 
+
+
+
         }
-        
-        jsVar = jsVar + "];"; 
-        
-        return jsVar; 
-        
-    }
+
+        dateVar = dateVar + "]"; 
+      
+     }
+      
+      else
+        dateVar = "undefined"; 
+      
+      
+      return dateVar; 
   
   
   
