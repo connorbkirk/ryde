@@ -66,7 +66,7 @@ function ajaxCallCalender()
     {
         if ((this.status === 200) && (this.readyState === 4) && (this.responseText != undefined))
         {
-            stringDates = this.responseText; 
+            stringDates = JSON.parse(this.responseText); 
             //when request is done get the response string. 
             
             //return this.resoponseText; 
