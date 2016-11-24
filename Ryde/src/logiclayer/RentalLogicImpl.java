@@ -12,11 +12,15 @@ import java.util.List;
 
 import javax.imageio.ImageIO;
 
+import com.google.gson.Gson;
+
 import objectlayer.Car;
+import objectlayer.Rental;
 import persistlayer.CarPersistImpl;
+import persistlayer.RentalPersistImpl;
 
 
-public class RentalLogicImpl()
+public class RentalLogicImpl
 {
   private RentalPersistImpl rpi; 
   
@@ -27,12 +31,22 @@ public class RentalLogicImpl()
   }
 
 
-    public String viewUnavailable(int carID, String d1, String d2)
+    public String viewUnavailable() throws SQLException
     {
         //ResultSet rs = rpi.verifyDate(int carID, String d1, String d2); 
         
-        ResultRest rs = null;
-        String dateVar = "["; 
+    	Gson gson = new Gson();
+    	
+    	ArrayList<Gson> tempGson = new ArrayList<Gson>(); 
+    	ArrayList<Rental> tempRental = new ArrayList<Rental>(); 
+    	
+    	
+    	
+    	
+        ResultSet rs = null;
+        
+        
+        String dateVar = null; 
       
       
         rs  =rpi.viewAvailable(); 
@@ -46,17 +60,14 @@ public class RentalLogicImpl()
         {
           String day1 = rs.getString("startDate"); 
           String day2 = rs.getString("endDate"); 
-
-
-          dateVar = dateVar + "{start:\"" + startDate + "\", end:\"" + endDate + "\"}, ";
-
-          //dateVar = dateVar + startDate + "\", end:\"" + endDate 
-
-
-
+          
+          tempRental.add(new Rental(day1, day2)); 
         }
 
-        dateVar = dateVar + "]"; 
+        
+        dateVar = gson.toJson(tempRental); 
+        //converts list of rentals to json format. 
+        
       
      }
       
@@ -69,3 +80,4 @@ public class RentalLogicImpl()
   
   
  }
+}
