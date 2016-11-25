@@ -6,9 +6,10 @@ $(document).ready(function(){
 	});
 	$("#btn-left").click(function(){
 		pic(-1)});
-	
+	$('.img-container').zoom();
 	slideIndex = 1;
 	showPic(slideIndex);
+	
 });
 
 function pic(n){

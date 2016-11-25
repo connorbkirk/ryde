@@ -6,6 +6,7 @@
 	<head>	
 		<link rel="stylesheet" type="text/css" href="car-style.css"/>
 		<script src="jquery-3.1.1.min.js"></script>
+		<script src="jquery.zoom.min.js"></script>
 		<script src="car.js"></script>
 		<title>Ryde</title>
 	</head>
@@ -30,7 +31,7 @@
 		<div id="sidebar">
 			From<input class="text-entry" type="textfield" name="fromData" placeholder="XX/XX/XX XX:XX XM"/><br/>
 			Until<input class="text-entry" type="textfield" name="fromData" placeholder="XX/XX/XX XX:XX XM"/><br/>
-			Total Price: $XXX<br/>
+			Total Price: <span id="total"><!--Sahi do your thing-->$XXX</span><br/>
 			
 			<a href="" class="button">BOOK NOW</a>
 			<br/>
@@ -47,11 +48,16 @@
 				<#if car.images?size == 0>
 					<img src="images/default_car.png" class="images" />
 				<#else>
+					<div class="img-container">
+						<#list car.images as image>
+							<img src="${image.image}" class="images" />
+						</#list>
+					</div>
 					<a id="btn-left">&#10094;</a>
 					<a id="btn-right">&#10095;</a>
-					<#list car.images as image>
-						<img src="${image.image}" class="images" />
-					</#list>
+					
+					
+					
 				</#if>
 			</#if>
 		</div>
