@@ -12,7 +12,7 @@
 
 	<body>
 		<div id="nav">
-			<a href="index.html" class="logo">Ryde</a></span>
+			<a href="Servlet?req=search" class="logo">Ryde</a></span>
 			<ul>
 				<#if userId??>
 					<li><a href="Servlet?req=logout">LOGOUT</a></li>
@@ -40,7 +40,7 @@
 				<input type="textfield" placeholder="Price per Day" name="price" value="${car.price?c}" class="text-entry" />
 				<input type="textfield" placeholder="Body type" name="type" value="${car.carType}" class="text-entry" /><br />
 				<textarea placeholder="Description" name="description" class="text-entry text-box">${car.description}</textarea><br/>
-				<input type="submit"/>
+				<input type="submit" class="button" />
 			</form>
 			<div id="image-options">
 				<form id="image-upload" action="Servlet?req=uploadImage" method="POST" enctype="multipart/form-data">
@@ -61,7 +61,7 @@
 				</ul>
 			</div>
 			<br />
-			<a href="Servlet?req=delete&id=${car.id}">Delete Post</a>
+			<a href="Servlet?req=delete&id=${car.id}" class="button">Delete Post</a>
 		</div>
 	</body>
 

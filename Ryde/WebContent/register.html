@@ -6,46 +6,42 @@
 		<link rel= "stylesheet" type = "text/css" href="login-style.css"/></head>
 	</head>
 	<body>
-		<div class = "loginInput">
-
-            <h1 class = "headerStyle">RYDE</h1>
-
-            <p>Login to your RYDE account to make and view reservation or make your own vehicle available to reserve.</p>
-			<form action="Servlet?req=register" method="POST">
-	            <label>Username</label>
-	            <input type="text" placeholder="Enter Username" name="username" required/>
+		<div class="center">
+			<div class = "loginInput">
 	
-	            <br>
-	            <br>
+	            <h1 class = "headerStyle">Ryde</h1>
 	
-	            <label>Password</label>
-	            <input type="text" placeholder="Enter Password" name="password" required/>
+	            <p>Login to your RYDE account to make and view reservation or make your own vehicle available to reserve.</p>
+				<form action="Servlet?req=register" method="POST">
+					<table class="center-table">
+						<tr>
+				            <td class="td-right">First Name</td>
+				            <td><input type="text" placeholder="Enter First Name" name="firstName" required class="text-entry" /></td>
+						</tr>
+						<tr>
+				            <td class="td-right">Last Name</td>
+				            <td><input type="text" placeholder="Enter Last Name" name="lastName" required class="text-entry" /></td>
+						</tr>
+			            <tr>
+				            <td class="td-right">Username</td>
+				            <td><input type="text" placeholder="Enter Username" name="username" required class="text-entry" /></td>
+				        </tr>
+				        <tr>
+				            <td class="td-right">Password</td>
+				            <td><input type="password" placeholder="Enter Password" name="password" required class="text-entry" /></td>
+				        </tr>
+				        <tr>
+				            <td class="td-right">Confirm Password</td>
+				            <td><input type="password" placeholder="Re-enter Password" name="confirm" required class="text-entry" /></td>
+						</tr>
+					</table>	
+					<div id="submit-container">
+		            	<input type = "submit" class="button">
+		            </div>
+		 		</form>
+	   
 	            
-	            <br>
-	            <br>
-	            
-	            <label>Confirm Password</label>
-	            <input type="text" placeholder="Re-enter Password" name="confirm" required/>
-	            
-	            <br>
-	            <br>
-	            
-	            <label>First Name</label>
-	            <input type="text" placeholder="Enter First Name" name="firstName" required/>
-	            
-	            <br>
-	            <br>
-	            
-	            <label>Last Name</label>
-	            <input type="text" placeholder="Enter Last Name" name="lastName" required/>
-	
-	          	<br>
-	            <br>
-	
-	            <input type = "submit" id = "buttonStyle">
-	 		</form>
-   
-            
-        </div>
+	        </div>
+		</div>
 	</body>
 </html>

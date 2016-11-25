@@ -21,7 +21,6 @@ body{
 	font-size: 5vw;
 	margin-right: auto;
 	padding-left: 3vw;
-	text-decoration: none;
 }
 
 #nav{
@@ -46,7 +45,6 @@ body{
 }
 
 #nav li a{
-	text-decoration: none;
 	color:#FFFFFF;
 }
 
@@ -96,6 +94,7 @@ hr{
 	width: 30vh;
 	height: 5vh;
 	background-color: rgba(171,177,185, 0.5);
+	text-align: right;
 }
 
 #current-images{
@@ -118,7 +117,7 @@ hr{
 	padding: 3vh 0;
 	width: 70vw;
 	border: 3px #634271 dotted;
-	margin: 0 auto;
+	margin: 3vh auto;
 }
 
 .right{
@@ -165,4 +164,25 @@ input[type="file"] {
 	height: auto;
 	vertical-align: middle;
 	float:left;
+}
+
+.deleteImage{
+	-webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+	background-color: #634271;
+	border: none;
+	font-size: 2vw;
+	font-family: the-body;
+	color: white;
+	display: inline-block;
+	height: 5vh;
+}
+
+.deleteImage:hover{
+	background-color: white;
+    color: #634271;
+}
+
+a{
+	text-decoration: none;
 }

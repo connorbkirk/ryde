@@ -57,13 +57,6 @@ hr{
 	border:none;
 }
 
-.button{
-	background-color: #634271;
-	padding: 10px 30px 30px 30px;
-	text-decoration: none;
-	color: #ABABAB;
-}
-
 #sidebar{
 	float:left;
 	margin-left: 5vw;
@@ -110,36 +103,73 @@ hr{
 }
 
 .entry{
+	-webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
 	width: 60vw;
 	height: 60vh;
 	background-repeat:no-repeat;
 	background-position: center;
-	background-color:white;
+	background-color: black;
 	background-image:url("images/default_car.png");
+	background-size: cover;
+}
+
+.entry:hover{
+    background-color: #634271;
+	background-blend-mode: lighten;
+}
+
+.blank{
+	width: 60vw;
+	height: 60vh;
 }
 
 .overlay{
 	width: 60vw;
 	height: 10vh;
 	background-color: rgba(171,177,185, 0.5);
+	color: black;
+	font-size: 3vw;
+	
+	display:flex;
+	align-items:center;
+	justify-content:flex-end;
 }
 
 .overlay-left{
-	float:left;
+	margin-right: auto;
+	vertical-align: middle;
 }
 
 .car-info{
 	list-style: none;
+	padding: 0;
 }
 
 .car-info li{
 	display: inline;
 }
 
-.overlay-right{
-	float:right;
-}
 
 .info{
 	color: white;
+	text-align: center;
+}
+
+a{
+	text-decoration: none;
+}
+
+.no-button{
+	-webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+	font-family: the-body;
+	background: none;
+	border: none;
+    font-size: 3vw;
+    text-decoration: underline;
+}
+
+.no-button:hover{
+	color: #634271;
 }

@@ -10,7 +10,7 @@
 
 	<body>
 		<div id="nav">
-			<a href="index.html" class="logo">Ryde</a></span>
+			<a href="Servlet?req=search" class="logo">Ryde</a></span>
 			<ul>
 				<#if userId??>
 					<li><a href="Servlet?req=logout">LOGOUT</a></li>
@@ -23,20 +23,18 @@
 				</#if>
 			</ul>
 		</div>
-
-		<div id="blocker"></div>
-		<div id="sidebar">
-			<#if user??>
+		<#if user??>
+			<div id="blocker"></div>
+			<div id="sidebar">
+				
 				<div id="info">
 					<h1>${user.firstName} ${user.lastName}'s Profile</h1>
 					Contact info here
 				</div>
-			</#if>
-		</div>
-
-		<div id="main">
-			<#if user??>
-				<#if cars??>
+			</div>
+		
+			<div id="main">
+				<#if cars?size != 0>
 					<div id="cars">
 						<h1 class="info">${user.firstName}'s cars</h1>
 						<#list cars as car>
@@ -52,8 +50,8 @@
 									</span>
 									<span class="overlay-right">
 										<#if same??>
-											<a href="Servlet?req=edit&id=${car.id}">Edit</a>
-											<a href="Servlet?req=delete&id=${car.id}">Delete</a>
+											<button href="Servlet?req=edit&id=${car.id}" class="no-button">Edit</button>
+											<button href="Servlet?req=delete&id=${car.id}" class="no-button">Delete</button>
 										<#else>
 											$${car.price}/Day
 										</#if>
@@ -64,11 +62,16 @@
 							</a>
 						</#list>
 					</div>
+				<#else>
+					<div id="cars">
+						<h1 class="info">${user.firstName} has no cars for rent</h1>
+						<div class="blank"></div>
+					</div>
 				</#if>
-			<#else>
-				<h3>User not found</h3>
-			</#if>
-		</div>
+			</div>
+		<#else>
+			<h1 class="info">User not found.</h1>
+		</#if>
 	</body>
 
 

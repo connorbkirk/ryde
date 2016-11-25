@@ -12,7 +12,7 @@
 	<body>
 
 		<div id="nav">
-			<a href="index.html" class="logo">Ryde</a></span>
+			<a href="Servlet?req=search" class="logo">Ryde</a></span>
 			<ul>
 				<#if userId??>
 					<li><a href="Servlet?req=logout">LOGOUT</a></li>

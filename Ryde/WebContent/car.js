@@ -1,6 +1,6 @@
-window.onload=init;
 var slideIndex;
-function init(){
+
+$(document).ready(function(){
 	$("#btn-right").click(function(){
 		pic(1)
 	});
@@ -9,7 +9,7 @@ function init(){
 	
 	slideIndex = 1;
 	showPic(slideIndex);
-}
+});
 
 function pic(n){
 	showPic(slideIndex += n);
