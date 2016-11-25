@@ -48,16 +48,12 @@
 				<#if car.images?size == 0>
 					<img src="images/default_car.png" class="images" />
 				<#else>
-					<div class="img-container">
-						<#list car.images as image>
-							<img src="${image.image}" class="images" />
-						</#list>
-					</div>
+					
 					<a id="btn-left">&#10094;</a>
 					<a id="btn-right">&#10095;</a>
-					
-					
-					
+					<#list car.images as image>
+						<img src="${image.image}" class="images" />
+					</#list>
 				</#if>
 			</#if>
 		</div>

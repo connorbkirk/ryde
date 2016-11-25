@@ -126,12 +126,12 @@ hr{
 	height:40px;
 	line-height:40px;
 	
-	top: -33.5vh;
+	//top: -33.5vh;
 	
-	/*top: 50%;
+	top: 50%;
   	-webkit-transform: translateY(-50%);
   	-ms-transform: translateY(-50%);
-  	transform: translateY(-50%);*/
+  	transform: translateY(-50%);
 }
 
 #btn-right{
@@ -143,6 +143,7 @@ hr{
 }
 
 .images{
+	top: 0;
 	position: relative;
 	z-index: 0;
 	height: 60vh;
