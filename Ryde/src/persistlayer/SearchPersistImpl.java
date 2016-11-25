@@ -15,7 +15,7 @@ public class SearchImpl[
     
     public ResultSet getSuggestions(String searchbarContent){
         ResultSet rs;
-		String query = "SELECT * FROM cars WHERE make LIKE "+ searchbarContent;
+		String query = "SELECT * FROM cars WHERE make LIKE "+ "%%\"" + searchbarContent + "\"%%";
 		rs = db.retrieve(con, query);
 		return rs;
     }//getSuggestions
