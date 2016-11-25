@@ -32,9 +32,11 @@ public class SearchLogicImpl{
 
 	List<String>resultMakes = new ArrayList<String>();
 
-	try {
-	    while(rs.next()){
-		String make = rs.getString(1);
+	try 
+	{
+	    while(rs.next())
+	    {
+		String make = rs.getString("make");
    
 
 		resultMakes.add(make);
