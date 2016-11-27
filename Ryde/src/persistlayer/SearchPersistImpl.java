@@ -8,17 +8,17 @@ import java.sql.SQLException;
 
 
 public class SearchImpl[
-    
+
     //global variables
 	DbAccessImpl db = new DbAccessImpl();
 	Connection con = db.connect();
-    
+
     public ResultSet getSuggestions(String searchbarContent){
         ResultSet rs;
-		String query = "SELECT * FROM cars WHERE make LIKE "+ "%%\"" + searchbarContent + "\"%%";
+		String query = "SELECT * FROM cars WHERE make LIKE "+ "%%\"" + searchbarContent + "\"%% LIMIT 1";
 		rs = db.retrieve(con, query);
 		return rs;
     }//getSuggestions
-    
-		
+
+
 ]//SearchImpl
