@@ -26,6 +26,25 @@ VALUES('5','boat', 'Toyota', 'BigRaft', '2004','white','4','20','Before you say 
 INSERT INTO cars
 VALUES('6','truck','Ford','F650','2018','black','3','100','Such a big truck it could move a house');
 
+INSERT INTO cars
+VALUES('7','suv','Volkswagon','Thing','1972','yellow','2','60','Comes with the parts to turn into boat');
+
+INSERT INTO cars
+VALUES('8','suv','Kia','Sorento','2017','silver','4','100','Can seat 7 people');
+
+INSERT INTO cars
+VALUES('9','sedan','Pontiac','Sunbird','1992','white','4','15','Starts most of the time');
+
+INSERT INTO cars
+VALUES('10','sedan','Honda','Civic','2004','silver','2','30','Very reliable');
+
+INSERT INTO cars
+VALUES('11','suv','Honda','Civic','1996','black','1','20','You could not break this car if you tried');
+
+INSERT INTO cars
+VALUES('12','sport','Ford','Mustang','2015','red','6','75','What a stang it is');
+
+
 #add rental dates for the cars
 INSERT INTO rental_dates
 VALUES('1','1','2016-9-16','2016-11-15');
@@ -45,3 +64,6 @@ VALUES('4','Sahi', 'Nimmakayalu', 'sahi', 'password');
 
 INSERT INTO users
 VALUES('5','Kanye','West','kanye','kimk');
+
+INSERT INTO users
+VALUES('6','Joe','Biden','vpbiden','stang');
