@@ -97,7 +97,7 @@
 			</div>
 			<#if same??>
 				<br />
-				<a href="Servlet?req=edit&id=${car.id}">Edit Listing</a>
+				<a href="Servlet?req=edit&id=${car.id}" class="button">Edit Listing</a>
 			</#if>
 		</div>
 	</body>
