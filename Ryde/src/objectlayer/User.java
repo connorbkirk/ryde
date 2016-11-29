@@ -1,6 +1,11 @@
 package objectlayer;
 
-//this class is the model for users
+/**
+ * This class represents the model of a user object.
+ * 
+ * @author Connor Kirk
+ *
+ */
 public class User {
 	private String firstName;
 	private String lastName;
@@ -8,9 +13,18 @@ public class User {
 	private String password;
 	private int id;
 	
-	
+	/**
+	 * This is the constructor for the object.
+	 * It requires the first name, last name,
+	 * username, password, and id.
+	 * 
+	 * @param firstName First name of the user.
+	 * @param lastName Last name of the user.
+	 * @param username Username of the user.
+	 * @param password Password of the user.
+	 * @param id Id of the user.
+	 */
 	public User(String firstName, String lastName, String username, String password, int id) {
-		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.username = username;
@@ -18,61 +32,61 @@ public class User {
 		this.id = id;
 	}
 	/**
-	 * @return the firstName
+	 * @return First name of the user.
 	 */
 	public String getFirstName() {
 		return firstName;
 	}
 	/**
-	 * @param firstName the firstName to set
+	 * @param First name of the user.
 	 */
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
 	}
 	/**
-	 * @return the lastName
+	 * @return Last name of the user.
 	 */
 	public String getLastName() {
 		return lastName;
 	}
 	/**
-	 * @param lastName the lastName to set
+	 * @param Last name of the user.
 	 */
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
 	/**
-	 * @return the username
+	 * @return Username of the user.
 	 */
 	public String getUsername() {
 		return username;
 	}
 	/**
-	 * @param username the username to set
+	 * @param Username of the user.
 	 */
 	public void setUsername(String username) {
 		this.username = username;
 	}
 	/**
-	 * @return the password
+	 * @return Password of the user.
 	 */
 	public String getPassword() {
 		return password;
 	}
 	/**
-	 * @param password the password to set
+	 * @param Password of the user.
 	 */
 	public void setPassword(String password) {
 		this.password = password;
 	}
 	/**
-	 * @return the id
+	 * @return Id of the user.
 	 */
 	public int getId() {
 		return id;
 	}
 	/**
-	 * @param id the id to set
+	 * @param Id of the user.
 	 */
 	public void setId(int id) {
 		this.id = id;
