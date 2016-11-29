@@ -37,3 +37,33 @@ function showPic(n){
 	    .parent()
 	    .zoom();
 }
+
+
+function getPrice()
+{
+    
+    var startDate = $("#startVal").val(); 
+    var endDate = $("#endVal").val(); 
+    
+    var msDay = 1000*60*60*24; 
+    
+    var d1 = new Date(startDate); 
+    var d2 = new Date(endDate); 
+    
+    var totalTime = Math.abs(d1-d2); 
+    //difference in milliseconds between two dates. 
+    
+    totalTime = Number(totalTime);
+    //converts date to stirng. 
+    
+    totalTime = totalTime % msDay; 
+	
+    var totalPrice = 20 * totalTime; 
+	
+    $("#priceBox").val(totalPrice); 
+    
+    //return 20 * totalTime; 
+    //calculates the price and returns. 
+    
+    
+}
