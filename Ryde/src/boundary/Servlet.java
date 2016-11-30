@@ -145,6 +145,9 @@ public class Servlet extends HttpServlet {
 			case "upload":
 				upload(request, response);
 				break;
+			case "calender":
+				calender(request, response); 
+				break; 
 			default:
 				response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid request");
 				break;
@@ -672,5 +675,25 @@ public class Servlet extends HttpServlet {
 			e.printStackTrace();
 		}
 	}
+	
+	void calender(HttpServletResponse response, HttpSession session)
+	{
+		RentalLogicImpl rli = new RentalLogicImpl(); 
+		HttpSession session = request.getSession(); 
+		
+		String rentedDates = null; 
+		/*
+		rentedDates = rpi.viewUnavailable(); 
+		
+		if (rentalDate != null)
+		{
+			response.setContentType("text/javascript"); 
+			
+			response.getWriter().write(rentedDates); 
+			
+		}
+		*/
+	}
+	
 	
 }
