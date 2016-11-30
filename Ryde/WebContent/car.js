@@ -42,8 +42,8 @@ function showPic(n){
 function getPrice()
 {
     
-    var startDate = $("#startVal").val(); 
-    var endDate = $("#endVal").val(); 
+    var startDate = $("#from").val(); 
+    var endDate = $("#to").val(); 
     
     var msDay = 1000*60*60*24; 
     
