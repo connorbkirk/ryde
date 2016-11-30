@@ -15,15 +15,26 @@ var rentalDates;
                                
     console.log(totalDate); 
     console.log(x1); 
-                  
-    if (totalDate.getTime() == x1.getTime())
-    {
-                                       
-        console.log("FOUND IT"); 
+       
+     
+     for (i = 0; i<rentalDate.length; i++)
+     {
+        x1 = rentalDate[i].startDate; 
+        x2 = rentalDate[i].endDate; 
+             
+        x1 = new Date(x1); 
+        x2 = new Date(x2); 
+             
+             
+        if ((totalDate.getTime() > x1.getTime()) && (totalDate.getTime() < x2.getTime()))
+        {
             return [false, "", "not valid"];
-    }
-    else
-        return [true]; 
+        }
+        else
+            return [true]; 
+
+     }
+     
   }
       
 
