@@ -7,21 +7,21 @@ $(document).ready(function(){
     //returns the value of the input area to variable.
 
 
-    $.ajax({url:"Searchlet", type:"GET", data:{"inputText": inputText}, success:function(){
-
-        var listing = undefined;
-        listing = parse(data);
-
-        $("#makeSearchbox").val(listing);
-
-
-    }}) )//makeSearchbox
+    $.ajax({url:"Searchlet", type:"GET", data:{"inputText": inputText}, success: autoComplete}) )//makeSearchbox
   })//ready
     //variable from previous LOC used as param for ajax request.
     //returns data from the servlet?
 
 
+    function autoComplete(text){
 
+        //var listing = undefined;
+        //listing = parse(data);
+
+        $("#makeSearchbox").val(text);
+
+
+    }
 
 
 }
