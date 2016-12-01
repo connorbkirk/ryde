@@ -83,11 +83,10 @@ $( function()
 
 function jqueryCalender()
 {
-    var startDate = $("from").val(); 
-    var endDate = $("to").val(); 
+
     
     
-    $.ajax(url: "Servlet", data: {calenderVal : "calender" }, success:function(data)
+    $.ajax(url: "Servlet", data: {calender : "calender" }, success:function(data)
     {
         data = jQuery.parseJSON(data); 
         
