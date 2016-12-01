@@ -7,17 +7,43 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 
-//This class is the primary persistent (model) layer class. 
+//This class is the primary persistent (model) layer class.
 //It explicitly communicates with the DbAccessImpl
 public class CarPersistImpl {
 
 	//global variables
 	DbAccessImpl db = new DbAccessImpl();
 	Connection con = db.connect();
-	
+
 	public ResultSet getCars() {
 		ResultSet rs;
 		String query = "SELECT * FROM cars";
+		rs = db.retrieve(con, query);
+		return rs;
+	}
+
+	/**
+	*Finds cars with specified attributes
+	* @param make a type of car manufacturer.
+	* @param model a type of car model.
+	* @param carYear the year of the car being searched for.
+	* @param color the color of the car.
+	* @param price the price of the car.
+	* @param carType the type of the car.
+	*TODO needs to have AND in between each item in query
+	*/
+	public ResultSet getCarsWithParams(String carType, String make ){
+		ResultSet rs;
+		String query = "SELECT * FROM cars WHERE ";
+		if(make != null) query.append("make = "+make);
+		/*if(model != null) query.append("model = "+model);
+		if(carYear != null) query.append("carYear = "+carYear);
+		if(color != null) query.append("color = "+color);
+		if(price != null) query.append("price = "+price); */
+		if(carType != null && make != null){
+			query.append(" AND carType = "+carType);
+	} else if(carType != null && make == null){ query.append("carType = "+carType);}
+
 		rs = db.retrieve(con, query);
 		return rs;
 	}
@@ -48,13 +74,13 @@ public class CarPersistImpl {
 	}
 
 	//returns the car id after adding it to the db
-	public ResultSet addCar(int ownerId, String make, String model, String year, 
+	public ResultSet addCar(int ownerId, String make, String model, String year,
 			String color, String price, String description, String carType) {
 		String query = "INSERT INTO cars (carType, make, model, carYear, color, ownerId, price, description) " +
 			"VALUES (\'"+carType+"\', \'"+make+"\', \'"+model+"\', "+year+", "
 			+"\'" + color + "\', " + ownerId + ", " + price + ", \'" + description + "\')";
 		db.create(con, query);
-		
+
 		query = "SELECT LAST_INSERT_ID();";
 		return db.retrieve(con, query);
 	}
@@ -66,7 +92,7 @@ public class CarPersistImpl {
 				+ "price=\'"+price+"\', description=\'"+description+"\', carType=\'"+carType+"\' "
 				+ "WHERE id=\'"+id+"\'";
 		db.update(con, query);
-		
+
 	}
 
 	public ResultSet getOwnerId(int id) {
@@ -82,16 +108,16 @@ public class CarPersistImpl {
 
 	public boolean verifyData(String d1, String d2)
 	{
-		ResultSet rs = null; 
-		
-		String query = "select * from rental_dates where startDate = " + d1 + " AND endDate = " + d2; 
-		
-		rs = db.retrieve(con, query); 
-		
+		ResultSet rs = null;
+
+		String query = "select * from rental_dates where startDate = " + d1 + " AND endDate = " + d2;
+
+		rs = db.retrieve(con, query);
+
 		if (rs == null)
-			return false; 
-		else 
-			return true; 
+			return false;
+		else
+			return true;
 	}
 
 	public ResultSet putImage(InputStream image, int carId) {
@@ -101,7 +127,7 @@ public class CarPersistImpl {
 			ps.setInt(1, carId);
 			ps.setBlob(2, image);
 			ps.executeUpdate();
-			
+
 			query = "SELECT * FROM images WHERE id=LAST_INSERT_ID();";
 			return db.retrieve(con, query);
 		} catch (SQLException e) {
@@ -110,10 +136,10 @@ public class CarPersistImpl {
 		}
 		return null;
 	}
-	
+
 	public ResultSet getImages(int carId){
 		String query = "SELECT * FROM images WHERE carID=" +carId;
-		
+
 		return db.retrieve(con, query);
 	}
 

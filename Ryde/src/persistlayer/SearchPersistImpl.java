@@ -7,7 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 
-public class SearchImpl[
+public class SearchImpl{
 
     //global variables
 	DbAccessImpl db = new DbAccessImpl();
@@ -21,4 +21,4 @@ public class SearchImpl[
     }//getSuggestions
 
 
-]//SearchImpl
+}//SearchImpl
