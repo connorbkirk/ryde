@@ -4,7 +4,7 @@ var rentalDates;
 
  function disableDays(date)
  {
-    var month = date.getMonth(); 
+    var month = date.getMonth()+1; 
     var day = date.getDate();
     var year = date.getFullYear().toString().substr(2,2); 
                                
@@ -30,10 +30,9 @@ var rentalDates;
         {
             return [false, "", "not valid"];
         }
-        else
-            return [true]; 
 
      }
+       return [true];
      
   }
       
