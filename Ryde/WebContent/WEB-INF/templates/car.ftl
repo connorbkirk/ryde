@@ -8,6 +8,7 @@
 		<script src="jquery-3.1.1.min.js"></script>
 		<script src="jquery.zoom.min.js"></script>
 		<script src="car.js"></script>
+		<script src = "calender.js"></script>
 		<title>Ryde</title>
 	</head>
 
@@ -29,9 +30,9 @@
 
 		<div id="blocker"></div>
 		<div id="sidebar">
-			From<input class="text-entry" type="textfield" name="fromData" placeholder="XX/XX/XX XX:XX XM"/><br/>
-			Until<input class="text-entry" type="textfield" name="fromData" placeholder="XX/XX/XX XX:XX XM"/><br/>
-			Total Price: <span id="total"><!--Sahi do your thing-->$XXX</span><br/>
+			From<input class="text-entry" type="textfield" name="fromData" placeholder="XX/XX/XX XX:XX XM" id = "to"/><br/>
+			Until<input class="text-entry" type="textfield" name="fromData" placeholder="XX/XX/XX XX:XX XM" id = "from"/><br/>
+			Total Price: <span id="priceBox" ><!--Sahi do your thing--$XXX--></span><br/>
 			
 			<a href="" class="button">BOOK NOW</a>
 			<br/>
