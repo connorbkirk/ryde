@@ -688,7 +688,7 @@ public class Servlet extends HttpServlet {
 		HttpSession session = request.getSession();
 
 		String rentedDates = null;
-		/*
+		
 		rentedDates = rpi.viewUnavailable();
 
 		if (rentalDate != null)
@@ -698,7 +698,7 @@ public class Servlet extends HttpServlet {
 			response.getWriter().write(rentedDates);
 
 		}
-		*/
+		
 	}
 
 
