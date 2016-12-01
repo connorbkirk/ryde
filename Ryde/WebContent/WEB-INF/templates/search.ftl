@@ -3,9 +3,9 @@
 
 <html>
 
-	<head>	
+	<head>
 		<link rel="stylesheet" type="text/css" href="search-style.css"/>
-		<script src="search.js"></script>
+		<script src="displaySearch.js"></script>
 		<title>Ryde</title>
 	</head>
 
@@ -34,31 +34,35 @@
 				Price<br/>
 				<input type="range" name="price" id="price"/>
 				<br/>
-				Vehicle Type <br/> 
+				Vehicle Type <br/>
 				<select name="type">
 					<option value="all" >All Vehicles</option>
 					<#list types as type>
 						<option value="${type}">${type}</option>
 					</#list>
 				</select><br/>
-	
-				Vehicle Make <br/> 
+
+			<!--	Vehicle Make <br/>
 				<select name="make">
 					<option value="all" >All Makes</option>
 					<#list makes as make>
 						<option value="${make}">${make}</option>
 					</#list>
 				</select><br/>
-				
-				Vehicle Model <br/> 
+      -->
+
+        Vehicle Make <br/>
+        <input name = "make" id = "makeSearchbox"> <br/>
+
+				Vehicle Model <br/>
 				<select name="model">
 					<option value="all" >All Models</option>
 					<#list models as model>
 						<option value="${model}">${model}</option>
 					</#list>
 				</select><br/>
-	
-				Sort By<br/> 
+
+				Sort By<br/>
 				<select name="sortBy">
 					<option value="revelance" >Relevance</option>
 				</select>
