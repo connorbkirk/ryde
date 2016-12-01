@@ -83,15 +83,15 @@ $( function()
 
 function jqueryCalender()
 {
-    var startDate = document.getElementById("from"); 
-    var endDate = document.getElementById("to"); 
+    var startDate = $("from").val(); 
+    var endDate = $("to").val(); 
     
     
     $.ajax(url: "Servlet", data: {calenderVal : "calender" }, success:function(data)
     {
         data = jQuery.parseJSON(data); 
         
-        rentalDate = data; 
+        rentalDates = data; 
         //rental date array set to servlet response. 
         
         
