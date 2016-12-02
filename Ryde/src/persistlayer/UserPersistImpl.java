@@ -26,11 +26,15 @@ public class UserPersistImpl {
 	 * @param password Password to register.
 	 * @param firstName First name to register.
 	 * @param lastName Last name to register.
+	 * @param phone Phone number to register.
+	 * @param email Email to register.
 	 */
 	
-	public void register(String username, String password, String firstName, String lastName) {
-		String query = "INSERT INTO users (username, pswrd, firstName, lastName) "+
-		"VALUES(\'"+username+"\', \'"+ password + "\', \'" + firstName + "\', \'" + lastName + "\')";
+	public void register(String username, String password, String firstName, 
+			String lastName, String phone, String email) {
+		String query = "INSERT INTO users (username, pswrd, firstName, lastName, phone, email) "+
+		"VALUES(\'"+username+"\', \'"+ password + "\', \'" + firstName + "\', \'" + lastName + "\', "+
+		"\'"+phone+"\', \'"+email+"\')";
 		
 		db.create(con, query);
 		

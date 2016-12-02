@@ -29,7 +29,7 @@
 				
 				<div id="info">
 					<h1>${user.firstName} ${user.lastName}'s Profile</h1>
-					Contact info here
+					<p>${user.email}<br />${user.phone}</p>
 				</div>
 			</div>
 		

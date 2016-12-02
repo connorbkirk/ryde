@@ -11,6 +11,8 @@ public class User {
 	private String lastName;
 	private String username;
 	private String password;
+	private String phone;
+	private String email;
 	private int id;
 	
 	/**
@@ -24,13 +26,45 @@ public class User {
 	 * @param password Password of the user.
 	 * @param id Id of the user.
 	 */
-	public User(String firstName, String lastName, String username, String password, int id) {
+	public User(String firstName, String lastName, String username, String password, String phone, 
+			String email, int id) {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.username = username;
 		this.password = password;
+		this.phone = phone;
+		this.email = email;
 		this.id = id;
 	}
+	
+	/**
+	 * @return Phone number of the user.
+	 */
+	public String getPhone() {
+		return phone;
+	}
+
+	/**
+	 * @param Phone number of the user.
+	 */
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+	/**
+	 * @return Email of the user.
+	 */
+	public String getEmail() {
+		return email;
+	}
+
+	/**
+	 * @param Email of the user.
+	 */
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
 	/**
 	 * @return First name of the user.
 	 */

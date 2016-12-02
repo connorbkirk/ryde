@@ -601,6 +601,8 @@ public class Servlet extends HttpServlet {
 		String password = request.getParameter("password");
 		String firstName = request.getParameter("firstName");
 		String lastName = request.getParameter("lastName");
+		String email = request.getParameter("email");
+		String phone = request.getParameter("phone");
 		
 		//if the username already exists, redirect user to register
 		if(userCtrl.usernameExists(username)){
@@ -613,7 +615,7 @@ public class Servlet extends HttpServlet {
 		}
 		else{
 			//add entry to db
-			userCtrl.register(username, password, firstName, lastName);
+			userCtrl.register(username, password, firstName, lastName, phone, email);
 			//store user id in session
 			session.setAttribute("user", userCtrl.getIdFromUsername(username));
 			//redirect user

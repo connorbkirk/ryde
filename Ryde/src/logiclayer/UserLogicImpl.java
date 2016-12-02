@@ -55,14 +55,17 @@ public class UserLogicImpl {
 	 * @param password The password of the user.
 	 * @param firstName The first name of the user.
 	 * @param lastName The last name of the user.
+	 * @param email The email of the user.
+	 * @param phone The phone number of the user.
 	 */
-	public void register(String username, String password, String firstName, String lastName) {
+	public void register(String username, String password, String firstName, 
+			String lastName, String phone, String email) {
 		
 		try {
 			//hash password with md5
 			password = hash(password);
 			//call persist to create new entry
-			up.register(username, password, firstName, lastName);
+			up.register(username, password, firstName, lastName, phone, email);
 		} catch (NoSuchAlgorithmException e) {
 			e.printStackTrace();
 		}
@@ -103,20 +106,15 @@ public class UserLogicImpl {
 		
 		try {
 			while (rs.next()){
-				String lastname; 
-				String firstname; 
-				String email; 
-				String password; 
-				int id; 
+				String lastname = rs.getString("lastName"); ; 
+				String firstname = rs.getString("firstName"); ; 
+				String username = rs.getString("username");
+				String phone = rs.getString("phone");
+				String email = rs.getString("email");
+				String password = rs.getString("pswrd"); ; 
+				int id = rs.getInt("id");
 				
-				lastname = rs.getString("lastname"); 
-				firstname = rs.getString("firstname"); 
-				email = rs.getString("email"); 
-				password = rs.getString("password"); 
-				id = rs.getInt("id"); 
-				
-				
-				returnUsers.add(new User(lastname, firstname, email, password, id)); 	
+				returnUsers.add(new User(lastname, firstname, username, password, phone, email, id)); 	
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -143,13 +141,15 @@ public class UserLogicImpl {
 			if(rs.next())
 			{
 				//gather info from resultset
-				String lastname = rs.getString("lastname"); 
-				String firstname = rs.getString("firstname"); 
+				String lastname = rs.getString("lastName"); 
+				String firstname = rs.getString("firstName"); 
 				String username = rs.getString("username"); 
 				String password = rs.getString("pswrd"); 
+				String phone = rs.getString("phone");
+				String email = rs.getString("email");
 				
 				//create new user object with info from resultset
-				returnUser = new User(firstname, lastname, username, password, id); 
+				returnUser = new User(firstname, lastname, username, password, phone, email, id); 
 			}
 		} catch (NumberFormatException e) {
 			// TODO Auto-generated catch block

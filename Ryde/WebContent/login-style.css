@@ -11,7 +11,7 @@
     color:whitesmoke; 
     background-color: #2D2D2D;
     width: 50vw;
-    height: auto;
+    height: 200%;
  
  	margin: auto;
 }
@@ -64,11 +64,8 @@ body
      display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
      display: -webkit-flex;     /* NEW - Chrome */
      display: flex;             /* NEW, Spec - Opera 12.1, Firefox 20+ */
-     -webkit-box-flex-direction: row;
-     -moz-box-flex-direction: row;
-     -webkit-flex-direction: row;
-     flex-direction: row;
-     position: fixed;
+     
+     position: relative;
      top: 0;
      right: 0;
      bottom: 0;
