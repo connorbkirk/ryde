@@ -43,7 +43,7 @@
 			<br>
 			<div class="owner">
 				Owned By<br/>
-				<a href="Servlet?req=user&id=${car.ownerId}">John Doe</a>
+				<a href="Servlet?req=user&id=${owner.id}">${owner.firstName} ${owner.lastName}</a>
 			</div>
 
 		</div>
