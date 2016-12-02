@@ -142,10 +142,9 @@ hr{
 	float: left;
 }
 
-.images{
+.fit{
 	top: 0;
 	position: relative;
-	z-index: 0;
 	height: 60vh;
 	margin: auto;
 }
@@ -202,4 +201,14 @@ hr{
 .button:hover{
 	background-color: white;
     color: #634271;
+}
+
+.animate{
+	-webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+	color: #634271;
+}
+
+.animate:hover{
+	color: white;
 }
