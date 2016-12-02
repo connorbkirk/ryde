@@ -5,7 +5,7 @@
 
 #Add one owner to the database
 INSERT INTO users
-VALUES('1','John','Porter','jayp','password');
+VALUES('1','John','Porter','jayp','66bb2040b1142c33537b6d91723d4eb6','7054444444','jayp@ryde.com');
 
 #Add cars to the database
 INSERT INTO cars
@@ -54,16 +54,16 @@ VALUES('2','2','2016-9-22', '2016-9-23');
 
 #Add users to the database
 INSERT INTO users(id, firstname,lastname,username,pswrd)
-VALUES('2','Connor', 'Kirk','username','bologna1');
+VALUES('2','Connor', 'Kirk','username','fe7ea6ec01e0343fa272ece3f2b92a39','6663332222','connor@ryde.com');
 
 INSERT INTO users
-VALUES('3', 'Mehdi', 'Allahyari', 'mehdi', 'firebug');
+VALUES('3', 'Mehdi', 'Allahyari', 'mehdi', '957c25972e8c5c305194961077b8eee2', '7065421234', 'mehdi@uga.edu');
 
 INSERT INTO users
-VALUES('4','Sahi', 'Nimmakayalu', 'sahi', 'password');
+VALUES('4','Sahi', 'Nimmakayalu', 'sahi', '5f4dcc3b5aa765d61d8327deb882cf99', '6662221111', 'sahi@ryde.com');
 
 INSERT INTO users
-VALUES('5','Kanye','West','kanye','kimk');
+VALUES('5','Kanye','West','crazyboi420','098afd6b19e00dee1fe0a468d3b7a74b', '567890987', 'yeezus@psychward.com');
 
 INSERT INTO users
-VALUES('6','Joe','Biden','vpbiden','stang');
+VALUES('6','Joe','Biden','vpbiden','6aeb82af6c1239dafed195541881776a','1011011111', 'joe@whitehouse.gov');
