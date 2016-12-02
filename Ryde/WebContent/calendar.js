@@ -24,7 +24,7 @@ $( function()
             from.datepicker( "option", "maxDate", getDate( this ) );
           });
     
-    jqueryCalender();
+    jqueryCalendar();
 });
 
  function disableDays(date)
@@ -73,22 +73,23 @@ function getDate( element ) {
     return date;
 } 
 
-function jqueryCalender()
+function jqueryCalendar()
 {
 
     $.ajax({
     		url: "Servlet?req=calendar", 
-    		type: "GET",
+    		data: {}, 
     		success:function(data)
     		{
-	        data = JSON.parse(data); 
-	        
-	        rentalDates = data; 
-	        //rental date array set to servlet response. 
-	        
-	        
-	        
-	        //$("#calendarArea").availabilityCalendar(data);
+    			console.log(data);
+		        //data = JSON.parse(data);
+		        
+		        rentalDates = data; 
+		        //rental date array set to servlet response. 
+		        
+		        
+		        
+		        //$("#calendarArea").availabilityCalendar(data);
     		}
     }); 
 }
