@@ -11,7 +11,7 @@ public class SearchPersistImpl{
 
     public ResultSet getSuggestions(String searchbarContent){
         ResultSet rs;
-		String query = "SELECT * FROM cars WHERE make LIKE "+ "%%\"" + searchbarContent + "\"%% LIMIT 1";
+		String query = "SELECT DISTINCT make FROM cars WHERE make LIKE "+ "%%\"" + searchbarContent + "\"%% LIMIT 1";
 		rs = db.retrieve(con, query);
 		return rs;
     }//getSuggestions
