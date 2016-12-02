@@ -21,6 +21,8 @@ CREATE TABLE users(
     id  INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
     firstName   VARCHAR(255),
     lastName    VARCHAR(255),
+    phone       VARCHAR(255),
+    email       VARCHAR(255),
     username    VARCHAR(255) UNIQUE,
     pswrd       VARCHAR(255)
     #
