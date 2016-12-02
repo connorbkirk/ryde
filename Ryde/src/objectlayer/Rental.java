@@ -27,7 +27,7 @@ public class Rental
 	
 	public Rental(int inputID, String d1, String d2)
 	{
-		carID = inputID; 
+		setCarID(inputID); 
 		startDate = d1; 
 		endDate = d2;
 	}
@@ -71,6 +71,28 @@ public class Rental
 	public String getEndDate()
 	{
 		return endDate; 
+	}
+
+
+
+
+
+	/**
+	 * @return the carID
+	 */
+	public int getCarID() {
+		return carID;
+	}
+
+
+
+
+
+	/**
+	 * @param carID the carID to set
+	 */
+	public void setCarID(int carID) {
+		this.carID = carID;
 	}
 	
 
