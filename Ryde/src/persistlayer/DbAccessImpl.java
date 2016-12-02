@@ -6,11 +6,20 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+/**
+ * This class is the implementation of the interface DbAccessInterface
+ * 
+ * @author Connor Kirk
+ *
+ */
 public class DbAccessImpl implements DbAccessInterface {
 
+	/**
+	 * This method loads the JDBC driver and opens a connection to the MySQL database.
+	 * 
+	 * @return Connection object to the MySQL database
+	 */
 	public Connection connect() {
-		//this method loads the jdbc driver and opens a connection to the mysql database
-		
 		//create connection
 		Connection conn = null;
 		try{
@@ -27,8 +36,15 @@ public class DbAccessImpl implements DbAccessInterface {
 		return conn;
 	}
 
+	/**
+	 * This method runs a given SQL query and returns 
+	 * the results as a ResultSet.
+	 * 
+	 * @param con Connection object.
+	 * @param query Query to execute.
+	 * @return ResultSet of executed query.
+	 */
 	public ResultSet retrieve(Connection con, String query) {
-		//this method runs a given SQL query and returns the results as a resultSet
 		ResultSet rs = null;
 		try{
 			//create statement from connection and resultset from query
@@ -41,10 +57,15 @@ public class DbAccessImpl implements DbAccessInterface {
 		}
 	}
 
+	/**
+	 * This method runs a given SQL query that creates rows in the database.
+	 * It returns the number of rows affected as an int.
+	 * 
+	 * @param con Connection object.
+	 * @param query Query to execute.
+	 * @return The number of rows affected by query.
+	 */
 	public int create(Connection con, String query) {
-		//this method runs a given SQL query that creates a row in the database
-		//it returns the number of rows affected
-		
 		try {
 			//create statement from connection
 			Statement statement = con.createStatement();
@@ -55,10 +76,15 @@ public class DbAccessImpl implements DbAccessInterface {
 		return 0;
 	}
 
+	/**
+	 * This method runs a given SQL query that updates rows in the database.
+	 * It returns the number of rows affected as an int.
+	 * 
+	 * @param con Connection object.
+	 * @param query Query to execute.
+	 * @return The number of rows affected by query.
+	 */
 	public int update(Connection con, String query) {
-		//this method runs a given SQL query that updates a row in the database
-		//it returns the number of rows affected
-		
 		try {
 			//create a statement from connection
 			Statement statement = con.createStatement();
@@ -68,10 +94,16 @@ public class DbAccessImpl implements DbAccessInterface {
 		}
 		return 0;
 	}
-
+	
+	/**
+	 * This method runs a given SQL query that deletes a row in the database.
+	 * It returns the number of rows affected as an int.
+	 * 
+	 * @param con Connection object.
+	 * @param query Query to execute.
+	 * @return The number of rows affected by query.
+	 */
 	public int delete(Connection con, String query) {
-		//this method runs a given SQL query that deletes a row in the database
-		//it returns the number of rows affected
 		
 		try {
 			//create a statement from connection
@@ -82,10 +114,13 @@ public class DbAccessImpl implements DbAccessInterface {
 		}
 		return 0;
 	}
-
+	
+	/**
+	 * This method closes the given connection to the database.
+	 * 
+	 * @param con Connection to disconnect.
+	 */
 	public void disconnect(Connection con) {
-		//this method closes the connection to the database
-		
 		try {
 			if (con != null)
 				con.close();
