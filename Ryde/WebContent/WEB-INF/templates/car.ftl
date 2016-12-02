@@ -8,7 +8,7 @@
 		<script src="jquery-3.1.1.min.js"></script>
 		<script src="jquery.zoom.min.js"></script>
 		<script src="car.js"></script>
-		<script src = "calender.js"></script>
+		<script src="calendar.js"></script>
 		<title>Ryde</title>
 	</head>
 
