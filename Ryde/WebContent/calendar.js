@@ -79,7 +79,6 @@ function jqueryCalender()
     $.ajax({
     		url: "Servlet?req=calendar", 
     		type: "GET",
-    		data: {calender : "calender" }, 
     		success:function(data)
     		{
 	        data = JSON.parse(data); 
