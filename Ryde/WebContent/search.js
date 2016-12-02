@@ -4,7 +4,7 @@ $(function(){
 		//returns the value of the input area to variable
 		
 		$.ajax({
-			url:"Searchlet",
+			url:"Servlet?req=autoMake",
 			type:"GET",
 			data:"inputText="+inputText,
 			success: function(data){
