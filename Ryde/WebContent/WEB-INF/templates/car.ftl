@@ -33,8 +33,8 @@
 		<div id="blocker"></div>
 		<div id="sidebar">
 		<form action = "Servlet" method = "POST">
-			From<input class="text-entry" type="textfield" id="from" placeholder="XX/XX/XX XX:XX XM"/><br/>
-			Until<input class="text-entry" type="textfield" id="to" placeholder="XX/XX/XX XX:XX XM"/><br/>
+			From<input class="text-entry" type="textfield" id="from"  name = "rentDate" placeholder="XX/XX/XX XX:XX XM"/><br/>
+			Until<input class="text-entry" type="textfield" id="to" name = "rentDate" placeholder="XX/XX/XX XX:XX XM"/><br/>
 			Total Price: <span id="priceBox"></span><br/>
 			
 			<a href="" class="button">BOOK NOW</a>
