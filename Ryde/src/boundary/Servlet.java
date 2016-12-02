@@ -24,6 +24,7 @@ import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import freemarker.template.TemplateExceptionHandler;
 import logiclayer.CarLogicImpl;
+import logiclayer.RentalLogicImpl;
 import logiclayer.UserLogicImpl;
 import objectlayer.Car;
 import objectlayer.Image;
@@ -33,7 +34,7 @@ import objectlayer.User;
  * Servlet class.
  * This class handles all requests and responses.
  * It directly interacts with the controller class.
- *
+ * 
  * @author Connor Kirk
  * @version 1.00, 5 Dec 2016
  */
@@ -48,7 +49,7 @@ public class Servlet extends HttpServlet {
 	private DefaultObjectWrapperBuilder df = null;		//for use with freemarker
 	private SimpleHash root = null;						//root map for use with freemarker
 	private PrintWriter out = null;						//writer for output
-
+       
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -64,23 +65,23 @@ public class Servlet extends HttpServlet {
     	//intialized global vars
     	df = new DefaultObjectWrapperBuilder(Configuration.VERSION_2_3_25);//set object wrapper builder
 		templateDir = "/WEB-INF/templates";//set directory
-
+    	
     	// Create your Configuration instance, and specify if up to what FreeMarker
     	// version (here 2.3.25) do you want to apply the fixes that are not 100%
     	// backward-compatible. See the Configuration JavaDoc for details.
     	cfg = new Configuration(Configuration.VERSION_2_3_25);
-
+    	
     	// Specify the source where the template files come from.
 		cfg.setServletContextForTemplateLoading(getServletContext(), templateDir);
-
+		
 		// Sets how errors will appear.
 		// During web page *development* TemplateExceptionHandler.HTML_DEBUG_HANDLER is better.
 		cfg.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
-
+		
 		// Don't log exceptions inside FreeMarker that it will thrown at you anyway:
 		cfg.setLogTemplateExceptions(false);
     }
-
+    
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
@@ -94,10 +95,10 @@ public class Servlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		processRequest(request, response);
 	}
-
+	
 	/**
 	 * This methods processes the request of the user and redirects to the proper method.
-	 *
+	 * 
 	 * @param request Takes user's request. Gathers parameters
 	 * @param response Used for redirecting the user.
 	 * @throws IOException If there is an invalid request.
@@ -106,7 +107,7 @@ public class Servlet extends HttpServlet {
 		response.setContentType("text/html");
 		out = response.getWriter();//initialize writer
 		root = new SimpleHash(df.build());//initialize root map
-
+		
 		//route request
 		switch(request.getParameter("req")){
 			case "register":
@@ -145,25 +146,41 @@ public class Servlet extends HttpServlet {
 			case "upload":
 				upload(request, response);
 				break;
-			case "calender":
-				calender(request, response);
+			case "calendar":
+				calendar(request, response);
 				break;
 			default:
 				response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid request");
 				break;
 		}
 	}
+	
+	private void calendar(HttpServletRequest request, HttpServletResponse response) {
+		RentalLogicImpl rli = new RentalLogicImpl();
+
+		String rentedDates = null;
+		
+		rentedDates = rli.viewUnavailable();
+
+		if (rentedDates != null)
+		{
+			response.setContentType("text/javascript");
+
+			out.write(rentedDates);
+
+		}
+	}
 
 	/**
 	 * This method handles the upload request and directs the user's view to the
 	 * upload.ftl template.
-	 *
+	 * 
 	 * @param request Stores the user's request and parameters.
 	 * @param response Used for redirecting the user.
 	 */
 	private void upload(HttpServletRequest request, HttpServletResponse response) {
 		HttpSession session = request.getSession();
-
+		
 		int carId = Integer.parseInt(request.getParameter("id"));
 		Integer userId = (Integer) session.getAttribute("user");
 		root.put("carId", carId);
@@ -171,16 +188,16 @@ public class Servlet extends HttpServlet {
 			root.put("userId", userId);
 		else
 			sendToLastPage(response, session);
-
+		
 		processTemplate("upload.ftl");
 	}
 
 	/**
 	 * This method receives an image through the HttpServletRequest object,
-	 * calls for the logic layer to store it in the database, and prints a
-	 * JSON object containing the image through the output stream to be
+	 * calls for the logic layer to store it in the database, and prints a 
+	 * JSON object containing the image through the output stream to be 
 	 * parsed with jquery.
-	 *
+	 * 
 	 * @param request Stores the user's request and parameters.
 	 * @param response Used for writing output to be used with JQuery.
 	 */
@@ -192,52 +209,52 @@ public class Servlet extends HttpServlet {
 			Part filePart = request.getPart("image");
 			InputStream fileContent = filePart.getInputStream();
 			Image image = carCtrl.putImage(fileContent, carId);
-
+			
 			//get json of image
 			Gson gson = new Gson();
 			String json = gson.toJson(image);
-
+	        
 			//create inputstream of json
 			InputStream is = new ByteArrayInputStream(json.getBytes("UTF-8"));
 			byte[] buffer = new byte[1024];
 			int bytesRead = 0;
-
+			
 			//reset response so we can use outputstream
 			response.reset();
-
+			
 			//write json to output
 			do{
 				bytesRead = is.read(buffer, 0, buffer.length);
 				response.getOutputStream().write(buffer, 0, bytesRead);
 			}while(bytesRead == buffer.length);
-
-
+			
+			
 		} catch (IOException | ServletException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 
-
+	
 	/**
 	 * This method receives an image id through the HttpServletRequest object
-	 * and calls for the car logic layer to remove it from the database.
+	 * and calls for the car logic layer to remove it from the database. 
 	 * If the user is not logged in, they will be redirected
 	 * to the login page. If they are not owners of the car, they will be
 	 * redirected to the last page they visited.
-	 *
+	 * 
 	 * @param request Stores the user's request and parameters.
 	 * @param response Used for redirecting the user.
 	 */
 	private void deleteImage(HttpServletRequest request, HttpServletResponse response) {
 		HttpSession session = request.getSession();
 		CarLogicImpl carCtrl = new CarLogicImpl();
-
+		
 		//make sure that the user is deleting his/her own image
 		Integer userId = (Integer) session.getAttribute("user");
 		int id = Integer.parseInt(request.getParameter("id"));
 		int ownerId = carCtrl.getOwnerOfImage(id);
-
+		
 		//route the user to login if user is not logged in
 		if(userId == null){
 		try {
@@ -254,16 +271,16 @@ public class Servlet extends HttpServlet {
 		else{
 			carCtrl.deleteImage(id);
 		}
-
+		
 	}
 
 	/**
 	 * This method receives a car id through the HttpServletRequest object
 	 * and calls for the car logic layer to remove the item from the database
-	 * if the user has permission. If the user is not logged in, they will be
-	 * redirected to the login page. If they are not owners of the car, they
+	 * if the user has permission. If the user is not logged in, they will be 
+	 * redirected to the login page. If they are not owners of the car, they 
 	 * will be redirected to the last page they visited.
-	 *
+	 * 
 	 * @param request Stores the user's request and parameters.
 	 * @param response Used for redirecting the user.
 	 */
@@ -271,12 +288,12 @@ public class Servlet extends HttpServlet {
 		//create logic and session objects
 		CarLogicImpl carCtrl = new CarLogicImpl();
 		HttpSession session = request.getSession();
-
+		
 		//make sure that the user is editing his/her own entry
 		Integer userId = (Integer) session.getAttribute("user");
 		int id = Integer.parseInt(request.getParameter("id"));
 		int ownerId = carCtrl.getOwnerId(id);
-
+		
 		//route the user to login if user is not logged in
 		if(userId == null){
 			try {
@@ -295,17 +312,17 @@ public class Servlet extends HttpServlet {
 			root.put("userId", userId);
 			processTemplate("delete.ftl");
 		}
-
+		
 	}
 
 	/**
-	 *
+	 * 
 	 * This method receives a car id through the HttpServletRequest object.
 	 * It allows the user to modify the car's entry in the database if they
 	 * have permission. If the user is not logged in, they will be redirected
 	 * to the login page. If they are not owners of the car, they will be
 	 * redirected to the last page they visited.
-	 *
+	 * 
 	 * @param request Stores the user's request and parameters.
 	 * @param response Used for redirecting the user.
 	 */
@@ -313,12 +330,12 @@ public class Servlet extends HttpServlet {
 		//create logic and session objects
 		CarLogicImpl carCtrl = new CarLogicImpl();
 		HttpSession session = request.getSession();
-
+		
 		//make sure that the user is editing his/her own entry
 		Integer userId = (Integer) session.getAttribute("user");
 		int id = Integer.parseInt(request.getParameter("id"));
 		int ownerId = carCtrl.getOwnerId(id);
-
+		
 		//route the user to login if user is not logged in
 		if(userId == null){
 			try {
@@ -341,20 +358,20 @@ public class Servlet extends HttpServlet {
 			String price = request.getParameter("price");
 			String description = request.getParameter("description");
 			String carType = request.getParameter("type");
-
+			
 			//if all the fields contain data, update the table the car table
 			if(make!=null && model != null && year != null && color != null && price != null
 					&& description != null && carType != null){
-
+			
 				carCtrl.editCar(id, make, model, year, color, price, description, carType);
 				Car car = carCtrl.getCar(id);
-
+				
 				root.put("done", true);
 				root.put("car", car);
 			}else{//if any field is empty, do not allow user to edit car, instead return unaltered car
 				root.put("car", carCtrl.getCar(id));
 			}
-
+			
 			root.put("userId", userId);
 			processTemplate("edit.ftl");
 		}
@@ -362,17 +379,17 @@ public class Servlet extends HttpServlet {
 
 	/**
 	 * This method receives information about a car through the
-	 * HttpServletRequest object. It allows the user to make a new
+	 * HttpServletRequest object. It allows the user to make a new 
 	 * entry in the database if they are logged in. If they are not
 	 * logged in, they will be redirected to the login page.
-	 *
+	 * 
 	 * @param request Stores the user's request and parameters.
 	 * @param response Used for redirecting the user.
 	 */
 	private void add(HttpServletRequest request, HttpServletResponse response) {
 		CarLogicImpl carCtrl = new CarLogicImpl();
 		HttpSession session = request.getSession();
-
+		
 		//gather params
 		String make = request.getParameter("make");
 		String model = request.getParameter("model");
@@ -381,16 +398,16 @@ public class Servlet extends HttpServlet {
 		String price = request.getParameter("price");
 		String description = request.getParameter("description");
 		String carType = request.getParameter("type");
-
-		//if user is logged in, allow them to add
+		
+		//if user is logged in, allow them to add 
 		if(session.getAttribute("user") != null){
 			//if all parameters are not null, insert car into db.
 			if(make!=null && model != null && year != null && color != null && price != null
 					&& description != null && carType != null){
 				int ownerId = (Integer) session.getAttribute("user");
-				int carId = carCtrl.addCar(ownerId, make, model, year, color,
+				int carId = carCtrl.addCar(ownerId, make, model, year, color, 
 						price, description, carType);
-
+				
 				//route user to upload images
 				try {
 					response.sendRedirect("Servlet?req=upload&id="+carId);
@@ -409,7 +426,7 @@ public class Servlet extends HttpServlet {
 				e.printStackTrace();
 			}
 		}
-
+		
 	}
 
 	/**
@@ -418,7 +435,7 @@ public class Servlet extends HttpServlet {
 	 * FreeMarker with the user.ftl file. If a user is trying to view
 	 * his/her own page, additional capabilities (edit/delete) will be
 	 * shown on car listings.
-	 *
+	 * 
 	 * @param request Stores the user's request and parameters.
 	 */
 	void viewUser(HttpServletRequest request){
@@ -426,21 +443,21 @@ public class Servlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		UserLogicImpl userCtrl = new UserLogicImpl();
 		CarLogicImpl carCtrl = new CarLogicImpl();
-
+		
 		//store url in session - for use when viewing forbidden pages
 		session.setAttribute("url", getURL(request));
-
+		
 		//gather parameters
 		int id = Integer.parseInt(request.getParameter("id"));
-
+		
 		//create model objects
 		User user = userCtrl.getSingleUser(id);
 		List<Car> cars = carCtrl.getCarsFromUser(id);
-
+		
 		//put objects in root map
 		root.put("user", user);
 		root.put("cars", cars);
-
+		
 		//add additional object to map to give user extra
 		//functionalities if they are viewing their own page
 		Integer userIdFromSession = (Integer) session.getAttribute("user");
@@ -451,28 +468,28 @@ public class Servlet extends HttpServlet {
 		}
 		processTemplate("user.ftl");
 	}
-
+	
 	/**
 	 * This method receives a car id through the HttpServletRequest
 	 * object and calls for the car's information to be processed by
 	 * FreeMarker with the car.ftl file. If a user is trying to view
 	 * a car they own an edit button will be added to the page.
-	 *
+	 * 
 	 * @param request Stores the user's request and parameters.
 	 */
 	void viewCar(HttpServletRequest request){
 		//create session and logic objects
 		CarLogicImpl carCtrl = new CarLogicImpl();
 		HttpSession session = request.getSession();
-
+		
 		//store url in session - for use when viewing forbidden pages
 		session.setAttribute("url", getURL(request));
-
+		
 		//gather params
 		int id = Integer.parseInt(request.getParameter("id"));
 		Car car = carCtrl.getCar(id);
 		root.put("car", car);
-
+		
 		//let user edit car if they own it
 		Integer userId = (Integer) session.getAttribute("user");
 		if(userId!=null){
@@ -482,67 +499,61 @@ public class Servlet extends HttpServlet {
 				root.put("same", true);
 			}
 		}
-
+		
 		processTemplate("car.ftl");
 	}
-
+	
 	/**
 	 * This method receives criteria through the HttpServletRequest
 	 * object and uses it to narrow down the list of cars that will
 	 * be processed and displayed using FreeMarker in the search.ftl
 	 * file.
-	 *
+	 * 
 	 * @param request Stores the user's request and parameters.
 	 */
 	void search(HttpServletRequest request) {
 		//create logic and session objects
 		CarLogicImpl carCtrl = new CarLogicImpl();
 		HttpSession session = request.getSession();
-		List<Car> cars = null;
-
+		
 		//store userId in session
 		if(session.getAttribute("user")!=null);
 			root.put("userId", session.getAttribute("user"));
 		//store url in session - for use when viewing forbidden pages
 		session.setAttribute("url", getURL(request));
-
+		
 		//gathers params
 		String from = request.getParameter("fromDate");
 		String to = request.getParameter("toDate");
 		String type = request.getParameter("type");
 		String make = request.getParameter("make");
 		String sort = request.getParameter("sortBy");
-
-		if(type != null || make != null){
-			cars = carCtrl.getCarsWithParams(type, make);
-		}
-
+		
 		//not actually taking dates into consideration yet
 		//work on that
-		else{
-		cars = carCtrl.getCars();
-	}
+		List<Car> cars = carCtrl.getCars();
+		
 		//get lists of types, makes, and models
 		List<String> types = carCtrl.getTypes();
 		List<String> makes = carCtrl.getMakes();
 		List<String> models = carCtrl.getModels();
-
+		
 		//put objects in root map
 		root.put("types", types);
 		root.put("makes", makes);
 		root.put("models", models);
 		root.put("cars",cars);
-
+		
 		processTemplate("search.ftl");
 	}
-
-
+	
+	
 	/**
 	 * This method receives the information of a new user from the
 	 * register.html page. If the username does not exist in the
-	 * database, a new entry is made and the user's session is stored.
+	 * database, a new entry is made and the user's session is stored. 
 	 * If the username does exist, the user is redirected to register.html.
-	 *
+	 * 
 	 * @param request Stores the user's request and parameters.
 	 * @param response Used for redirecting the user.
 	 */
@@ -550,13 +561,13 @@ public class Servlet extends HttpServlet {
 		//create logic and session objects
 		UserLogicImpl userCtrl = new UserLogicImpl();
 		HttpSession session = request.getSession();
-
+		
 		//gather parameters
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
 		String firstName = request.getParameter("firstName");
 		String lastName = request.getParameter("lastName");
-
+		
 		//if the username already exists, redirect user to register
 		if(userCtrl.usernameExists(username)){
 			try {
@@ -574,16 +585,16 @@ public class Servlet extends HttpServlet {
 			//redirect user
 			sendToLastPage(response, session);
 		}
-
+		
 	}
-
+	
 	/**
 	 * This method verifies that the information the user inputs in
 	 * login.html is valid. If so, their user id is stored in the
 	 * HttpSession and the user is routed to the last page they were
 	 * on. If the information is invalid, the user is rerouted to
 	 * login.html.
-	 *
+	 * 
 	 * @param request Stores the user's request and parameters.
 	 * @param response Used for redirecting the user.
 	 */
@@ -591,11 +602,11 @@ public class Servlet extends HttpServlet {
 		//create logic and session objects
 		UserLogicImpl userCtrl = new UserLogicImpl();
 		HttpSession session = request.getSession();
-
+		
 		//gather params
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
-
+		
 		//validate user - if credentials are valid, route to search
 		//if invalid route to login
 		if(userCtrl.validate(username, password)){
@@ -609,11 +620,11 @@ public class Servlet extends HttpServlet {
 			}
 		}
 	}
-
+	
 	/**
 	 * This method invalidates the user's session and routes
 	 * them to index.html.
-	 *
+	 * 
 	 * @param request Stores the user's request and parameters.
 	 * @param response Used for redirecting the user.
 	 */
@@ -627,11 +638,11 @@ public class Servlet extends HttpServlet {
 			e.printStackTrace();
 		}
 	}
-
+	
 	/**
 	 * This method processes the given FreeMarker template
 	 * with the 'root' map.
-	 *
+	 * 
 	 * @param templateName The name of the template to be processed.
 	 */
 	private void processTemplate(String templateName){
@@ -643,10 +654,10 @@ public class Servlet extends HttpServlet {
 			e.printStackTrace();
 		}
 	}
-
+	
 	/**
 	 * This method computes and returns the URL for a given request.
-	 *
+	 * 
 	 * @param request Stores the user's request and parameters.
 	 * @return URL string
 	 */
@@ -660,11 +671,11 @@ public class Servlet extends HttpServlet {
 	        return requestURL.append('?').append(queryString).toString();
 	    }
 	}
-
+	
 	/**
 	 * This method redirects the user to the last page
 	 * they visited (stored in HttpSession object).
-	 *
+	 * 
 	 * @param response Stores the user's request and parameters.
 	 * @param session The current user's session and contents.
 	 */
@@ -681,25 +692,5 @@ public class Servlet extends HttpServlet {
 			e.printStackTrace();
 		}
 	}
-
-	void calender(HttpServletResponse response, HttpSession session)
-	{
-		RentalLogicImpl rli = new RentalLogicImpl();
-		HttpSession session = request.getSession();
-
-		String rentedDates = null;
-		
-		rentedDates = rpi.viewUnavailable();
-
-		if (rentalDate != null)
-		{
-			response.setContentType("text/javascript");
-
-			response.getWriter().write(rentedDates);
-
-		}
-		
-	}
-
-
+	
 }
