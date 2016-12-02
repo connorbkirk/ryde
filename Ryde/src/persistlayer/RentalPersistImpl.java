@@ -2,6 +2,7 @@ package persistlayer;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.util.Date;
   
   
   public class RentalPersistImpl
@@ -18,9 +19,9 @@ import java.sql.ResultSet;
     return db.create(con, query); 
   }
   
-  public ResultSet viewAvailable()
+  public ResultSet viewAvailable(int carId)
   {
-    String query = "SELECT * from rental_dates"; 
+    String query = "SELECT * from rental_dates where carID=" + carId; 
     
     return db.retrieve(con, query); 
   

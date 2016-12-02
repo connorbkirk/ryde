@@ -168,9 +168,11 @@ public class Servlet extends HttpServlet {
 	private void calendar(HttpServletRequest request, HttpServletResponse response) {
 		RentalLogicImpl rli = new RentalLogicImpl();
 
+		int carId = Integer.parseInt(request.getParameter("carId"));
+		
 		String rentedDates = null;
 		
-		rentedDates = rli.viewUnavailable();
+		rentedDates = rli.viewUnavailable(carId);
 		
 		if (rentedDates != null)
 		{
@@ -519,7 +521,7 @@ public class Servlet extends HttpServlet {
 		Car car = carCtrl.getCar(id);
 		int ownerId = car.getOwnerId();
 		User owner = userCtrl.getSingleUser(ownerId);
-		System.out.println(owner.getFirstName() + " " + owner.getLastName());
+
 		root.put("car", car);
 		root.put("owner", owner);
 		

@@ -25,9 +25,9 @@ public class Rental
 	 * @param d2 end date. 
 	 */
 	
-	public Rental(int inputID, String d1, String d2)
+	public Rental(int carId, String d1, String d2)
 	{
-		setCarID(inputID); 
+		setCarID(carId); 
 		startDate = d1; 
 		endDate = d2;
 	}

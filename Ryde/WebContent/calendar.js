@@ -80,7 +80,7 @@ function jqueryCalendar()
 
     $.ajax({
     		url: "Servlet?req=calendar", 
-    		data: {}, 
+    		data: "carId="+$("#carId").val(), 
     		success:function(data)
     		{
     			//console.log(data);

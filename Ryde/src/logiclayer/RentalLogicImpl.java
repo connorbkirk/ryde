@@ -33,61 +33,52 @@ public class RentalLogicImpl
   	/**
   	 * Function used to display all taken dates. 
   	 * Started by JS calling servlet which calls this and then calls persit function. 
+  	 * @param carId 
   	 * @return returns a string that is formated like a javascript varibale that contains array of objects. 
   	 * @throws SQLException
   	 */
 
-    public String viewUnavailable()
+    public String viewUnavailable(int carId)
     {
-        //ResultSet rs = rpi.verifyDate(int carID, String d1, String d2); 
+    	//ResultSet rs = rpi.verifyDate(int carID, String d1, String d2); 
         
     	Gson gson = new Gson();
     	
     	ArrayList<Gson> tempGson = new ArrayList<Gson>(); 
     	ArrayList<Rental> tempRental = new ArrayList<Rental>(); 
     	
-    	
-    	
-    	
         ResultSet rs = null;
-        
         
         String dateVar = null; 
       
       
-        rs  =rpi.viewAvailable(); 
-      //returns all taken dates. 
+        rs = rpi.viewAvailable(carId); 
+        //returns all taken dates. 
     
-     if (rs != null)
-     {
-       //if there are dates taken iterate and create js variable to be parsed. 
+        if (rs != null)
+        {
+        	//if there are dates taken iterate and create js variable to be parsed. 
       
-        try {
-			while(rs.next())
-			{
-			  String day1 = rs.getString("startDate"); 
-			  String day2 = rs.getString("endDate"); 
-			  
-			  tempRental.add(new Rental(day1, day2)); 
+        	try {
+				while(rs.next())
+				{
+				  String day1 = rs.getString("startDate"); 
+				  String day2 = rs.getString("endDate"); 
+				  
+				  tempRental.add(new Rental(day1, day2)); 
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-        
-        dateVar = gson.toJson(tempRental); 
-        //converts list of rentals to json format. 
-        
-      
-     }
-      
-      else
-        dateVar = "undefined"; 
-      
-      
-      return dateVar; 
- }
+	
+	        dateVar = gson.toJson(tempRental); 
+	        //converts list of rentals to json format. 
+        }
+        else
+	        dateVar = "undefined"; 
+	    return dateVar; 
+    }
 	
 	
 	

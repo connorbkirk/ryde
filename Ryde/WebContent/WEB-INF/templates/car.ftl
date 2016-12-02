@@ -33,7 +33,7 @@
 		<div id="blocker"></div>
 		<div id="sidebar">
 			<form action="Servlet?req=rentDate" method="POST">
-				<input type="hidden" name="id" value="${car.id}" />
+				<input type="hidden" name="id" id="carId" value="${car.id}" />
 				From<input class="text-entry" type="textfield" id="from" name="from" placeholder="MM/DD/YYYY"/><br/>
 				Until<input class="text-entry" type="textfield" id="to" name="to" placeholder="MM/DD/YYYY"/><br/>
 				Total Price: <span id="priceBox"></span><br/>
