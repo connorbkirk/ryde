@@ -23,7 +23,7 @@ CREATE TABLE users(
     lastName    VARCHAR(255),
     username    VARCHAR(255) UNIQUE,
     pswrd       VARCHAR(255),
-    phone       VARCHAR(255),
+    phone       VARCHAR(12),
     email       VARCHAR(255)
     #
     #other things here
