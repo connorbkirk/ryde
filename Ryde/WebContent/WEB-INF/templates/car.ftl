@@ -96,7 +96,7 @@
 					</tr>
 					<tr>
 						<td class="header">Price</td>
-						<td class="support" id="price">${car.price}/day</td>
+						<td class="support"><span id="price">${car.price}</span>/day</td>
 					</tr>
 				</table>
 			</div>
