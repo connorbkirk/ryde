@@ -8,7 +8,8 @@ $(function(){
 			type:"GET",
 			data:"inputText="+inputText,
 			success: function(data){
-				$("#makeSearchbox").val(data);
+				if(data!="")
+					$("#makeSearchbox").val(data);
 			}
 		});
 	})

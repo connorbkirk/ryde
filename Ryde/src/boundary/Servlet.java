@@ -164,11 +164,20 @@ public class Servlet extends HttpServlet {
 	
 	private void autoMake(HttpServletRequest request, HttpServletResponse response) {
 		SearchLogicImpl sl = new SearchLogicImpl();
+		
 	    String currentSearchBarContent = request.getParameter("inputText");
+	    if(currentSearchBarContent==null)
+	    	return;
 	    List<String> resultList = sl.getSuggestionsFromPersist(currentSearchBarContent);
-	    String result = resultList.get(0);
-	    response.setContentType("text/html");
-	    out.println(result);
+	    for(String s: resultList)
+	    	System.out.println(s);
+	    if (resultList.size() == 1){
+		    String result = resultList.get(0);
+		    response.setContentType("text/html");
+		    out.println(result);
+	    }
+	    else
+	    	out.print("");
 	}
 
 	/**
