@@ -149,12 +149,23 @@ public class Servlet extends HttpServlet {
 			case "calendar":
 				calendar(request, response);
 				break;
+			case "rentDate":
+				addRental(request, response);
+				break; 
 			default:
 				response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid request");
 				break;
 		}
 	}
 	
+	
+	 /**
+	 * Function used to process request where use wants to view calender. 
+	 *calender must be able to display all the days that are already taken.
+	 *thus must call the server to get this information. 
+	 * @param request ajax request 
+	 * @param response returns a JS formated string which contains the array of date objects.
+	 */
 	private void calendar(HttpServletRequest request, HttpServletResponse response) {
 		RentalLogicImpl rli = new RentalLogicImpl();
 
@@ -170,6 +181,30 @@ public class Servlet extends HttpServlet {
 
 		}
 	}
+	
+	
+	 /**
+	 * Function used to process request where use wants to add new rental dates. 
+	 * @param request user input of the start and end date. 
+	 * @param response none visually.
+	 */
+	
+	private void addRental(HttpServletRequest request, HttpServletResponse response){
+		HttpSession session = request.getSession();
+		
+		String startDate = request.getParameter("from"); 
+		String endDate = request.getParameter("to"); 
+		
+		RentalLogicImpl rli = new RentalLogicImpl(); 
+		
+		if ((startDate != null) && (endDate != null))
+		{
+			rli.addRentalDate(startDate, endDate);
+		}
+		
+		
+	}
+	
 
 	/**
 	 * This method handles the upload request and directs the user's view to the
