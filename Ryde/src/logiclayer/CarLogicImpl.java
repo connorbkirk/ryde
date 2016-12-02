@@ -19,56 +19,59 @@ import persistlayer.CarPersistImpl;
  */
 public class CarLogicImpl {
 	private CarPersistImpl cp;
-
+	
 	/**
 	 * Default constructor. Creates a new object of CarPersistImpl.
 	 */
 	public CarLogicImpl(){
 		cp = new CarPersistImpl();
 	}
-
+	
 	/**
 	 * This method calls the CarPersistImpl class to gather
-	 * a ResultSet of all calls in the database. It then
+	 * a ResultSet of all calls in the database. It then 
 	 * processes the ResultSet into a list of Car objects.
-	 *
+	 * 
 	 * @return A list of car objects.
 	 */
 	public List<Car> getCars(){
-		ResultSet rs = null;
-		rs = cp.getCars();
-
-		List<Car>resultCars = new ArrayList<Car>();
-
+		ResultSet rs = null; 
+		rs = cp.getCars(); 
+		
+		List<Car>resultCars = new ArrayList<Car>(); 
+		
 		try {
 			while(rs.next()){
-				String make = rs.getString("make");
+				String make = rs.getString("make"); 
 				String model = rs.getString("model");
-				int carYear = rs.getInt("carYear");
-				String color = rs.getString("color");
-				int price = rs.getInt("price");
+				int carYear = rs.getInt("carYear"); 
+				String color = rs.getString("color"); 
+				int price = rs.getInt("price"); 
 				int id = rs.getInt("id");
-				int ownerId = rs.getInt("ownerID");
-				String description = rs.getString("description");
+				int ownerId = rs.getInt("ownerID"); 
+				String description = rs.getString("description"); 
 				String carType = rs.getString("carType");
-				//retrieves info from the result set.
-
+				//retrieves info from the result set. 
+				
 				Car car = new Car(id, make, model, carYear, color, ownerId, price, description, carType, getImages(id));
-
-				resultCars.add(car);
-				//dynamically creates car objects.
+				
+				resultCars.add(car); 
+				//dynamically creates car objects. 
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
-		return resultCars;
+		
+		return resultCars; 
 	}
-
+	
 	/**
-	*
-	*/
+	 * 
+	 * @param make
+	 * @param carType
+	 * @return
+	 */
 	public List<Car> getCarsWithParams(String make, String carType){
 		ResultSet rs = null;
 		rs = cp.getCarsWithParams(make, carType); 
@@ -77,7 +80,7 @@ public class CarLogicImpl {
 
 		try {
 			while(rs.next()){
-				String make = rs.getString("make");
+				//String make = rs.getString("make");
 				String model = rs.getString("model");
 				int carYear = rs.getInt("carYear");
 				String color = rs.getString("color");
@@ -85,7 +88,7 @@ public class CarLogicImpl {
 				int id = rs.getInt("id");
 				int ownerId = rs.getInt("ownerID");
 				String description = rs.getString("description");
-				String carType = rs.getString("carType");
+				//String carType = rs.getString("carType");
 				//retrieves info from the result set.
 
 				Car car = new Car(id, make, model, carYear, color, ownerId, price, description, carType, getImages(id));
@@ -101,13 +104,12 @@ public class CarLogicImpl {
 		return resultCars;
 	}
 
-
 	/**
 	 * This method calls the CarPersistImpl class to gather
-	 * a ResultSet of all types in the database. It then
+	 * a ResultSet of all types in the database. It then 
 	 * processes the ResultSet into a list of strings containing
 	 * all of the types.
-	 *
+	 * 
 	 * @return A list of strings containing types of cars.
 	 */
 	public List<String> getTypes() {
@@ -129,10 +131,10 @@ public class CarLogicImpl {
 
 	/**
 	 * This method calls the CarPersistImpl class to gather
-	 * a ResultSet of all models in the database. It then
+	 * a ResultSet of all models in the database. It then 
 	 * processes the ResultSet into a list of strings containing
 	 * all of the models.
-	 *
+	 * 
 	 * @return A list of strings containing models of cars.
 	 */
 	public List<String> getModels() {
@@ -154,10 +156,10 @@ public class CarLogicImpl {
 
 	/**
 	 * This method calls the CarPersistImpl class to gather
-	 * a ResultSet of all makes in the database. It then
+	 * a ResultSet of all makes in the database. It then 
 	 * processes the ResultSet into a list of strings containing
 	 * all of the makes.
-	 *
+	 * 
 	 * @return A list of strings containing makes of cars.
 	 */
 	public List<String> getMakes() {
@@ -178,12 +180,12 @@ public class CarLogicImpl {
 	}
 
 	/**
-	 *
+	 * 
 	 * This method calls the CarPersistImpl class to gather
 	 * a ResultSet containing an entry the car with the id
-	 * given as a parameter. It then processes the ResultSet
+	 * given as a parameter. It then processes the ResultSet 
 	 * into a single Car object.
-	 *
+	 * 
 	 * @param id The id of the car to get.
 	 * @return The corresponding Car object.
 	 */
@@ -191,9 +193,9 @@ public class CarLogicImpl {
 		ResultSet rs = cp.getCar(id);
 		try {
 			if(rs.next())
-				return new Car(id, rs.getString("make"), rs.getString("model"),
-						rs.getInt("carYear"), rs.getString("color"),
-						rs.getInt("ownerId"), rs.getInt("price"),
+				return new Car(id, rs.getString("make"), rs.getString("model"), 
+						rs.getInt("carYear"), rs.getString("color"), 
+						rs.getInt("ownerId"), rs.getInt("price"), 
 						rs.getString("description"), rs.getString("carType"), getImages(id));
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -203,18 +205,18 @@ public class CarLogicImpl {
 	}
 
 	/**
-	 *
+	 * 
 	 * This method calls the CarPersistImpl class to gather
 	 * a ResultSet of all calls belonging to a given user
-	 * in the database. It then processes the ResultSet
+	 * in the database. It then processes the ResultSet 
 	 * into a list of Car objects.
-	 *
+	 * 
 	 * @param ownerId The id of the owner whose cars to get.
 	 * @return A list of car objects.
 	 */
 	public List<Car> getCarsFromUser(int ownerId) {
-		List<Car> cars = new ArrayList<Car>();
-		ResultSet rs = cp.getCarsFromUser(ownerId);
+		List<Car> cars = new ArrayList<Car>(); 
+		ResultSet rs = cp.getCarsFromUser(ownerId); 
 		try {
 			while(rs.next()){
 				int id = rs.getInt("id");
@@ -225,7 +227,7 @@ public class CarLogicImpl {
 				int price = rs.getInt("price");
 				String description = rs.getString("description");
 				String carType = rs.getString("carType");
-
+				
 				Car car = new Car(id, make, model, year, color, ownerId, price, description, carType, getImages(id));
 				cars.add(car);
 			}
@@ -233,17 +235,17 @@ public class CarLogicImpl {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
+		
 		return cars;
 	}
 
 	/**
-	 *
-	 * This method takes information about a car and
+	 * 
+	 * This method takes information about a car and 
 	 * calls the CarPersistImpl to insert it into the
 	 * database. This method will then return the id
 	 * of the car after it was inserted.
-	 *
+	 * 
 	 * @param ownerId Id of owner.
 	 * @param make Make of car.
 	 * @param model Model of car.
@@ -254,7 +256,7 @@ public class CarLogicImpl {
 	 * @param carType Body type of car.
 	 * @return The id of the car after it is inserted in the database.
 	 */
-	public int addCar(int ownerId, String make, String model, String year, String color,
+	public int addCar(int ownerId, String make, String model, String year, String color, 
 			String price, String description, String carType) {
 		ResultSet rs = cp.addCar(ownerId, make, model, year, color, price, description, carType);
 		try {
@@ -268,10 +270,10 @@ public class CarLogicImpl {
 	}
 
 	/**
-	 * This method takes information about a car and
+	 * This method takes information about a car and 
 	 * calls the CarPersistImpl to edit the entry
 	 * in the database.
-	 *
+	 * 
 	 * @param id Id of the car.
 	 * @param make Make of the car.
 	 * @param model Model of the car.
@@ -284,7 +286,7 @@ public class CarLogicImpl {
 	public void editCar(int id, String make, String model, String year, String color, String price,
 			String description, String carType) {
 		cp.editCar(id, make, model, year, color, price, description, carType);
-
+		
 	}
 
 	/**
@@ -293,7 +295,7 @@ public class CarLogicImpl {
 	 * the car with the given id. This method then
 	 * processes the ResultSet and returns a string
 	 * containing the ownerId of the car.
-	 *
+	 * 
 	 * @param id Id of the car.
 	 * @return Id of the owner.
 	 */
@@ -312,7 +314,7 @@ public class CarLogicImpl {
 	/**
 	 * This method calls the CarPersistImpl to delete
 	 * the entry in the database with the given carId.
-	 *
+	 * 
 	 * @param id Id of the car to delete.
 	 */
 	public void deleteCar(int id) {
@@ -326,7 +328,7 @@ public class CarLogicImpl {
 	 * entry. This method will then process the ResultSet
 	 * to create an Image object containing the image as a
 	 * String.
-	 *
+	 * 
 	 * @param image InputStream of image.
 	 * @param carId Id of car.
 	 * @return Image object of given image and carId.
@@ -342,7 +344,7 @@ public class CarLogicImpl {
 				byte[] imgBytesAsBase64 = Base64.getEncoder().encode(bytes);
 				String imgDataAsBase64 = new String(imgBytesAsBase64);
 				String imgAsBase64 = "data:image/png;base64," + imgDataAsBase64;
-
+				
 				return new Image(id, imgAsBase64, carId);
 			}
 		} catch (SQLException e) {
@@ -350,14 +352,14 @@ public class CarLogicImpl {
 		}
 		return null;
 	}
-
+	
 	/**
-	 *
+	 * 
 	 * This method calls the CarPersistImpl class to
 	 * gather all entries in the images table corresponding
-	 * to the given carId, process the ResultSet into a
+	 * to the given carId, process the ResultSet into a 
 	 * list of Image objects, and return the list.
-	 *
+	 * 
 	 * @param carId Id of the car.
 	 * @return List of Image objects that belong to carId.
 	 */
@@ -367,7 +369,7 @@ public class CarLogicImpl {
 		try {
 			while(rs.next()){
 				int id = rs.getInt("id");
-
+				
 				Blob blob = rs.getBlob("image");
 				InputStream img = blob.getBinaryStream();
 				byte[] bytes = blob.getBytes(1, (int) blob.length());
@@ -379,16 +381,16 @@ public class CarLogicImpl {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-
+		
 		return images;
 	}
 
 	/**
 	 * This method calls the CarPersistImpl to create a
-	 * ResultSet containing car information of a given
+	 * ResultSet containing car information of a given 
 	 * image. This method then returns the owner of the car
 	 * as an int.
-	 *
+	 * 
 	 * @param id Id of the image.
 	 * @return Id of the owner of the image and car.
 	 */
@@ -406,16 +408,16 @@ public class CarLogicImpl {
 	}
 
 	/**
-	 *
+	 * 
 	 * This method calls the CarPersistImpl to remove an
 	 * entry from the images table with the corresponding
 	 * id.
-	 *
+	 * 
 	 * @param id Id of the image.
 	 */
 	public void deleteImage(int id) {
 		cp.deleteImage(id);
-
+		
 	}
-
+	
 }

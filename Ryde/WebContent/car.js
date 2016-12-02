@@ -38,7 +38,6 @@ function showPic(n){
 	    .zoom();
 }
 
-
 function getPrice()
 {
     

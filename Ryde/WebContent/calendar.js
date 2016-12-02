@@ -1,6 +1,31 @@
       
 var rentalDates; 
 
+$( function() 
+{
+    //function used to init the calender. 
+	//also blocks out certain dates from the server rented dates. 
+	
+    var dateFormat = "mm/dd/yy";
+    var from = $( "#from" ).datepicker({
+        	defaultDate: "+1w",
+            changeMonth: true,
+            numberOfMonths: 1, 
+            beforeShowDay: disableDays
+            }).on( "change", function() {
+              to.datepicker( "option", "minDate", getDate(this) );
+            });     
+    var to = $( "#to" ).datepicker({
+            defaultDate: "+1w",
+            changeMonth: true,
+            numberOfMonths: 1, 
+            beforeShowDay: disableDays
+          }).on( "change", function() {
+            from.datepicker( "option", "maxDate", getDate( this ) );
+          });
+    
+    jqueryCalender();
+});
 
  function disableDays(date)
  {
@@ -14,10 +39,10 @@ var rentalDates;
     totalDate = new Date (totalDate); 
                                
     console.log(totalDate); 
-    console.log(x1); 
+    //console.log(x1); 
        
      
-     for (i = 0; i<rentalDate.length; i++)
+     for (i = 0; i<rentalDates.length; i++)
      {
         x1 = rentalDate[i].startDate; 
         x2 = rentalDate[i].endDate; 
@@ -33,54 +58,20 @@ var rentalDates;
 
      }
        return [true];
-     
-  }
+}
+
+function getDate( element ) {
+    //returns the date from the calender. 
       
+    var date;
+    try {
+      date = $.datepicker.parseDate( dateFormat, element.value );
+    } catch( error ) {
+      date = null;
+    }
 
-
-
-
-
-$( function() 
-{
-          //function used to init the calender. 
-          //also blocks out certain dates from the server rented dates. 
-    
-    var dateFormat = "mm/dd/yy",
-        from = $( "#from" )
-            .datepicker({
-              defaultDate: "+1w",
-              changeMonth: true,
-              numberOfMonths: 1, 
-                beforeShowDay: disableDays
-            })
-            .on( "change", function() {
-              to.datepicker( "option", "minDate", getDate(this) );
-            }),
-          to = $( "#to" ).datepicker({
-            defaultDate: "+1w",
-            changeMonth: true,
-            numberOfMonths: 1, 
-              beforeShowDay: disableDays
-          })
-          .on( "change", function() {
-            from.datepicker( "option", "maxDate", getDate( this ) );
-          });
-
-        function getDate( element ) {
-          //returns the date from the calender. 
-            
-            var date;
-          try {
-            date = $.datepicker.parseDate( dateFormat, element.value );
-          } catch( error ) {
-            date = null;
-          }
-
-          return date;
-        }
-      } 
-);
+    return date;
+} 
 
 function jqueryCalender()
 {
@@ -88,7 +79,7 @@ function jqueryCalender()
     $.ajax({
     		url: "Servlet?req=calendar", 
     		type: "GET",
-    		data: "calendar="+calendar, 
+    		data: {calender : "calender" }, 
     		success:function(data)
     		{
 	        data = JSON.parse(data); 
