@@ -100,6 +100,7 @@ function getPrice()
 {   
     var startDate = $("#from").val(); 
     var endDate = $("#to").val(); 
+    var price = $("#price").val();
  
     console.log("start " + startDate);
     console.log("end " + endDate);
@@ -120,7 +121,7 @@ function getPrice()
     
     totalTime = totalTime % msDay; 
 	
-    var totalPrice = 20 * totalTime; 
+    var totalPrice = price * totalTime; 
     
     console.log(totalPrice);
     
