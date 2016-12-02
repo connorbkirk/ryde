@@ -124,7 +124,7 @@ function getPrice()
     
     console.log(totalPrice);
     
-    $("#priceBox").val(totalPrice); 
+    $("#priceBox").text(totalPrice); 
     
     //return 20 * totalTime; 
     //calculates the price and returns. 
