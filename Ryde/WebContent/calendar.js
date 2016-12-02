@@ -79,23 +79,26 @@ $( function()
 
           return date;
         }
-      } );
+      } 
+);
 
 function jqueryCalender()
 {
 
-    
-    
-    $.ajax(url: "Servlet", data: {calender : "calender" }, success:function(data)
-    {
-        data = jQuery.parseJSON(data); 
-        
-        rentalDates = data; 
-        //rental date array set to servlet response. 
-        
-        
-        
-        //$("#calendarArea").availabilityCalendar(data);
-        
+    $.ajax({
+    		url: "Servlet?req=calendar", 
+    		type: "GET",
+    		data: "calendar="+calendar, 
+    		success:function(data)
+    		{
+	        data = JSON.parse(data); 
+	        
+	        rentalDates = data; 
+	        //rental date array set to servlet response. 
+	        
+	        
+	        
+	        //$("#calendarArea").availabilityCalendar(data);
+    		}
     }); 
 }
