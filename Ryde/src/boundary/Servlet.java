@@ -158,11 +158,10 @@ public class Servlet extends HttpServlet {
 		}
 	}
 	
-	
-	 /**
-	 * Function used to process request where use wants to view calender. 
-	 *calender must be able to display all the days that are already taken.
-	 *thus must call the server to get this information. 
+	/**
+	 * Function used to process request where use wants to view calendar. 
+	 * calendar must be able to display all the days that are already taken.
+	 * thus must call the servers to get this information. 
 	 * @param request ajax request 
 	 * @param response returns a JS formated string which contains the array of date objects.
 	 */
@@ -172,7 +171,7 @@ public class Servlet extends HttpServlet {
 		String rentedDates = null;
 		
 		rentedDates = rli.viewUnavailable();
-
+		
 		if (rentedDates != null)
 		{
 			response.setContentType("text/javascript");
@@ -181,31 +180,25 @@ public class Servlet extends HttpServlet {
 
 		}
 	}
-	
-	
-	 /**
+
+	/**
 	 * Function used to process request where use wants to add new rental dates. 
 	 * @param request user input of the start and end date. 
 	 * @param response none visually.
 	 */
-	
 	private void addRental(HttpServletRequest request, HttpServletResponse response){
-		HttpSession session = request.getSession();
-		
-		String startDate = request.getParameter("from"); 
-		String endDate = request.getParameter("to"); 
-		
 		RentalLogicImpl rli = new RentalLogicImpl(); 
 		
-		if ((startDate != null) && (endDate != null))
-		{
-			rli.addRentalDate(startDate, endDate);
-		}
-		
-		
-	}
+		String startDate = request.getParameter("from");
+	 	String endDate = request.getParameter("to"); 
+	 	int id = Integer.parseInt(request.getParameter("id"));
+	 	
+	 	if ((startDate != null) && (endDate != null))
+	 	{
+	 		rli.addRentalDate(startDate, endDate, id);
+	 }
+}
 	
-
 	/**
 	 * This method handles the upload request and directs the user's view to the
 	 * upload.ftl template.
