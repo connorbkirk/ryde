@@ -1,22 +1,15 @@
 package logiclayer;
 
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.sql.Blob;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.List;
-
-import javax.imageio.ImageIO;
+import java.util.Date;
 
 import com.google.gson.Gson;
-
-import objectlayer.Car;
 import objectlayer.Rental;
-import persistlayer.CarPersistImpl;
 import persistlayer.RentalPersistImpl;
 
 
@@ -107,9 +100,18 @@ public class RentalLogicImpl
      */
     
     
-    public void addRentalDate(String startDate, String endDate)
+    public void addRentalDate(String startDate, String endDate, int id)
     {
-    	rpi.addRentalDate(startDate, endDate, 0); 
+    	DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+    	try {
+			Date start = new SimpleDateFormat("MM/dd/yyyy").parse(startDate);
+			Date end = new SimpleDateFormat("MM/dd/yyyy").parse(endDate);
+			rpi.addRentalDate(df.format(start), df.format(end), id); 
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	
     	//call function.
     	
   
