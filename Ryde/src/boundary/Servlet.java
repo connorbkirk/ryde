@@ -25,6 +25,7 @@ import freemarker.template.TemplateException;
 import freemarker.template.TemplateExceptionHandler;
 import logiclayer.CarLogicImpl;
 import logiclayer.RentalLogicImpl;
+import logiclayer.SearchLogicImpl;
 import logiclayer.UserLogicImpl;
 import objectlayer.Car;
 import objectlayer.Image;
@@ -152,12 +153,24 @@ public class Servlet extends HttpServlet {
 			case "rentDate":
 				addRental(request, response);
 				break; 
+			case "autoMake":
+				autoMake(request, response);
+				break;
 			default:
 				response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid request");
 				break;
 		}
 	}
 	
+	private void autoMake(HttpServletRequest request, HttpServletResponse response) {
+		SearchLogicImpl sl = new SearchLogicImpl();
+	    String currentSearchBarContent = request.getParameter("inputText");
+	    List<String> resultList = sl.getSuggestionsFromPersist(currentSearchBarContent);
+	    String result = resultList.get(0);
+	    response.setContentType("text/html");
+	    out.println(result);
+	}
+
 	/**
 	 * Function used to process request where use wants to view calendar. 
 	 * calendar must be able to display all the days that are already taken.
