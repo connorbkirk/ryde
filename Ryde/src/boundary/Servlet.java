@@ -508,6 +508,7 @@ public class Servlet extends HttpServlet {
 	void viewCar(HttpServletRequest request){
 		//create session and logic objects
 		CarLogicImpl carCtrl = new CarLogicImpl();
+		UserLogicImpl userCtrl = new UserLogicImpl();
 		HttpSession session = request.getSession();
 		
 		//store url in session - for use when viewing forbidden pages
@@ -516,13 +517,16 @@ public class Servlet extends HttpServlet {
 		//gather params
 		int id = Integer.parseInt(request.getParameter("id"));
 		Car car = carCtrl.getCar(id);
+		int ownerId = car.getOwnerId();
+		User owner = userCtrl.getSingleUser(ownerId);
+		System.out.println(owner.getFirstName() + " " + owner.getLastName());
 		root.put("car", car);
+		root.put("owner", owner);
 		
 		//let user edit car if they own it
 		Integer userId = (Integer) session.getAttribute("user");
 		if(userId!=null){
 			root.put("userId", session.getAttribute("user"));
-			int ownerId = carCtrl.getOwnerId(id);
 			if(userId == ownerId){
 				root.put("same", true);
 			}
