@@ -5,7 +5,8 @@
 
 	<head>
 		<link rel="stylesheet" type="text/css" href="search-style.css"/>
-		<script src="displaySearch.js"></script>
+		<script src="jquery-3.1.1.min.js"></script>
+		<script src="search.js"></script>
 		<title>Ryde</title>
 	</head>
 
@@ -52,7 +53,7 @@
       -->
 
         Vehicle Make <br/>
-        <input name = "make" id = "makeSearchbox"> <br/>
+        <input name ="make" id="makeSearchbox"> <br/>
 
 				Vehicle Model <br/>
 				<select name="model">
