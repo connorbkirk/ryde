@@ -43,21 +43,20 @@
 			<br>
 			<div class="owner">
 				Owned By<br/>
-				<a href="Servlet?req=user&id=${owner.id}">${owner.firstName} ${owner.lastName}</a>
+				<a href="Servlet?req=user&id=${owner.id}" class="animate">${owner.firstName} ${owner.lastName}</a>
 			</div>
 
 		</div>
 
 		<div id="jumbotron">
 			<#if car.images?? >
+				<a id="btn-left">&#10094;</a>
+				<a id="btn-right">&#10095;</a>
 				<#if car.images?size == 0>
-					<img src="images/default_car.png" class="images" />
+					<img src="images/default_car.png" class="fit" />
 				<#else>
-					
-					<a id="btn-left">&#10094;</a>
-					<a id="btn-right">&#10095;</a>
 					<#list car.images as image>
-						<img src="${image.image}" class="images" />
+						<img src="${image.image}" class="images fit" />
 					</#list>
 				</#if>
 			</#if>
