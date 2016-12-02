@@ -8,7 +8,8 @@ $( function()
 	
     var dateFormat = "mm/dd/yy";
     var from = $( "#from" ).datepicker({
-        	defaultDate: "+1w",
+        	onSelect: getPrice,
+    		defaultDate: "+1w",
             changeMonth: true,
             numberOfMonths: 1, 
             beforeShowDay: disableDays
@@ -16,7 +17,8 @@ $( function()
               to.datepicker( "option", "minDate", getDate(this) );
             });     
     var to = $( "#to" ).datepicker({
-            defaultDate: "+1w",
+            onSelect: getPrice,
+    		defaultDate: "+1w",
             changeMonth: true,
             numberOfMonths: 1, 
             beforeShowDay: disableDays
@@ -38,7 +40,7 @@ $( function()
                   
     totalDate = new Date (totalDate); 
                                
-    console.log(totalDate); 
+    //console.log(totalDate); 
     //console.log(x1); 
        
      
@@ -81,7 +83,7 @@ function jqueryCalendar()
     		data: {}, 
     		success:function(data)
     		{
-    			console.log(data);
+    			//console.log(data);
 		        data = JSON.parse(data);
 		        
 		        rentalDates = data; 
@@ -92,4 +94,39 @@ function jqueryCalendar()
 		        //$("#calendarArea").availabilityCalendar(data);
     		}
     }); 
+}
+
+function getPrice()
+{   
+    var startDate = $("#from").val(); 
+    var endDate = $("#to").val(); 
+ 
+    console.log("start " + startDate);
+    console.log("end " + endDate);
+    
+    if(startDate.trim()=="" || endDate.trim()=="")
+    	return;
+    
+    var msDay = 1000*60*60*24; 
+    
+    var d1 = new Date(startDate); 
+    var d2 = new Date(endDate); 
+    
+    var totalTime = Math.abs(d1-d2); 
+    //difference in milliseconds between two dates. 
+    
+    totalTime = Number(totalTime);
+    //converts date to stirng. 
+    
+    totalTime = totalTime % msDay; 
+	
+    var totalPrice = 20 * totalTime; 
+    
+    console.log(totalPrice);
+    
+    $("#priceBox").val(totalPrice); 
+    
+    //return 20 * totalTime; 
+    //calculates the price and returns. 
+    
 }
