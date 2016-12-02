@@ -32,15 +32,14 @@
 
 		<div id="blocker"></div>
 		<div id="sidebar">
-		<form action = "Servlet" method = "POST">
-			From<input class="text-entry" type="textfield" id="from"  name = "rentDate" placeholder="XX/XX/XX XX:XX XM"/><br/>
-			Until<input class="text-entry" type="textfield" id="to" name = "rentDate" placeholder="XX/XX/XX XX:XX XM"/><br/>
-			Total Price: <span id="priceBox"></span><br/>
-			
-			<a href="" class="button">BOOK NOW</a>
-		</form>
-			<br/>
-
+			<form action="Servlet?req=rentDate">
+				From<input class="text-entry" type="textfield" id="from" name="from" placeholder="MM/DD/YYYY"/><br/>
+				Until<input class="text-entry" type="textfield" id="to" name="to" placeholder="MM/DD/YYYY"/><br/>
+				Total Price: <span id="priceBox"></span><br/>
+				
+				<input type="submit" class="button" value="Book Now" />
+			</form>
+			<br>
 			<div class="owner">
 				Owned By<br/>
 				<a href="Servlet?req=user&id=${car.ownerId}">John Doe</a>
