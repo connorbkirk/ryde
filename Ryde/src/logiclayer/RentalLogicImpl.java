@@ -31,7 +31,7 @@ public class RentalLogicImpl
   }
 
 
-    public String viewUnavailable() throws SQLException
+    public String viewUnavailable()
     {
         //ResultSet rs = rpi.verifyDate(int carID, String d1, String d2); 
         
@@ -56,13 +56,18 @@ public class RentalLogicImpl
      {
        //if there are dates taken iterate and create js variable to be parsed. 
       
-        while(rs.next())
-        {
-          String day1 = rs.getString("startDate"); 
-          String day2 = rs.getString("endDate"); 
-          
-          tempRental.add(new Rental(day1, day2)); 
-        }
+        try {
+			while(rs.next())
+			{
+			  String day1 = rs.getString("startDate"); 
+			  String day2 = rs.getString("endDate"); 
+			  
+			  tempRental.add(new Rental(day1, day2)); 
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
         
         dateVar = gson.toJson(tempRental); 
