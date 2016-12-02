@@ -44,8 +44,8 @@ $( function()
      
      for (i = 0; i<rentalDates.length; i++)
      {
-        x1 = rentalDate[i].startDate; 
-        x2 = rentalDate[i].endDate; 
+        x1 = rentalDates[i].startDate; 
+        x2 = rentalDates[i].endDate; 
              
         x1 = new Date(x1); 
         x2 = new Date(x2); 
@@ -82,7 +82,7 @@ function jqueryCalendar()
     		success:function(data)
     		{
     			console.log(data);
-		        //data = JSON.parse(data);
+		        data = JSON.parse(data);
 		        
 		        rentalDates = data; 
 		        //rental date array set to servlet response. 
