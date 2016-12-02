@@ -24,12 +24,25 @@ public class RentalLogicImpl
 {
   private RentalPersistImpl rpi; 
   
+	
+  /**
+   * constructor that creates a persist layer object.
+   */
   public RentalLogicImpl()
   {
     rpi = new RentalPersistImpl(); 
   
   }
 
+	
+	
+
+  	/**
+  	 * Function used to display all taken dates. 
+  	 * Started by JS calling servlet which calls this and then calls persit function. 
+  	 * @return returns a string that is formated like a javascript varibale that contains array of objects. 
+  	 * @throws SQLException
+  	 */
 
     public String viewUnavailable()
     {
@@ -81,8 +94,26 @@ public class RentalLogicImpl
       
       
       return dateVar; 
-  
-  
-  
  }
+	
+	
+	
+	  
+    /**
+     * This function takes the start and end date from the user input and passes them to addRental function. 
+     * The addRentalDate in persist then adds the rental date in DB. 
+     * @param startDate start date of rental from user input html.
+     * @param endDate end date of rental from user input html.
+     */
+    
+    
+    public void addRentalDate(String startDate, String endDate)
+    {
+    	rpi.addRentalDate(startDate, endDate, 0); 
+    	//call function.
+    	
+  
+    }
+	
+	
 }
