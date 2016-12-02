@@ -100,7 +100,7 @@ function getPrice()
 {   
     var startDate = $("#from").val(); 
     var endDate = $("#to").val(); 
-    var price = $("#price").val();
+    var price = $("#price").text();
  
     console.log("start " + startDate);
     console.log("end " + endDate);
@@ -114,16 +114,11 @@ function getPrice()
     var d2 = new Date(endDate); 
     
     var totalTime = Math.abs(d1-d2); 
-    //difference in milliseconds between two dates. 
+    //difference in milliseconds between two dates.
     
-    totalTime = Number(totalTime);
-    //converts date to stirng. 
+    totalTime = totalTime / msDay; 
     
-    totalTime = totalTime % msDay; 
-	
     var totalPrice = price * totalTime; 
-    
-    console.log(totalPrice);
     
     $("#priceBox").text(totalPrice); 
     
