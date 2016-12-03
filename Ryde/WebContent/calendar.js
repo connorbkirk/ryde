@@ -122,6 +122,10 @@ function getPrice()
     
     $("#priceBox").text(totalPrice); 
     
+    if(totalPrice >= 0)
+    	$('input[type=submit]').removeClass("disabled");
+		$('input[type=submit]').attr('disabled', false);
+    
     //return 20 * totalTime; 
     //calculates the price and returns. 
     

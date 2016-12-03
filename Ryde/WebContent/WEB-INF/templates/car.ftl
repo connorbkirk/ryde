@@ -34,11 +34,11 @@
 		<div id="sidebar">
 			<form action="Servlet?req=rentDate" method="POST">
 				<input type="hidden" name="id" id="carId" value="${car.id}" />
-				From<input class="text-entry" type="textfield" id="from" name="from" placeholder="MM/DD/YYYY"/><br/>
-				Until<input class="text-entry" type="textfield" id="to" name="to" placeholder="MM/DD/YYYY"/><br/>
+				From<input class="text-entry" type="text" id="from" name="from" placeholder="MM/DD/YYYY"/><br/>
+				Until<input class="text-entry" type="text" id="to" name="to" placeholder="MM/DD/YYYY"/><br/>
 				Total Price: <span id="priceBox"></span><br/>
 				
-				<input type="submit" class="button" value="Book Now" />
+				<input type="submit" class="button disabled" value="Book Now" disabled="true" />
 			</form>
 			<br>
 			<div class="owner">

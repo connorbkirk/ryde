@@ -162,12 +162,45 @@ public class Servlet extends HttpServlet {
 			case "autoModel":
 				autoModel(request, response);
 				break;
+			case "confirmPayment":
+				confirmPayment(request, response);
+				break;
 			default:
 				response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid request");
 				break;
 		}
 	}
 	
+	private void confirmPayment(HttpServletRequest request, HttpServletResponse response) {
+		HttpSession session = request.getSession();
+		CarLogicImpl carCtrl = new CarLogicImpl();
+		UserLogicImpl userCtrl = new UserLogicImpl();
+		
+	 	//route user to login page if they are not logged in
+	 	Integer userId = (Integer) session.getAttribute("user");
+	 	if(userId!=null)
+			root.put("userId", userId);
+		else{
+			try {
+				response.sendRedirect("login.html");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	 	
+	 	int carId = Integer.parseInt(request.getParameter("carId"));
+	 	String from = request.getParameter("from");
+	 	String to = request.getParameter("to");
+	 	
+	 	root.put("car", carCtrl.getCar(carId));
+	 	root.put("owner", userCtrl.getSingleUser(carCtrl.getOwnerId(carId)));
+	 	root.put("from", from);
+	 	root.put("to", to);
+	 	
+	 	processTemplate("confirmation.ftl");
+	}
+
 	private void autoModel(HttpServletRequest request, HttpServletResponse response) {
 		SearchLogicImpl sl = new SearchLogicImpl();
 		CarLogicImpl carCtrl = new CarLogicImpl();
@@ -242,18 +275,40 @@ public class Servlet extends HttpServlet {
 	 * @param response none visually.
 	 */
 	private void addRental(HttpServletRequest request, HttpServletResponse response){
+		HttpSession session = request.getSession();
 		RentalLogicImpl rli = new RentalLogicImpl(); 
+		CarLogicImpl carCtrl = new CarLogicImpl();
 		
 		String startDate = request.getParameter("from");
 	 	String endDate = request.getParameter("to"); 
 	 	int id = Integer.parseInt(request.getParameter("id"));
 	 	
+	 	//route user to login page if they are not logged in
+	 	Integer userId = (Integer) session.getAttribute("user");
+	 	if(userId!=null)
+			root.put("userId", userId);
+		else{
+			try {
+				response.sendRedirect("login.html");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	 	
+	 	//else add entry
 	 	if ((startDate != null) && (endDate != null))
-	 	{
 	 		rli.addRentalDate(startDate, endDate, id);
-	 }
-}
-	
+	 	
+	 	//route user to payment page
+	 	root.put("from", startDate);
+	 	root.put("to", endDate);
+	 	root.put("car", carCtrl.getCar(id));
+	 	root.put("carId", id);
+	 	
+	 	processTemplate("payment.ftl");
+	}
+
 	/**
 	 * This method handles the upload request and directs the user's view to the
 	 * upload.ftl template.
