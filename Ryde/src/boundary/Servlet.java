@@ -165,11 +165,55 @@ public class Servlet extends HttpServlet {
 			case "confirmPayment":
 				confirmPayment(request, response);
 				break;
+			case "ownerRented":
+				retreiveRented(request, response);
 			default:
 				response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid request");
 				break;
 		}
 	}
+	
+	
+		/**
+	 * Used to process and display the number of cars the owner has rented 
+	 * @param request no true request, but it does get the owner id from session history. 
+	 * @param response returns the number of cars the owner has rented out. 
+	 */
+	private void retreiveRented(HttpServletRequest request, HttpServletResponse response)
+	{
+		HttpSession session = request.getSession();
+		RentalLogicImpl rpl = new RentalLogicImpl(); 
+		
+		ArrayList<Car>rentedCars = new ArrayList<Car>(); 
+		//all the rented cars the user has. 
+		
+		Integer ownerID = (Integer) session.getAttribute("ownerID"); 
+		//get the owner id. 
+		
+		
+		try 
+		{
+			rentedCars = rpl.getRentedCars(ownerID);
+			//get the rented cars. 
+			
+		} catch (SQLException e) 
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
+		
+		if (rentedCars != null)
+		{
+			root.put("rentedCars", rentedCars);
+			processTemplate("owners.ftl");
+			//get the rented cars and put them on template. 
+		}
+		
+		 
+	}
+	
+	
+	
 	
 	private void confirmPayment(HttpServletRequest request, HttpServletResponse response) {
 		HttpSession session = request.getSession();
