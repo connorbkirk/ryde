@@ -6,7 +6,10 @@
 	<head>	
 		<link rel="stylesheet" type="text/css" href="edit-style.css"/>
 		<script src="jquery-3.1.1.min.js"></script>
-		<script src="edit.js"></script>
+		<script src="jquery-ui.min.js"></script>
+		<script src="auto.js"></script>
+		<script src="check.js"></script>
+		<script src="image.js"></script>
 		<title>Ryde</title>
 	</head>
 

@@ -5,8 +5,10 @@
 
 	<head>
 		<link rel="stylesheet" type="text/css" href="search-style.css"/>
+		<link rel="stylesheet" type="text/css" href="jquery-ui.min.css"/>
 		<script src="jquery-3.1.1.min.js"></script>
-		<script src="search.js"></script>
+		<script src="jquery-ui.min.js"></script>
+		<script src="auto.js"></script>
 		<title>Ryde</title>
 	</head>
 
@@ -30,43 +32,13 @@
 		<div id="sidebar">
 			<form action="Servlet?req=search" method="GET">
 				<input type="hidden" name="req" value="search"/>
-				From<input class="text-entry" type="textfield" name="fromDate" placeholder="XX/XX/XX XX:XX XM"/><br/>
-				Until<input class="text-entry" type="textfield" name="toDate" placeholder="XX/XX/XX XX:XX XM"/><br/>
-				Price<br/>
-				<input type="range" name="price" id="price"/>
-				<br/>
+			
 				Vehicle Type <br/>
-				<select name="type">
-					<option value="all" >All Vehicles</option>
-					<#list types as type>
-						<option value="${type}">${type}</option>
-					</#list>
-				</select><br/>
+				<input name="type" id="type" class="text-entry" placeholder="Vehicle Type" <#if type??>value="${type}"</#if>/> <br/>
 
-			<!--	Vehicle Make <br/>
-				<select name="make">
-					<option value="all" >All Makes</option>
-					<#list makes as make>
-						<option value="${make}">${make}</option>
-					</#list>
-				</select><br/>
-      -->
+		        Vehicle Make <br/>
+		        <input name="make" id="make" class="text-entry" placeholder="Vehicle Make" <#if make??>value="${make}"</#if>/> <br/>
 
-        Vehicle Make <br/>
-        <input name ="make" id="makeSearchbox"> <br/>
-
-				Vehicle Model <br/>
-				<select name="model">
-					<option value="all" >All Models</option>
-					<#list models as model>
-						<option value="${model}">${model}</option>
-					</#list>
-				</select><br/>
-
-				Sort By<br/>
-				<select name="sortBy">
-					<option value="revelance" >Relevance</option>
-				</select>
 				<input type="submit" class="button">
 			</form>
 		</div>

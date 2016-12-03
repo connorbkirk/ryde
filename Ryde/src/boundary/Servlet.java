@@ -156,28 +156,59 @@ public class Servlet extends HttpServlet {
 			case "autoMake":
 				autoMake(request, response);
 				break;
+			case "autoType":
+				autoType(request, response);
+				break;
+			case "autoModel":
+				autoModel(request, response);
+				break;
 			default:
 				response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid request");
 				break;
 		}
 	}
 	
-	private void autoMake(HttpServletRequest request, HttpServletResponse response) {
+	private void autoModel(HttpServletRequest request, HttpServletResponse response) {
 		SearchLogicImpl sl = new SearchLogicImpl();
+		CarLogicImpl carCtrl = new CarLogicImpl();
 		
 	    String currentSearchBarContent = request.getParameter("inputText");
-	    if(currentSearchBarContent==null)
-	    	return;
-	    List<String> resultList = sl.getSuggestionsFromPersist(currentSearchBarContent);
-	    for(String s: resultList)
-	    	System.out.println(s);
-	    if (resultList.size() == 1){
-		    String result = resultList.get(0);
-		    response.setContentType("text/html");
-		    out.println(result);
-	    }
-	    else
-	    	out.print("");
+	    List<String> resultList = sl.getModels(currentSearchBarContent);
+		response.setContentType("text/html");
+		Gson gson = new Gson();
+		if(resultList.size()==0)
+			resultList = carCtrl.getModels();
+		String results = gson.toJson(resultList);
+		out.println(results);
+	}
+
+	private void autoType(HttpServletRequest request, HttpServletResponse response) {
+		SearchLogicImpl sl = new SearchLogicImpl();
+		CarLogicImpl carCtrl = new CarLogicImpl();
+		
+	    String currentSearchBarContent = request.getParameter("inputText");
+	    List<String> resultList = sl.getTypes(currentSearchBarContent);
+		response.setContentType("text/html");
+		Gson gson = new Gson();
+		if(resultList.size()==0)
+			resultList = carCtrl.getTypes();
+		String results = gson.toJson(resultList);
+		out.println(results);
+		
+	}
+
+	private void autoMake(HttpServletRequest request, HttpServletResponse response) {
+		SearchLogicImpl sl = new SearchLogicImpl();
+		CarLogicImpl carCtrl = new CarLogicImpl();
+		
+	    String currentSearchBarContent = request.getParameter("inputText");
+	    List<String> resultList = sl.getMakes(currentSearchBarContent);
+		response.setContentType("text/html");
+		Gson gson = new Gson();
+		if(resultList.size()==0)
+			resultList = carCtrl.getMakes();
+		String results = gson.toJson(resultList);
+		out.println(results);
 	}
 
 	/**
@@ -579,26 +610,20 @@ public class Servlet extends HttpServlet {
 		session.setAttribute("url", getURL(request));
 		
 		//gathers params
-		String from = request.getParameter("fromDate");
-		String to = request.getParameter("toDate");
 		String type = request.getParameter("type");
 		String make = request.getParameter("make");
-		String sort = request.getParameter("sortBy");
 		
-		//not actually taking dates into consideration yet
-		//work on that
-		List<Car> cars = carCtrl.getCars();
+		List<Car> cars;
 		
-		//get lists of types, makes, and models
-		List<String> types = carCtrl.getTypes();
-		List<String> makes = carCtrl.getMakes();
-		List<String> models = carCtrl.getModels();
+		if(type != null || make != null)
+			cars = carCtrl.getCarsWithParams(type, make);
+		else
+			cars = carCtrl.getCars();
 		
 		//put objects in root map
-		root.put("types", types);
-		root.put("makes", makes);
-		root.put("models", models);
 		root.put("cars",cars);
+		root.put("type", type);
+		root.put("make", make);
 		
 		processTemplate("search.ftl");
 	}

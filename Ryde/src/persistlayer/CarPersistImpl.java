@@ -44,17 +44,25 @@ public class CarPersistImpl {
 	 *TODO needs to have AND in between each item in query
 	 */
 	public ResultSet getCarsWithParams(String carType, String make ){
+		if(make!=null)
+			make = make.toUpperCase();
+		if(carType!=null)
+			carType = carType.toUpperCase();
 		ResultSet rs;
 		String query = "SELECT * FROM cars WHERE ";
-		if(make != null) query.concat("make = "+make);
+		if(make != null){
+			query += "make = \'" + make + "\' ";
+			if(carType!=null)
+				query += " AND carType = \'" +carType+"\'";
+		}
+		else if(carType!=null)
+			query += "carType = \'"+carType+"\'";
+			
 		/*if(model != null) query.append("model = "+model);
 		if(carYear != null) query.append("carYear = "+carYear);
 		if(color != null) query.append("color = "+color);
 		if(price != null) query.append("price = "+price); */
-		if(carType != null && make != null){
-			query.concat(" AND carType = "+carType);
-	} else if(carType != null && make == null){ query.concat("carType = "+carType);}
-
+		
 		rs = db.retrieve(con, query);
 		return rs;
 	}
@@ -139,6 +147,10 @@ public class CarPersistImpl {
 	 */
 	public ResultSet addCar(int ownerId, String make, String model, String year, 
 			String color, String price, String description, String carType) {
+		make = make.toUpperCase();
+		model = model.toUpperCase();
+		color = color.toUpperCase();
+		carType = carType.toUpperCase();
 		String query = "INSERT INTO cars (carType, make, model, carYear, color, ownerId, price, description) " +
 			"VALUES (\'"+carType+"\', \'"+make+"\', \'"+model+"\', "+year+", "
 			+"\'" + color + "\', " + ownerId + ", " + price + ", \'" + description + "\')";
@@ -164,6 +176,10 @@ public class CarPersistImpl {
 	 */
 	public void editCar(int id, String make, String model, String year, String color, String price,
 			String description, String carType) {
+		make = make.toUpperCase();
+		model = model.toUpperCase();
+		color = color.toUpperCase();
+		carType = carType.toUpperCase();
 		String query = "UPDATE cars "
 				+ "SET make=\'"+make+"\', model=\'"+model+"\', carYear=\'"+year+"\', color=\'"+color +"\', "
 				+ "price=\'"+price+"\', description=\'"+description+"\', carType=\'"+carType+"\' "

@@ -73,6 +73,12 @@ public class CarLogicImpl {
 	 * @return
 	 */
 	public List<Car> getCarsWithParams(String make, String carType){
+		
+		if(make != null && make.trim().equals(""))
+			make = null;
+		if(carType != null && carType.trim().equals(""))
+			carType = null;
+		
 		ResultSet rs = null;
 		rs = cp.getCarsWithParams(make, carType); 
 
@@ -80,7 +86,7 @@ public class CarLogicImpl {
 
 		try {
 			while(rs.next()){
-				//String make = rs.getString("make");
+				String carMake = rs.getString("make");
 				String model = rs.getString("model");
 				int carYear = rs.getInt("carYear");
 				String color = rs.getString("color");
@@ -88,10 +94,10 @@ public class CarLogicImpl {
 				int id = rs.getInt("id");
 				int ownerId = rs.getInt("ownerID");
 				String description = rs.getString("description");
-				//String carType = rs.getString("carType");
+				String thisType = rs.getString("carType");
 				//retrieves info from the result set.
 
-				Car car = new Car(id, make, model, carYear, color, ownerId, price, description, carType, getImages(id));
+				Car car = new Car(id, carMake, model, carYear, color, ownerId, price, description, thisType, getImages(id));
 
 				resultCars.add(car);
 				//dynamically creates car objects.
@@ -100,7 +106,6 @@ public class CarLogicImpl {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
 		return resultCars;
 	}
 

@@ -9,9 +9,9 @@ public class SearchPersistImpl{
 	DbAccessImpl db = new DbAccessImpl();
 	Connection con = db.connect();
 
-    public ResultSet getSuggestions(String searchbarContent){
+    public ResultSet getSuggestions(String col, String searchbarContent){
         ResultSet rs;
-		String query = "SELECT DISTINCT make FROM cars WHERE make LIKE \'%%" + searchbarContent + "%%\'";
+		String query = "SELECT DISTINCT "+col+" FROM cars WHERE "+col+" LIKE \'%%" + searchbarContent + "%%\'";
 		rs = db.retrieve(con, query);
 		return rs;
     }//getSuggestions
