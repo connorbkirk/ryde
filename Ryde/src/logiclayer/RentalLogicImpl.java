@@ -9,7 +9,10 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import com.google.gson.Gson;
+
+import objectlayer.Car;
 import objectlayer.Rental;
+import persistlayer.CarPersistImpl;
 import persistlayer.RentalPersistImpl;
 
 
@@ -109,7 +112,7 @@ public class RentalLogicImpl
     }
 	
 	
-	public ArrayList<Car> getRentedCars(int owner) throws SQLException
+	public ArrayList<Car> getRentedCars(int owner)
     {
     	Gson gson = new Gson();
     	
@@ -130,20 +133,25 @@ public class RentalLogicImpl
     	
     	
 	    	resultCars = (ArrayList<Car>) cli.getCarsFromUser(owner);
-	    	rs = rpi.viewAvailable(); 
+	    	rs = rpi.viewAvailable(owner); 
 	    	
 	        if (rs != null)
 	        {
 	          //if there are dates taken iterate and create js variable to be parsed. 
 	         
-	           while(rs.next())
-	           {
-	             String day1 = rs.getString("startDate"); 
-	             String day2 = rs.getString("endDate"); 
-	             int carId = rs.getInt("carID"); 
-	             
-	             tempRental.add(new Rental(carId, day1, day2)); 
-	           }
+	           try {
+				while(rs.next())
+				   {
+				     String day1 = rs.getString("startDate"); 
+				     String day2 = rs.getString("endDate"); 
+				     int carId = rs.getInt("carID"); 
+				     
+				     tempRental.add(new Rental(carId, day1, day2)); 
+				   }
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 	        }
 	        
 	        
