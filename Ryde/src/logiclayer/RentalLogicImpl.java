@@ -109,4 +109,66 @@ public class RentalLogicImpl
     }
 	
 	
+	public ArrayList<Car> getRentedCars(int owner) throws SQLException
+    {
+    	Gson gson = new Gson();
+    	
+    	ArrayList<Gson> tempGson = new ArrayList<Gson>(); 
+    	ArrayList<Rental> tempRental = new ArrayList<Rental>(); 
+    	
+    	ResultSet rs; 
+    	
+    	
+    	CarLogicImpl cli = new CarLogicImpl(); 
+    	CarPersistImpl cpi = new CarPersistImpl(); 
+    	
+    	
+    	ArrayList<Car>resultCars = new ArrayList<Car>(); 
+    	ArrayList<Rental> resultRental = new ArrayList<Rental>(); 
+    	ArrayList<Car> bookedCars = new ArrayList<Car>(); 
+    	
+    	
+    	
+	    	resultCars = (ArrayList<Car>) cli.getCarsFromUser(owner);
+	    	rs = rpi.viewAvailable(); 
+	    	
+	        if (rs != null)
+	        {
+	          //if there are dates taken iterate and create js variable to be parsed. 
+	         
+	           while(rs.next())
+	           {
+	             String day1 = rs.getString("startDate"); 
+	             String day2 = rs.getString("endDate"); 
+	             int carId = rs.getInt("carID"); 
+	             
+	             tempRental.add(new Rental(carId, day1, day2)); 
+	           }
+	        }
+	        
+	        
+	        for (int i = 0; i<resultCars.size(); i++)
+	        {
+	        	Car tempCar = resultCars.get(i); 
+	        	
+	        	for (int j = 0; j<tempRental.size(); j++)
+	        	{
+	        		Rental tempRent = tempRental.get(i);
+	        		
+	        		if ( tempCar.getId() == tempRent.getCarID())
+	        		{
+	        			bookedCars.add(tempCar);
+	        		}
+	        	}
+	        	
+	        }
+
+	    	
+	    	return bookedCars;
+
+    		
+    }
+    
+	
+	
 }
