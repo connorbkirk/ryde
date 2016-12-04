@@ -9,9 +9,11 @@
 }
 
 body{
-	background-color: #634271;
-	margin: 0;
+	background-color: #2D2D2D;
+	margin: 25px;
 	font-family: the-body;
+  padding: 20px;
+
 }
 
 #main{
@@ -139,4 +141,12 @@ hr{
 
 a{
 	text-decoration: none;
+}
+
+h2{
+  text-align: center;
+}
+
+#enclosure{
+  background-color: #634271;
 }
