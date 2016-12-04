@@ -12,7 +12,7 @@ body{
 	background-color: #2D2D2D;
 	margin: 25px;
 	font-family: the-body;
-  padding: 20px;
+  text-align: center;
 
 }
 
@@ -141,12 +141,4 @@ hr{
 
 a{
 	text-decoration: none;
-}
-
-h2{
-  text-align: center;
-}
-
-#enclosure{
-  background-color: #634271;
 }
