@@ -12,8 +12,8 @@ body{
 	background-color: #2D2D2D;
 	margin: 25px;
 	font-family: the-body;
-  padding: 20px;
-  color: rgb(171,177,185);
+  	padding: 20px;
+  	color: rgb(171,177,185);
 
 }
 
@@ -128,7 +128,7 @@ hr{
 
 .button{
 	-webkit-transition-duration: 0.4s; /* Safari */
-    transition-duration: 0.4s;
+    	transition-duration: 0.4s;
 	background-color: #634271;
 	border: none;
 	font-size: 5vw;
@@ -140,7 +140,7 @@ hr{
 
 .button:hover{
 	background-color: white;
-    color: #634271;
+    	color: #634271;
 }
 
 a{
@@ -148,11 +148,11 @@ a{
 }
 
 h1{
-  text-align: center;
+  	text-align: center;
 }
 
 #enclosure {
-  background-color: #634271;
-  padding: 20px;
-  margin-bottom: 15px;
+  	background-color: #634271;
+  	padding: 20px;
+  	margin-bottom: 15px;
 }
