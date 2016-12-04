@@ -12,7 +12,8 @@ body{
 	background-color: #2D2D2D;
 	margin: 25px;
 	font-family: the-body;
-  text-align: center;
+  padding: 20px;
+  color: rgb(171,177,185);
 
 }
 
@@ -63,8 +64,11 @@ body{
 	color: #634271;
 	font-family: fancy-font, sans serif;
 	font-size: 10vw;
+  padding-top: 10px;
 	padding-right: 20px;
 	margin-bottom: -20px;
+  text-align: center;
+  margin: auto;
 }
 
 
@@ -141,4 +145,14 @@ hr{
 
 a{
 	text-decoration: none;
+}
+
+h1{
+  text-align: center;
+}
+
+#enclosure {
+  background-color: #634271;
+  padding: 20px;
+  margin-bottom: 15px;
 }
