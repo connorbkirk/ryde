@@ -4,13 +4,13 @@
 <html>
 
 	<head>	
-		<link rel="stylesheet" type="text/css" href="jquery-ui.min.css" />
-		<link rel="stylesheet" type="text/css" href="car-style.css" />
-		<script src="jquery-3.1.1.min.js"></script>
-		<script src="jquery-ui.min.js"></script>
-		<script src="jquery.zoom.min.js"></script>
-		<script src="car.js"></script>
-		<script src="calendar.js"></script>
+		<link rel="stylesheet" type="text/css" href="styles/jquery-ui.min.css" />
+		<link rel="stylesheet" type="text/css" href="styles/car-style.css" />
+		<script src="scripts/jquery-3.1.1.min.js"></script>
+		<script src="scripts/jquery-ui.min.js"></script>
+		<script src="scripts/jquery.zoom.min.js"></script>
+		<script src="scripts/car.js"></script>
+		<script src="scripts/calendar.js"></script>
 		<title>Ryde</title>
 	</head>
 
@@ -32,7 +32,7 @@
 
 		<div id="blocker"></div>
 		<div id="sidebar">
-			<form action="Servlet?req=rentDate" method="POST">
+			<form action="Servlet?req=book" method="POST">
 				<input type="hidden" name="id" id="carId" value="${car.id}" />
 				From<input class="text-entry" type="text" id="from" name="from" placeholder="MM/DD/YYYY"/><br/>
 				Until<input class="text-entry" type="text" id="to" name="to" placeholder="MM/DD/YYYY"/><br/>
@@ -81,7 +81,7 @@
 			</div>
 			<div id="description">
 				<span class="header">Description</span><br>
-				<p>${car.description}</p>
+				<pre>${car.description}</pre>
 			</div>
 			<div class="info">
 				<table>

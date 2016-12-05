@@ -96,6 +96,7 @@ hr{
 }
 
 .text-box{
+	font-family: monospace;
 	width: 40vw;
 	height: 20vh;
 	text-align: left;
@@ -136,4 +137,11 @@ hr{
 .disabled {
     opacity: 0.2;
     cursor: not-allowed;
+}
+.ui-menu-item-wrapper{
+	font-family: the-body;
+}
+
+textarea{
+	font-family: monospace;
 }

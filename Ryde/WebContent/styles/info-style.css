@@ -10,18 +10,18 @@
 
 body{
 	background-color: #2D2D2D;
-	margin: 25px;
+	margin: 0;
 	font-family: the-body;
-  	padding: 20px;
-  	color: rgb(171,177,185);
-
 }
 
 #main{
-	background-image: url("images/lavender-1562993_1920.jpg");
+	background-image: url("../images/steering-wheel-801994_1920.jpg");
 	background-repeat: no-repeat;
 	background-position: left bottom;
 	background-size: cover;
+	background-attachment: fixed;
+	text-align: center;
+	height: 100vh;
 }
 
 .logo{
@@ -36,12 +36,12 @@ body{
 
 #nav{
 	display: block;
-	background-color: rgba(171,177,185, .5);
+	background-color: rgba(45, 45, 45, .7);
 	height: 7vw;
 	min-height: 7vh;
 	padding-top:10px;
 	line-height: 4vw;
-
+	
 	display: flex;
 	align-items:center;
 	justify-content:flex-end;
@@ -64,38 +64,19 @@ body{
 	color: #634271;
 	font-family: fancy-font, sans serif;
 	font-size: 10vw;
-  padding-top: 10px;
 	padding-right: 20px;
 	margin-bottom: -20px;
-  text-align: center;
-  margin: auto;
 }
 
 
 #jumbotron{
-	height: 45vw;
-	min-height: 70vh;
-
-	line-height: 25vh;
-}
-
-#searchvehicles{
-	text-align:center;
-}
-
-#searchbar{
-	text-align:center;
-	height:8vh;
-	font-size:20px;
-	width:70vw;
-	border: solid 2px black;
-}
-
-#section1{
-	height: 40vw;
-	min-height: 70vh;
-	color: rgb(171,177,185);
-	font-size: 6vw;
+	text-align: left;
+	height: 80vh;
+	background-color: rgba(45, 45, 45, .7);
+	width: 80vw;
+	margin: 0 auto;
+	
+	overflow: scroll;
 }
 
 .center{
@@ -104,19 +85,7 @@ body{
   	transform: perspective(1px) translateY(-50%);
   	text-align: center;
   	overflow: hidden;
-
-}
-
-#section2{
-	height: 40vw;
-	min-height: 70vh;
-	color: rgb(171,177,185);
-	font-size: 6vw;
-
-	background-image: url("images/car-690577_1280.jpg");
-	background-repeat: no-repeat;
-	background-position: left bottom;
-	background-size: cover;
+  	
 }
 
 hr{
@@ -128,7 +97,7 @@ hr{
 
 .button{
 	-webkit-transition-duration: 0.4s; /* Safari */
-    	transition-duration: 0.4s;
+    transition-duration: 0.4s;
 	background-color: #634271;
 	border: none;
 	font-size: 5vw;
@@ -140,19 +109,48 @@ hr{
 
 .button:hover{
 	background-color: white;
-    	color: #634271;
+    color: #634271;
 }
 
 a{
 	text-decoration: none;
 }
 
-h1{
-  	text-align: center;
+h3{
+	margin: 0;
 }
 
-#enclosure {
-  	background-color: #634271;
-  	padding: 20px;
-  	margin-bottom: 15px;
+ul{
+	margin: 0;
+}
+
+.section{
+	height: 80vh;
+	display: -webkit-flex;
+   	display: flex;
+   	-webkit-flex-direction: column;
+   	flex-direction: column;
+	align-items:center;
+	justify-content: center;
+}
+
+.head{
+	color: white;
+	font-size: 8vh;
+}
+
+.content{
+	color: rgb(171,177,185);
+	font-size: 5vh;
+	font-family: tahoma, verdana, arial, sans-serif;
+}
+
+.animate{
+	-webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+	color: #634271;
+}
+
+.animate:hover{
+	color: white;
 }

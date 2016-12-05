@@ -1,3 +1,8 @@
+/**
+ * This javascript file is responsible
+ * for the upload and retrieval of images.
+ */
+
 $(document).ready(function(){
     $(".deleteImage").click(deleteImage);
 	$("#upload").change(uploadImage);
@@ -31,8 +36,8 @@ function uploadImage(){
 	        	if(data==null)
 	        		return;
 	        	var result = JSON.parse(data);
-	        	console.log(result.id);
-	        	console.log("called");
+	        	//console.log(result.id);
+	        	//console.log("called");
 	        	
 	        	//create list item
 	        	var li = $(document.createElement('li'));

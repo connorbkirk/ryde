@@ -4,9 +4,9 @@
 <html>
 
 	<head>	
-		<link rel="stylesheet" type="text/css" href="edit-style.css"/>
-		<script src="jquery-3.1.1.min.js"></script>
-		<script src="images.js"></script>
+		<link rel="stylesheet" type="text/css" href="styles/edit-style.css"/>
+		<script src="scripts/jquery-3.1.1.min.js"></script>
+		<script src="scripts/images.js"></script>
 		<title>Ryde</title>
 	</head>
 

@@ -84,6 +84,8 @@ hr{
 	
 	border-right: none;
 	border-top: none;
+	
+	font-family: the-body;
 }
 
 #blocker{
@@ -178,11 +180,18 @@ hr{
 	padding-top: 2vw;
 }
 
-#description p{
+#description pre{
+	font-family: monospace;
 	padding-left: 1vw;
 	color: white;
 	font-size: 2vw;
 	margin: 0;
+	
+	white-space: pre-wrap;       /* css-3 */
+	white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+	white-space: -pre-wrap;      /* Opera 4-6 */
+	white-space: -o-pre-wrap;    /* Opera 7 */
+	word-wrap: break-word;       /* Internet Explorer 5.5+ */
 }
 
 .button{

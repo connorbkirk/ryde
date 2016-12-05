@@ -4,9 +4,9 @@
 <html>
 
 	<head>	
-		<link rel="stylesheet" type="text/css" href="default-style.css"/>
-		<script src="jquery-3.1.1.min.js"></script>
-		<script src="check.js"></script>
+		<link rel="stylesheet" type="text/css" href="styles/payment-style.css"/>
+		<script src="scripts/jquery-3.1.1.min.js"></script>
+		<script src="scripts/check.js"></script>
 		<title>Ryde</title>
 	</head>
 
@@ -28,13 +28,20 @@
 
 		<div id="main">
 			
-		  	<h1>One last step! Enter in your credit card number!</h1>
+		  	<h1 class="large">One last step!</h1>
+		  	<h1 class="large">Enter in your billing information!</h1>
 			<form action="Servlet?req=confirmPayment" method="POST">
 				<input type="hidden" name="carId" value="${car.id}" />
 				<input type="hidden" name="from" value="${from}" />
 				<input type="hidden" name="to" value="${to}" />
-				<input type="text" name="creditCard"> <br />
-				<input type="submit">
+				<input type="text" name="firstName" placeholder="First Name" class="text-entry" />
+				<input type="text" name="lastName" placeholder="Last Name" class="text-entry" /><br /><br />
+				<input type="text" name="address" placeholder="Billing Address" class="text-entry" />
+				<input type="text" name="city" placeholder="City" class="text-entry" />
+				<input type="text" name="state" placeholder="State" class="text-entry" /><br /><br />
+				<input type="text" name="creditCard" placeholder="Credit Card Number" class="text-entry" /> <br />
+				<br/>
+				<input type="submit" class="disabled button" disabled="true"/>
 			</form>
 	  </div>
 	</body>

@@ -4,7 +4,7 @@
 <html>
 
 	<head>	
-		<link rel="stylesheet" type="text/css" href="user-style.css"/>
+		<link rel="stylesheet" type="text/css" href="styles/user-style.css"/>
 		<title>Ryde</title>
 	</head>
 
@@ -30,6 +30,9 @@
 				<div id="info">
 					<h1>${user.firstName} ${user.lastName}'s Profile</h1>
 					<p>${user.email}<br />${user.phone}</p>
+					<#if same??>
+						<a href="Servlet?req=myRentals" class="button">View Rentals</a>
+					</#if>
 				</div>
 			</div>
 		
@@ -49,12 +52,13 @@
 										</ul>
 									</span>
 									<span class="overlay-right">
-										<#if same??>
+										$${car.price}/Day
+										<!--<#if same??>
 											<button href="Servlet?req=edit&id=${car.id}" class="no-button">Edit</button>
 											<button href="Servlet?req=delete&id=${car.id}" class="no-button">Delete</button>
 										<#else>
 											$${car.price}/Day
-										</#if>
+										</#if>-->
 								
 									</span>
 								</div>

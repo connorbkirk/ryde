@@ -1,0 +1,44 @@
+.table-center{
+	text-align: center;
+	margin: 0 auto;
+	width: 85vw;
+	border-collapse: collapse;
+	color: white;
+	border-spacing: 0;
+}
+
+th{
+	font-size: 5vw;
+}
+
+td{
+	font-size: 4vw;
+}
+
+.table-header{
+	border-bottom: white solid .3vw;
+}
+
+.table-entry{
+	border-top: white solid .3vw;
+}
+
+.animate{
+	-webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+	color: #634271;
+}
+
+.animate:hover{
+	color: white;
+}
+
+a{
+	text-decoration: none;
+}
+
+.header{
+	font-size: 6vw;
+	color: white;
+	text-align: center;
+}

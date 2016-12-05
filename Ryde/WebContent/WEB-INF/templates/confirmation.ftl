@@ -4,7 +4,7 @@
 <html>
 
 	<head>	
-		<link rel="stylesheet" type="text/css" href="default-style.css"/>
+		<link rel="stylesheet" type="text/css" href="styles/payment-style.css"/>
 		<title>Ryde</title>
 	</head>
 
@@ -25,14 +25,15 @@
 		</div>
 
 		<div id="main">
-			
-		  	<h1>Congratulations! You just booked a ${car.make} ${car.model}
-			<br /> from ${from} to ${to}</h1>
-			
-			Here is the contact information of the owner.<br />
-			Name: ${owner.firstName} ${owner.lastName} <br />
-			Email: ${owner.email} <br />
-			Phone number: ${owner.phone} <br />
+			<div class="large">
+			  	<h1>Congratulations! You just booked a ${car.make} ${car.model}
+				<br /> from ${from} to ${to}</h1>
+				
+				Here is the contact information of the owner.<br />
+				Name: ${owner.firstName} ${owner.lastName} <br />
+				Email: ${owner.email} <br />
+				Phone number: ${owner.phone} <br />
+			</div>
 	  </div>
 	</body>
 

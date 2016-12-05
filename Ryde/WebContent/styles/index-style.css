@@ -15,7 +15,7 @@ body{
 }
 
 #main{
-	background-image: url("images/lavender-1562993_1920.jpg");
+	background-image: url("../images/lavender-1562993_1920.jpg");
 	background-repeat: no-repeat;
 	background-position: left bottom;
 	background-size: cover;
@@ -38,7 +38,7 @@ body{
 	min-height: 7vh;
 	padding-top:10px;
 	line-height: 4vw;
-
+	
 	display: flex;
 	align-items:center;
 	justify-content:flex-end;
@@ -69,12 +69,14 @@ body{
 #jumbotron{
 	height: 45vw;
 	min-height: 70vh;
-
-	line-height: 25vh;
 }
 
 #searchvehicles{
-	text-align:center;
+	position: relative;
+  	top: 30%;
+  	transform: perspective(1px) translateY(-30%);
+  	text-align: center;
+  	overflow: hidden;
 }
 
 #searchbar{
@@ -98,7 +100,7 @@ body{
   	transform: perspective(1px) translateY(-50%);
   	text-align: center;
   	overflow: hidden;
-
+  	
 }
 
 #section2{
@@ -107,7 +109,7 @@ body{
 	color: rgb(171,177,185);
 	font-size: 6vw;
 
-	background-image: url("images/car-690577_1280.jpg");
+	background-image: url("../images/car-690577_1280.jpg");
 	background-repeat: no-repeat;
 	background-position: left bottom;
 	background-size: cover;

@@ -4,7 +4,7 @@
 <html>
 
 	<head>	
-		<link rel="stylesheet" type="text/css" href="default-style.css"/>
+		<link rel="stylesheet" type="text/css" href="styles/default-style.css"/>
 		<title>Ryde</title>
 	</head>
 
@@ -25,7 +25,7 @@
 		</div>
 
 		<div id="main">
-			<h1>Your car has been deleted.<br/></h1>
+			<h1>Your request has been completed.<br/></h1>
 		</div>
 	</body>
 

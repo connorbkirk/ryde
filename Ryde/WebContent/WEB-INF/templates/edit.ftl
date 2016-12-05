@@ -4,12 +4,13 @@
 <html>
 
 	<head>	
-		<link rel="stylesheet" type="text/css" href="edit-style.css"/>
-		<script src="jquery-3.1.1.min.js"></script>
-		<script src="jquery-ui.min.js"></script>
-		<script src="auto.js"></script>
-		<script src="check.js"></script>
-		<script src="image.js"></script>
+		<link rel="stylesheet" type="text/css" href="styles/jquery-ui.min.css" />
+		<link rel="stylesheet" type="text/css" href="styles/edit-style.css" />
+		<script src="scripts/jquery-3.1.1.min.js"></script>
+		<script src="scripts/jquery-ui.min.js"></script>
+		<script src="scripts/auto.js"></script>
+		<script src="scripts/check.js"></script>
+		<script src="scripts/images.js"></script>
 		<title>Ryde</title>
 	</head>
 
@@ -32,16 +33,16 @@
 		<div id="main">
 		<#if done??>
 			<h1>Your car has been editted.<br/>
-			<a href="Servlet?req=car&id=${car.id}">Click here to view.</a></h1>
+			<a href="Servlet?req=car&id=${car.id}" class="animate">Click here to view.</a></h1>
 		</#if>
 			<form action="Servlet?req=edit" method="POST">
 				<input hidden name="id" value="${car.id}"/>
-				<input type="textfield" placeholder="Make" name="make" value="${car.make}" class="text-entry" />
-				<input type="textfield" placeholder="Model" name="model" value="${car.model}" class="text-entry" />
+				<input type="textfield" placeholder="Make" name="make" id="make" value="${car.make}" class="text-entry" />
+				<input type="textfield" placeholder="Model" name="model" id="model" value="${car.model}" class="text-entry" />
 				<input type="textfield" placeholder="Year" name="year" value="${car.year?c}" class="text-entry" /><br />
 				<input type="textfield" placeholder="Color" name="color" value="${car.color}" class="text-entry" />
 				<input type="textfield" placeholder="Price per Day" name="price" value="${car.price?c}" class="text-entry" />
-				<input type="textfield" placeholder="Body type" name="type" value="${car.carType}" class="text-entry" /><br />
+				<input type="textfield" placeholder="Body type" name="type" id="type" value="${car.carType}" class="text-entry" /><br />
 				<textarea placeholder="Description" name="description" class="text-entry text-box">${car.description}</textarea><br/>
 				<input type="submit" class="button" />
 			</form>

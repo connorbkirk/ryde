@@ -4,12 +4,12 @@
 <html>
 
 	<head>	
-		<link rel="stylesheet" type="text/css" href="add-style.css" />
-		<link rel="stylesheet" type="text/css" href="jquery-ui.min.css" />
-		<script src="jquery-3.1.1.min.js"></script>
-		<script src="jquery-ui.min.js"></script>
-		<script src="auto.js"></script>
-		<script src="check.js"></script>
+		<link rel="stylesheet" type="text/css" href="styles/jquery-ui.min.css" />
+		<link rel="stylesheet" type="text/css" href="styles/add-style.css" />
+		<script src="scripts/jquery-3.1.1.min.js"></script>
+		<script src="scripts/jquery-ui.min.js"></script>
+		<script src="scripts/auto.js"></script>
+		<script src="scripts/check.js"></script>
 		<title>Ryde</title>
 	</head>
 

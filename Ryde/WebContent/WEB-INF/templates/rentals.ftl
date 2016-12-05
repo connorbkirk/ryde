@@ -4,8 +4,8 @@
 <html>
 
 	<head>	
-		<link rel="stylesheet" type="text/css" href="default-style.css"/>
-		<script src="jquery-3.1.1.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="styles/default-style.css"/>
+		<link rel="stylesheet" type="text/css" href="styles/rentals-style.css"/>
 		<title>Ryde</title>
 	</head>
 
@@ -26,30 +26,63 @@
 		</div>
 
 		<div id="main">
-		  <!-- stuff goes here -->	
-		  
-		  <table>
-		  
-		  <tr>
-        <th>Make</th>
-        <th>Model</th>
-        <th>Car Type</th>
-		  </tr>
-		  
-		  <tr>
-		  <#list rentedCars as car>
-        <td>${car.carType}</td>
-        <td>${car.make}</td>
-        <td>${car.model}</td>
-        <td>${car.carYear}</td>
-        <td>${car.color}</td>
-        <td>${car.price}</td>
-        <td>${car.description}</td>
-      </#list>
-		  </tr>
-		  
-		  </table>
-	  </div>
+			<div id="my-cars">
+				<h1 class="header">My cars</h1>
+				<table class="table-center">
+					<tr class="table-header">
+						<th colspan=2>Car</th>
+		        		<th>Booked From</th>
+		        		<th>To</th>
+		        		<th>Renter</th>
+					</tr>
+					<#list cars as car>
+						<tr class="table-entry">
+							<td colspan=2><a href="Servlet?req=car&id=${car.id}" class="animate">${car.make} ${car.model}</td>
+						
+						<#if rentals[car.id?string]?size!=0>
+							<#list rentals[car.id?string] as rent>
+									<td>${rent.startDate}</td>
+									<td>${rent.endDate}</td>
+									<td><a href="Servlet?req=user&id=${users[rent.renterID?string].id}" class="animate">${users[rent.renterID?string].firstName}</a></td>
+								</tr>
+								<tr>
+									<td colspan=2></td>
+									
+							</#list>
+								</tr>
+						<#else>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							</tr>
+						</#if>
+					</#list>
+						</tr>
+				</table>
+		  	</div>
+		  	
+		  	<div id="my-rentals">
+		  		<h1 class="header">My Rentals</h1>
+				<table class="table-center">
+					<tr class="table-header">
+						<th colspan=2>Car</th>
+		        		<th>Booked From</th>
+		        		<th>To</th>
+		        		<th>Cancel</th>
+					</tr>
+	        		<#list userRentals as rent>
+	        			<tr>
+	        				<td colspan=2><a href="Servlet?req=car&id=${rentalCar[rent.carID?string].id}" class="animate">${rentalCar[rent.carID?string].make} ${rentalCar[rent.carID?string].model}</a></td>
+	        				<td>${rent.startDate}</td>
+	        				<td>${rent.endDate}</td>
+	        				<td><a href="Servlet?req=cancel&id=${rent.id}" class="animate">X</a></td>
+	        			</tr>
+	        		</#list>
+		        		
+					</tr>
+				</table>
+		  	</div>
+		</div>
 	</body>
 
 

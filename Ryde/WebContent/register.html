@@ -3,8 +3,9 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>Register</title>
-		<script src="add.js"></script>
-		<link rel= "stylesheet" type = "text/css" href="login-style.css"/></head>
+		<script src="scripts/jquery-3.1.1.min.js"></script>
+		<script src="scripts/check.js"></script>
+		<link rel="stylesheet" type="text/css" href="styles/login-style.css"/></head>
 	</head>
 	<body>
 		<div class="center">
@@ -37,15 +38,15 @@
 						</tr>
 						<tr>
 				            <td class="td-right">Email</td>
-				            <td><input type="text" placeholder="xxxxx@xxx.xxx" name="confirm" required class="text-entry" /></td>
+				            <td><input type="text" placeholder="xxxxx@xxx.xxx" name="email" required class="text-entry" /></td>
 						</tr>
 						<tr>
 				            <td class="td-right">Phone</td>
-				            <td><input type="text" placeholder="XXXXXXXXX" name="confirm" required class="text-entry" /></td>
+				            <td><input type="text" placeholder="XXXXXXXXX" name="phone" required class="text-entry" /></td>
 						</tr>
 					</table>	
 					<div id="submit-container">
-		            	<input type = "submit" class="button">
+		            	<input type = "submit" class="button disabled" disabled />
 		            </div>
 		 		</form>
 	   

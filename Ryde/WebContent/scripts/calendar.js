@@ -1,4 +1,9 @@
-      
+/**
+ * This javascript file is responsible for all 
+ * functionalities of the datepicker.
+ */
+
+
 var rentalDates; 
 
 $( function() 
@@ -8,7 +13,9 @@ $( function()
 	
     var dateFormat = "mm/dd/yy";
     var from = $( "#from" ).datepicker({
-        	onSelect: getPrice,
+        	changeYear: true,
+    		onSelect: getPrice,
+        	minDate: 0,
     		defaultDate: "+1w",
             changeMonth: true,
             numberOfMonths: 1, 
@@ -18,6 +25,8 @@ $( function()
             });     
     var to = $( "#to" ).datepicker({
             onSelect: getPrice,
+            changeYear: true,
+            minDate: 0,
     		defaultDate: "+1w",
             changeMonth: true,
             numberOfMonths: 1, 
@@ -89,8 +98,6 @@ function jqueryCalendar()
 		        rentalDates = data; 
 		        //rental date array set to servlet response. 
 		        
-		        
-		        
 		        //$("#calendarArea").availabilityCalendar(data);
     		}
     }); 
@@ -102,8 +109,8 @@ function getPrice()
     var endDate = $("#to").val(); 
     var price = $("#price").text();
  
-    console.log("start " + startDate);
-    console.log("end " + endDate);
+    //console.log("start " + startDate);
+    //console.log("end " + endDate);
     
     if(startDate.trim()=="" || endDate.trim()=="")
     	return;
@@ -113,20 +120,47 @@ function getPrice()
     var d1 = new Date(startDate); 
     var d2 = new Date(endDate); 
     
-    var totalTime = Math.abs(d1-d2); 
+    var totalTime = d2-d1; 
     //difference in milliseconds between two dates.
     
-    totalTime = totalTime / msDay; 
+    if(totalTime <= 0){
+    	$("#priceBox").text("");
+    }else{
     
-    var totalPrice = price * totalTime; 
+	    totalTime = totalTime / msDay; 
+	    
+	    var totalPrice = price * totalTime; 
+	    
+	    $("#priceBox").text(totalPrice);
+    }
     
-    $("#priceBox").text(totalPrice); 
+    doCheck();
     
-    if(totalPrice >= 0)
-    	$('input[type=submit]').removeClass("disabled");
-		$('input[type=submit]').attr('disabled', false);
-    
-    //return 20 * totalTime; 
     //calculates the price and returns. 
     
+}
+
+function doCheck(){
+	var params = "from="+$("#from").val()+"&to="+$("#to").val();
+	console.log(params);
+	$.ajax({
+		url: "Servlet?req=verifyDates", 
+		type: 'POST',
+		data: params, 
+		success:function(data)
+		{
+			console.log(data)
+	        if(data=="true"){
+	        	$('input[type=submit]').removeClass("disabled");
+				$('input[type=submit]').attr('disabled', false);
+	        }
+			else{
+				$('input[type=submit]').addClass("disabled");
+				$('input[type=submit]').attr('disabled', true);
+			}
+	        
+		}
+	}); 
+
+    	
 }

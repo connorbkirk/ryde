@@ -1,3 +1,9 @@
+/**
+ * This javascript file is responsible for
+ * functionalities on the cars.ftl page.
+ * Specifically, the image slide show.
+ */
+
 var slideIndex;
 
 $(document).ready(function(){

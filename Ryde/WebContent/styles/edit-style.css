@@ -82,7 +82,7 @@ hr{
 	vertical-align: middle;
 	color: white;
 	border: .4vw rgba(255,255,255,.5) solid;
-	font-family: the-body;
+	font-family: monospace;
 }
 
 #main{
@@ -185,4 +185,17 @@ input[type="file"] {
 
 a{
 	text-decoration: none;
+}
+.ui-menu-item-wrapper{
+	font-family: the-body;
+}
+
+.animate{
+	-webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+	color: #634271;
+}
+
+.animate:hover{
+	color: white;
 }

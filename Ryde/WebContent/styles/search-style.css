@@ -88,6 +88,7 @@ hr{
 }
 
 .text-entry{
+	font-family: the-body;
 	margin-left: .5vw;
 	background-color:black;
 	font-size: 1.5vw;
@@ -126,7 +127,7 @@ hr{
 	background-position: center;
 	background-color: black;
 	background-size: cover;
-	background-image:url("images/default_car.png");
+	background-image:url("../images/default_car.png");
 }
 
 .entry:hover{
@@ -183,4 +184,14 @@ a{
 .button:hover{
 	background-color: white;
     color: #634271;
+}
+
+.large{
+	margin-right: 10vw;
+	font-size: 4vw;
+	color: white;
+}
+
+.ui-menu-item-wrapper{
+	font-family: the-body;
 }

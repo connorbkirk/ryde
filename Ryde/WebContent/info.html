@@ -3,41 +3,82 @@
 <head>
     <title>Get to know Ryde</title>
   	<meta charset="UTF-8">
-    <link href = "info-style.css" type = "text/css" rel = "stylesheet">
+    <link href="styles/info-style.css" type="text/css" rel="stylesheet">
 </head>
 
 
-<body>
-
-  <div id = "enclosure">
-  <h1>What is Ryde?</h1>
-  <p> Ryde is a car rental system built as a term project for CSCI 4300 Web Programming at the University of Georgia.
-    We built Ryde to be an easy to use method to rent cars and rent out your cars.</p>
-
-  <h3>What makes Ryde tick?</h3>
-  <p> Ryde uses the following technologies:
-    <ul>
-      <li>Java Servlet for backend</li>
-      <li>MySQL Database for storing information that users need</li>
-      <li>HTML and Freemarker for the content displayed on each page</li>
-      <li>CSS for the amazing style you see on each page</li>
-      <li>Javascript in the form of jQuery and Ajax to make using Ryde easier</li>
-    </ul>
-  </p>
-
-  <h3>Why did you build Ryde?</h3>
-  <p>Ryde was built with the intention to make renting cars easier and cheaper for renters,
-     and to make money for people looking to rent their cars.
-    It gives users a wide selection of vehicles to rent at a good cost
-    and adds an untapped source of revenue for vehicle owners. It adds a factor of convenience beyond traditional means of car rental.
-    It also helps renters and businesses by reducing the overhead cost of renting out cars traditionally making it cheaper to use Ryde for everyone.
-  </p>
-
-  <h3>Who built Ryde?</h3>
-  <p>Ryde was made by Connor Kirk, Jay Porter, and Sahi Nimmakayalu</p>
-
-</div>
-
-  <span class="fancy">Ryde</span>
-</body>
+	<body>
+		<div id="main">
+	
+			<div id="nav">
+				<a href="index.html" class="logo">Ryde</a>
+				<ul>
+					<li><a href="login.html">LOGIN</a></li>
+					<li><a href="info.html">INFO</a></li>
+				</ul>
+			</div>
+		
+			<div id="jumbotron">
+				<div class="section">
+				  	<h3 class="head">What is Ryde?</h3>
+				  	<p class="content"> Ryde is a car rental system built as a term project for CSCI 4300 Web Programming at the University of Georgia.
+				    	We built Ryde to be an easy to use method to rent cars and rent out your cars.</p>
+				</div>
+				<hr>
+				<div class="section">
+				  	<h3 class="head">What makes Ryde tick?</h3>
+				  	<div class="content"> Ryde uses the following technologies:
+				    	<ul>
+				      		<li>Java Servlet for backend</li>
+				      		<li>MySQL Database for storing information that users need</li>
+				      		<li>HTML and Freemarker for the content displayed on each page</li>
+				      		<li>CSS for the amazing style you see on each page</li>
+				      	<li>Javascript in the form of jQuery and Ajax to make using Ryde easier</li>
+				    	</ul>
+				   </div>
+				</div>
+				<hr>
+				<div class="section">
+					<h3 class="head">Why did you build Ryde?</h3>
+					<p class="content">Ryde was built with the intention to make renting cars easier and cheaper for renters,
+					     and to make money for people looking to rent their cars.
+					    It gives users a wide selection of vehicles to rent at a good cost
+					    and adds an untapped source of revenue for vehicle owners. It adds a factor of convenience beyond traditional means of car rental.
+					    It also helps renters and businesses by reducing the overhead cost of renting out cars traditionally making it cheaper to use Ryde for everyone.
+					</p>
+				</div>
+				<hr>
+				<div class="section">
+					<h3 class="head">Who built Ryde?</h3>
+					<p class="content">Ryde was made by Connor Kirk, Jay Porter, and Sahi Nimmakayalu.</p>
+				</div>
+				<hr>
+				<div class="section" id="location">
+					<h3 class="head">Where can I use Ryde?</h3>
+					<p class="content">Ryde is currently only available for use in Athens, GA.<br />
+						There is always the possibility of expansion!</p>
+				</div>
+				<hr>
+				<div class="section">
+					<h3 class="head">How can I rent a car?</h3>
+					<p class="content">
+						First, you must <a href="Servlet?req=search" class="animate">find</a> a car that meets all of your 
+						qualifications. From the car view page, you can select the dates to book, and you finally enter in your
+						payment information. The vehicle pickup/drop off location will be at The Varsity by default. There
+						is always the possibility of making other arrangements with the owner.
+					</p>
+				</div>
+				<hr>
+				<div class="section" id="list">
+					<h3 class="head">How can I list my car?</h3>
+					<p class="content">
+						First you must <a href="register.html" class="animate">register</a> your account, and then
+						you can navigate to <a href="Servlet?req=add" class="animate">add a car</a> where you can create
+						an entry with all of your car's details and upload pictures too.
+					</p>
+				</div>
+			</div>
+	
+		</div>
+	</body>
 </html>

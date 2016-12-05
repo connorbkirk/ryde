@@ -69,7 +69,7 @@ hr{
 	
 	text-align:center;
 	font-size: 3vw;
-	margin-top: 3vw;
+	//margin-top: .5vw;
 }
 
 .text-entry{
@@ -110,7 +110,7 @@ hr{
 	background-repeat:no-repeat;
 	background-position: center;
 	background-color: black;
-	background-image:url("images/default_car.png");
+	background-image:url("../images/default_car.png");
 	background-size: cover;
 }
 
@@ -151,6 +151,10 @@ hr{
 }
 
 
+#info h1{
+	margin: 0;
+}
+
 .info{
 	color: white;
 	text-align: center;
@@ -172,4 +176,21 @@ a{
 
 .no-button:hover{
 	color: #634271;
+}
+
+.button{
+	-webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+	background-color: #634271;
+	border: none;
+	font-size: 3vw;
+	font-family: the-body;
+	color: white;
+	display: inline-block;
+	padding: 15px 32px;
+}
+
+.button:hover{
+	background-color: white;
+    color: #634271;
 }

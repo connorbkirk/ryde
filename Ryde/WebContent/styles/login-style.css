@@ -10,7 +10,7 @@
     font-family: the-body, tahoma, verdana, arial, sans-serif;
     color:whitesmoke; 
     background-color: #2D2D2D;
-    width: 50vw;
+    width: 70vw;
     height: 200%;
  
  	margin: auto;
@@ -52,7 +52,7 @@ p{
 
 body
 {
-	background: url("images/azureInterior.jpg"); 
+	background: url("../images/azureInterior.jpg"); 
 	background-size: cover;
 	background-repeat: no-repeat;
 	background-attachment: fixed;
@@ -86,11 +86,11 @@ body
 	text-align: center;
 	color: white;
 	border: .4vw rgba(255,255,255,.5) solid;
-	font-family: the-body;
+	font-family: monospace;
 	border-right: none;
 	border-top: none;
 	
-	width: 15vw;
+	width: 25vw;
 	height: 5vh;
 }
 
@@ -124,4 +124,9 @@ h4 a:hover{
 
 .td-right{
 	text-align: right;
+}
+
+.disabled {
+    opacity: 0.9;
+    cursor: not-allowed;
 }
