@@ -49,6 +49,7 @@ CREATE TABLE cars(
     
     
     FOREIGN KEY (ownerID) REFERENCES users(id)
+    ON DELETE CASCADE
 )ENGINE=InnoDB;
 
 
@@ -62,6 +63,7 @@ CREATE TABLE rental_dates(
     endDate DATE,
     
     FOREIGN KEY (carID) REFERENCES cars(id)
+    ON DELETE CASCADE
 )ENGINE=InnoDB;
 
 
@@ -74,4 +76,5 @@ CREATE TABLE images(
     image MEDIUMBLOB,
     
     FOREIGN KEY (carID) REFERENCES cars(id)
+    ON DELETE CASCADE
 )ENGINE=InnoDB;
