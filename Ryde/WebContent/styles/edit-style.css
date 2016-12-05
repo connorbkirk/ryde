@@ -83,6 +83,7 @@ hr{
 	color: white;
 	border: .4vw rgba(255,255,255,.5) solid;
 	font-family: monospace;
+	text-align: left;
 }
 
 #main{
