@@ -27,37 +27,43 @@ public class Image {
 		this.carId = carId;
 	}
 	/**
+	 * This method is the getter for id.
 	 * @return The id of the image.
 	 */
 	public int getId() {
 		return id;
 	}
 	/**
-	 * @param The id of the image.
+	 * This method is setter for id.
+	 * @param id The id of the image.
 	 */
 	public void setId(int id) {
 		this.id = id;
 	}
 	/**
+	 * This method is the getter for image.
 	 * @return The contents of the image as a string.
 	 */
 	public String getImage() {
 		return image;
 	}
 	/**
-	 * @param The contents of the image as a string.
+	 * This method is the setter for image.
+	 * @param image The contents of the image as a string.
 	 */
 	public void setImage(String image) {
 		this.image = image;
 	}
 	/**
+	 * This method is the getter for carId.
 	 * @return The id of the car the image belongs to.
 	 */
 	public int getCarId() {
 		return carId;
 	}
 	/**
-	 * @param The id of the car the image belongs to.
+	 * This method is the setter for carId.
+	 * @param carId The id of the car the image belongs to.
 	 */
 	public void setCarId(int carId) {
 		this.carId = carId;

@@ -4,6 +4,7 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -25,10 +26,10 @@ import freemarker.template.TemplateException;
 import freemarker.template.TemplateExceptionHandler;
 import logiclayer.CarLogicImpl;
 import logiclayer.RentalLogicImpl;
-import logiclayer.SearchLogicImpl;
 import logiclayer.UserLogicImpl;
 import objectlayer.Car;
 import objectlayer.Image;
+import objectlayer.Rental;
 import objectlayer.User;
 
 /**
@@ -98,7 +99,9 @@ public class Servlet extends HttpServlet {
 	}
 	
 	/**
-	 * This methods processes the request of the user and redirects to the proper method.
+	 * This methods processes the request of the user and redirects 
+	 * to the proper method. If their request is invalid, they
+	 * are given a SC_BAD_REQUEST error.
 	 * 
 	 * @param request Takes user's request. Gathers parameters
 	 * @param response Used for redirecting the user.
@@ -150,8 +153,8 @@ public class Servlet extends HttpServlet {
 			case "calendar":
 				calendar(request, response);
 				break;
-			case "rentDate":
-				addRental(request, response);
+			case "book":
+				book(request, response);
 				break; 
 			case "autoMake":
 				autoMake(request, response);
@@ -165,169 +168,93 @@ public class Servlet extends HttpServlet {
 			case "confirmPayment":
 				confirmPayment(request, response);
 				break;
-			case "ownerRented":
-				retreiveRented(request, response);
+			case "myRentals":
+				getUserRentals(request, response);
+				break;
+			case "verifyDates":
+				verifyDates(request, response);
+				break;
+			case "cancel":
+				cancelRental(request, response);
+				break;
 			default:
 				response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid request");
 				break;
 		}
 	}
 	
-	
-		/**
-	 * Used to process and display the number of cars the owner has rented 
-	 * @param request no true request, but it does get the owner id from session history. 
-	 * @param response returns the number of cars the owner has rented out. 
+	/**
+	 * This method handles the request that a user want to
+	 * cancel his or her car rental. This method gathers parameters
+	 * and calls the logic layer to continue the request.
+	 * 
+	 * @param request Stores the user's request and parameters.
+	 * @param response Used for redirecting the user.
 	 */
-	private void retreiveRented(HttpServletRequest request, HttpServletResponse response)
-	{
+	private void cancelRental(HttpServletRequest request, HttpServletResponse response) {
+		RentalLogicImpl rentalCtrl = new RentalLogicImpl();
 		HttpSession session = request.getSession();
-		RentalLogicImpl rpl = new RentalLogicImpl(); 
 		
-		ArrayList<Car>rentedCars = new ArrayList<Car>(); 
-		//all the rented cars the user has. 
+		//make sure that the user is editing his/her own entry
+		Integer userId = (Integer) session.getAttribute("user");
+		int id = Integer.parseInt(request.getParameter("id"));
+		int renterId = rentalCtrl.getRenterId(id);
 		
-		Integer ownerID = (Integer) session.getAttribute("ownerID"); 
-		//get the owner id. 
-		
-		
-		try 
-		{
-			rentedCars = rpl.getRentedCars(ownerID);
-			//get the rented cars. 
-			
-		} catch (SQLException e) 
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} 
-		
-		if (rentedCars != null)
-		{
-			root.put("rentedCars", rentedCars);
-			processTemplate("owners.ftl");
-			//get the rented cars and put them on template. 
-		}
-		
-		 
-	}
-	
-	
-	
-	
-	private void confirmPayment(HttpServletRequest request, HttpServletResponse response) {
-		HttpSession session = request.getSession();
-		CarLogicImpl carCtrl = new CarLogicImpl();
-		UserLogicImpl userCtrl = new UserLogicImpl();
-		
-	 	//route user to login page if they are not logged in
-	 	Integer userId = (Integer) session.getAttribute("user");
-	 	if(userId!=null)
-			root.put("userId", userId);
-		else{
+		//route the user to login if user is not logged in
+		if(userId == null){
 			try {
 				response.sendRedirect("login.html");
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+		//route the user if they are trying to edit a car they do not own
+		}else if(userId != renterId){
+			System.out.println("user: " + userId + " renter: " + renterId);
+			//route user back to previous page or send to access forbidden page
+			sendToLastPage(response, session);
 		}
-	 	
-	 	int carId = Integer.parseInt(request.getParameter("carId"));
-	 	String from = request.getParameter("from");
-	 	String to = request.getParameter("to");
-	 	
-	 	root.put("car", carCtrl.getCar(carId));
-	 	root.put("owner", userCtrl.getSingleUser(carCtrl.getOwnerId(carId)));
-	 	root.put("from", from);
-	 	root.put("to", to);
-	 	
-	 	processTemplate("confirmation.ftl");
-	}
-
-	private void autoModel(HttpServletRequest request, HttpServletResponse response) {
-		SearchLogicImpl sl = new SearchLogicImpl();
-		CarLogicImpl carCtrl = new CarLogicImpl();
+		else{
+			rentalCtrl.cancelRental(id);
+			root.put("userId", userId);
+			processTemplate("delete.ftl");
+		}
 		
-	    String currentSearchBarContent = request.getParameter("inputText");
-	    List<String> resultList = sl.getModels(currentSearchBarContent);
-		response.setContentType("text/html");
-		Gson gson = new Gson();
-		if(resultList.size()==0)
-			resultList = carCtrl.getModels();
-		String results = gson.toJson(resultList);
-		out.println(results);
-	}
-
-	private void autoType(HttpServletRequest request, HttpServletResponse response) {
-		SearchLogicImpl sl = new SearchLogicImpl();
-		CarLogicImpl carCtrl = new CarLogicImpl();
-		
-	    String currentSearchBarContent = request.getParameter("inputText");
-	    List<String> resultList = sl.getTypes(currentSearchBarContent);
-		response.setContentType("text/html");
-		Gson gson = new Gson();
-		if(resultList.size()==0)
-			resultList = carCtrl.getTypes();
-		String results = gson.toJson(resultList);
-		out.println(results);
-		
-	}
-
-	private void autoMake(HttpServletRequest request, HttpServletResponse response) {
-		SearchLogicImpl sl = new SearchLogicImpl();
-		CarLogicImpl carCtrl = new CarLogicImpl();
-		
-	    String currentSearchBarContent = request.getParameter("inputText");
-	    List<String> resultList = sl.getMakes(currentSearchBarContent);
-		response.setContentType("text/html");
-		Gson gson = new Gson();
-		if(resultList.size()==0)
-			resultList = carCtrl.getMakes();
-		String results = gson.toJson(resultList);
-		out.println(results);
 	}
 
 	/**
-	 * Function used to process request where use wants to view calendar. 
-	 * calendar must be able to display all the days that are already taken.
-	 * thus must call the servers to get this information. 
-	 * @param request ajax request 
-	 * @param response returns a JS formated string which contains the array of date objects.
+	 * This method is called by an AJAX method. It is given two dates as 
+	 * parameters. It then calls upon the logic layer to verify them.
+	 * It returns whether they are valid as a bool.
+	 * 
+	 * @param request An AJAX request from the user containing the date objects.
+	 * @param response Prints true if the dates are valid; false otherwise.
 	 */
-	private void calendar(HttpServletRequest request, HttpServletResponse response) {
-		RentalLogicImpl rli = new RentalLogicImpl();
-
-		int carId = Integer.parseInt(request.getParameter("carId"));
-		
-		String rentedDates = null;
-		
-		rentedDates = rli.viewUnavailable(carId);
-		
-		if (rentedDates != null)
-		{
-			response.setContentType("text/javascript");
-
-			out.write(rentedDates);
-
-		}
-	}
-
-	/**
-	 * Function used to process request where use wants to add new rental dates. 
-	 * @param request user input of the start and end date. 
-	 * @param response none visually.
-	 */
-	private void addRental(HttpServletRequest request, HttpServletResponse response){
-		HttpSession session = request.getSession();
-		RentalLogicImpl rli = new RentalLogicImpl(); 
-		CarLogicImpl carCtrl = new CarLogicImpl();
+	private void verifyDates(HttpServletRequest request, HttpServletResponse response) {
+		RentalLogicImpl rentalCtrl = new RentalLogicImpl();
 		
 		String startDate = request.getParameter("from");
-	 	String endDate = request.getParameter("to"); 
-	 	int id = Integer.parseInt(request.getParameter("id"));
-	 	
-	 	//route user to login page if they are not logged in
+		String endDate = request.getParameter("to");
+		
+		out.print(rentalCtrl.verifyDates(startDate, endDate));
+		
+	}
+
+	/**
+	 * This method is called when a user wants to book a vehicle.
+	 * The start date and end date are required as request parameters,
+	 * as well as the id of the car being booked. This method
+	 * does NOT create an entry of these items in the database.
+	 * Instead, it routes the user to a payment page.
+	 * 
+	 * @param request Request of the user containing dates and car id.
+	 * @param response Used for redirecting the user.
+	 */
+	private void book(HttpServletRequest request, HttpServletResponse response) {
+		HttpSession session = request.getSession();
+		CarLogicImpl carCtrl = new CarLogicImpl();
+		
+		//route user to login page if they are not logged in
 	 	Integer userId = (Integer) session.getAttribute("user");
 	 	if(userId!=null)
 			root.put("userId", userId);
@@ -340,9 +267,10 @@ public class Servlet extends HttpServlet {
 			}
 		}
 	 	
-	 	//else add entry
-	 	if ((startDate != null) && (endDate != null))
-	 		rli.addRentalDate(startDate, endDate, id);
+	 	//gathers params
+	 	String startDate = request.getParameter("from");
+	 	String endDate = request.getParameter("to"); 
+	 	int id = Integer.parseInt(request.getParameter("id"));
 	 	
 	 	//route user to payment page
 	 	root.put("from", startDate);
@@ -351,11 +279,223 @@ public class Servlet extends HttpServlet {
 	 	root.put("carId", id);
 	 	
 	 	processTemplate("payment.ftl");
+		
 	}
 
 	/**
-	 * This method handles the upload request and directs the user's view to the
-	 * upload.ftl template.
+	 * This method prints all information about a specific user from the
+	 * rental_data table. It prints the rental information (booked from, to,
+	 * and who is renting the vehicle) for all vehicle the user owns. It will
+	 * also print all of the cars that the user has booked.
+	 * 
+	 * @param request Request from the user. Only HttpSession is required.
+	 * @param response Redirects the user.
+	 */
+	private void getUserRentals(HttpServletRequest request, HttpServletResponse response) {
+		HttpSession session = request.getSession();
+		RentalLogicImpl rentalCtrl = new RentalLogicImpl();
+		CarLogicImpl carCtrl = new CarLogicImpl();
+		UserLogicImpl userCtrl = new UserLogicImpl();
+		
+		//route user to login page if they are not logged in
+	 	Integer userId = (Integer) session.getAttribute("user");
+	 	if(userId!=null)
+			root.put("userId", userId);
+		else{
+			try {
+				response.sendRedirect("login.html");
+				return;
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+	 	//getting user's cars and bookings
+		List<Car>userCars = carCtrl.getCarsFromUser(userId);
+		HashMap<String, List<Rental>> rentals = new HashMap<String, List<Rental>>();
+		HashMap<String, User> users = new HashMap<String, User>();
+		
+		for(Car c: userCars){
+			//put rental as Rental object in hashmap dates
+			List<Rental> dates = rentalCtrl.viewUnavailable(c.getId());
+			rentals.put(Integer.toString(c.getId()), dates);
+			
+			//put renter as User object in hashmap users
+			for(Rental r: dates)
+				users.put(Integer.toString(r.getRenterID()), userCtrl.getSingleUser(r.getRenterID()));
+			
+		}
+		root.put("cars", userCars);
+		root.put("rentals", rentals);
+		root.put("users", users);
+		
+		//getting users rentals
+		List<Rental> userRentals = rentalCtrl.getUserRentals(userId);
+		HashMap<String, Car> rentalCar = new HashMap<String, Car>();
+		
+		//put car as Car object in hashmap rentalCar
+		for(Rental r: userRentals)
+			rentalCar.put(Integer.toString(r.getCarID()), carCtrl.getCar((r.getCarID())));
+		
+		root.put("userRentals", userRentals);
+		root.put("rentalCar", rentalCar);
+		processTemplate("rentals.ftl");
+	}
+
+	/**
+	 * This method is called after a user has entered in payment
+	 * information when booking a car. If the payment information
+	 * is valid, a new entry well be created in the database with
+	 * the given information. The user will then be routed to a
+	 * confirmation page.
+	 * 
+	 * @param request Stores the user's parameters and HttpSession.
+	 * @param response Redirects the user.
+	 */
+	private void confirmPayment(HttpServletRequest request, HttpServletResponse response) {
+		HttpSession session = request.getSession();
+		CarLogicImpl carCtrl = new CarLogicImpl();
+		UserLogicImpl userCtrl = new UserLogicImpl();
+		RentalLogicImpl rentalCtrl = new RentalLogicImpl();
+		
+	 	//route user to login page if they are not logged in
+	 	Integer userId = (Integer) session.getAttribute("user");
+	 	if(userId!=null)
+			root.put("userId", userId);
+		else{
+			try {
+				response.sendRedirect("login.html");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	 	
+	 	//gather params
+	 	int carId = Integer.parseInt(request.getParameter("carId"));
+	 	String from = request.getParameter("from");
+	 	String to = request.getParameter("to");
+	 	
+	 	//create entry
+	 	rentalCtrl.addRentalDate(from, to, carId, userId);
+	 	
+	 	root.put("car", carCtrl.getCar(carId));
+	 	root.put("owner", userCtrl.getSingleUser(carCtrl.getOwnerId(carId)));
+	 	root.put("from", from);
+	 	root.put("to", to);
+	 	
+	 	processTemplate("confirmation.ftl");
+	}
+	
+	/**
+	 * This method will typically be called through an AJAX request
+	 * it calls the logic layer to get a list of car moedls that
+	 * is filtered by the data sent by the request. This method
+	 * then prints out the list of car models as a JSON object.
+	 * 
+	 * @param request AJAX request from the client. Contains car model data.
+	 * @param response Used to print the car model list as a JSON object.
+	 */
+	private void autoModel(HttpServletRequest request, HttpServletResponse response) {
+		CarLogicImpl carCtrl = new CarLogicImpl();
+		
+	    String content = request.getParameter("inputText");
+	    List<String> resultList;
+	    //if content is null or "", get all models
+	    //else, filter the results
+	    if(content == null || content.trim().equals(""))
+	    	resultList = carCtrl.getModels();
+	    else
+	    	resultList = carCtrl.getModels(content);
+		response.setContentType("text/html");
+		Gson gson = new Gson();
+		String results = gson.toJson(resultList);
+		out.println(results);
+	}
+
+	/**
+	 * This method will typically be called through an AJAX request
+	 * it calls the logic layer to get a list of car types that
+	 * is filtered by the data sent by the request. This method
+	 * then prints out the list of car types as a JSON object.
+	 * 
+	 * @param request AJAX request from the client. Contains car type data.
+	 * @param response Used to print the car type list as a JSON object.
+	 */
+	private void autoType(HttpServletRequest request, HttpServletResponse response) {
+		CarLogicImpl carCtrl = new CarLogicImpl();
+		
+	    String content = request.getParameter("inputText");
+	    List<String> resultList;
+	    if(content == null || content.trim().equals(""))
+	    	resultList  = carCtrl.getTypes();
+	    else
+	    	resultList = carCtrl.getTypes(content);
+		response.setContentType("text/html");
+		Gson gson = new Gson();
+		String results = gson.toJson(resultList);
+		out.println(results);
+		
+	}
+	
+	/**
+	 * This method will typically be called through an AJAX request
+	 * it calls the logic layer to get a list of car makes that
+	 * is filtered by the data sent by the request. This method
+	 * then prints out the list of car types as a JSON object.
+	 * 
+	 * @param request AJAX request from the client. Contains car type data.
+	 * @param response Used to print the car type list as a JSON object.
+	 */
+	private void autoMake(HttpServletRequest request, HttpServletResponse response) {
+		CarLogicImpl carCtrl = new CarLogicImpl();
+		
+	    String content = request.getParameter("inputText");
+	    List<String> resultList;
+	    if(content==null || content.trim().equals(""))
+	    	resultList = carCtrl.getMakes();
+	    else
+	    	resultList = carCtrl.getMakes(content);
+		response.setContentType("text/html");
+		Gson gson = new Gson();
+		String results = gson.toJson(resultList);
+		out.println(results);
+	}
+
+	/**
+	 * This method is used to process a user's request where they 
+	 * want to view calendar for a specific car. The calendar must be 
+	 * able to display all the days that are already taken.
+	 * thus must call the logic layer to get this information. 
+	 * @param request AJAX request from the user.
+	 * @param response Prints a JS formated string which contains the array of date objects.
+	 */
+	private void calendar(HttpServletRequest request, HttpServletResponse response) {
+		RentalLogicImpl rli = new RentalLogicImpl();
+
+		int carId = Integer.parseInt(request.getParameter("carId"));
+		
+		List<Rental> rentedDates = null;
+		
+		rentedDates = rli.viewUnavailable(carId);
+		
+		Gson gson = new Gson();
+		
+		String jsonDates = gson.toJson(rentedDates);
+		
+		if (rentedDates != null)
+		{
+			response.setContentType("text/javascript");
+
+			out.write(jsonDates);
+
+		}
+	}
+
+	/**
+	 * This method handles the image upload request and directs the user's 
+	 * view to the upload.ftl template.
 	 * 
 	 * @param request Stores the user's request and parameters.
 	 * @param response Used for redirecting the user.
@@ -711,18 +851,23 @@ public class Servlet extends HttpServlet {
 		//gathers params
 		String type = request.getParameter("type");
 		String make = request.getParameter("make");
+		String model = request.getParameter("model");
 		
 		List<Car> cars;
 		
-		if(type != null || make != null)
-			cars = carCtrl.getCarsWithParams(type, make);
-		else
+		//if there is at least one valid parameter, filter results. else, 
+		//return all cars.
+		if( (type==null && make==null && model==null) || (type.trim().equals("") &&
+				make.trim().equals("") && model.trim().equals("")))
 			cars = carCtrl.getCars();
+		else
+			cars = carCtrl.getCarsWithParams(make, type, model);
 		
 		//put objects in root map
 		root.put("cars",cars);
 		root.put("type", type);
 		root.put("make", make);
+		root.put("model", model);
 		
 		processTemplate("search.ftl");
 	}
@@ -811,6 +956,7 @@ public class Servlet extends HttpServlet {
 	 * @param response Used for redirecting the user.
 	 */
 	void logout(HttpServletRequest request, HttpServletResponse response){
+		//invalidate session
 		HttpSession session = request.getSession();
 		session.invalidate();
 		//route user to index.html

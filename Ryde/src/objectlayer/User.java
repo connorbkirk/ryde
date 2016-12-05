@@ -24,6 +24,8 @@ public class User {
 	 * @param lastName Last name of the user.
 	 * @param username Username of the user.
 	 * @param password Password of the user.
+	 * @param phone Phone number of the user.
+	 * @param email Email address of the user.
 	 * @param id Id of the user.
 	 */
 	public User(String firstName, String lastName, String username, String password, String phone, 
@@ -38,6 +40,7 @@ public class User {
 	}
 	
 	/**
+	 * This method is the getter for phone.
 	 * @return Phone number of the user.
 	 */
 	public String getPhone() {
@@ -45,13 +48,15 @@ public class User {
 	}
 
 	/**
-	 * @param Phone number of the user.
+	 * This method is the setter for phone.
+	 * @param phone Phone number of the user.
 	 */
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
 
 	/**
+	 * This method is the getter for email.
 	 * @return Email of the user.
 	 */
 	public String getEmail() {
@@ -59,68 +64,79 @@ public class User {
 	}
 
 	/**
-	 * @param Email of the user.
+	 * This method is the setter for email.
+	 * @param email Email of the user.
 	 */
 	public void setEmail(String email) {
 		this.email = email;
 	}
 
 	/**
+	 * This method is the getter for firstName.
 	 * @return First name of the user.
 	 */
 	public String getFirstName() {
 		return firstName;
 	}
 	/**
-	 * @param First name of the user.
+	 * This method is the setter for firstName.
+	 * @param firstName First name of the user.
 	 */
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
 	}
 	/**
+	 * This method is the getter for lastName.
 	 * @return Last name of the user.
 	 */
 	public String getLastName() {
 		return lastName;
 	}
 	/**
-	 * @param Last name of the user.
+	 * This method is the setter for lastName.
+	 * @param lastName Last name of the user.
 	 */
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
 	/**
+	 * This method id the getter for username.
 	 * @return Username of the user.
 	 */
 	public String getUsername() {
 		return username;
 	}
 	/**
-	 * @param Username of the user.
+	 * This method is the setter for username.
+	 * @param username Username of the user.
 	 */
 	public void setUsername(String username) {
 		this.username = username;
 	}
 	/**
+	 * This method is the getter for password.
 	 * @return Password of the user.
 	 */
 	public String getPassword() {
 		return password;
 	}
 	/**
-	 * @param Password of the user.
+	 * This method is the setter for password.
+	 * @param password Password of the user.
 	 */
 	public void setPassword(String password) {
 		this.password = password;
 	}
 	/**
+	 * This method is the getter for id.
 	 * @return Id of the user.
 	 */
 	public int getId() {
 		return id;
 	}
 	/**
-	 * @param Id of the user.
+	 * This method is the setter for id.
+	 * @param id Id of the user.
 	 */
 	public void setId(int id) {
 		this.id = id;
