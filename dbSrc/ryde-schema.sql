@@ -43,7 +43,7 @@ CREATE TABLE cars(
     model   VARCHAR(255),
     carYear INT UNSIGNED,
     color   VARCHAR(255),
-    ownerID   INT UNSIGNED NOT NULL,
+    ownerID INT UNSIGNED NOT NULL,
     price   INT UNSIGNED NOT NULL,
     description VARCHAR(1024),
     
@@ -58,9 +58,10 @@ CREATE TABLE cars(
 #
 CREATE TABLE rental_dates(
     id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
-    carID   INT UNSIGNED NOT NULL,
+    carID INT UNSIGNED NOT NULL,
     startDate DATE,
     endDate DATE,
+    renterID INT UNSIGNED NOT NULL,
     
     FOREIGN KEY (carID) REFERENCES cars(id)
     ON DELETE CASCADE
