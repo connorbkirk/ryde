@@ -210,7 +210,7 @@ public class Servlet extends HttpServlet {
 			}
 		//route the user if they are trying to edit a car they do not own
 		}else if(userId != renterId){
-			System.out.println("user: " + userId + " renter: " + renterId);
+			//System.out.println("user: " + userId + " renter: " + renterId);
 			//route user back to previous page or send to access forbidden page
 			sendToLastPage(response, session);
 		}
